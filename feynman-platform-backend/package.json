@@ -1,0 +1,25 @@
+{
+  "name": "feynman-platform-backend",
+  "version": "1.0.0",
+  "description": "费曼学习平台后端服务：用户认证与知识点管理 API",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js"
+  },
+  "keywords": [
+    "feynman",
+    "express",
+    "mongodb",
+    "jwt"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.10.0"
+  }
+}

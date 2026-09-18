@@ -1,0 +1,31 @@
+{
+  "name": "feynman-platform-frontend",
+  "private": true,
+  "version": "0.1.0",
+  "description": "费曼学习平台前端（React + Vite）",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@uiw/react-md-editor": "^4.1.2",
+    "axios": "^1.20.0",
+    "dompurify": "^3.4.15",
+    "katex": "^0.18.7",
+    "mermaid": "^11.17.2",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "react-katex": "^3.1.0",
+    "react-markdown": "^10.1.0",
+    "react-router-dom": "^7.18.4",
+    "rehype-katex": "^7.0.1",
+    "remark-gfm": "^4.0.1",
+    "remark-math": "^6.0.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.1.1",
+    "vite": "^8.3.0"
+  }
+}

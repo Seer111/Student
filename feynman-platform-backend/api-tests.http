@@ -1,0 +1,70 @@
+### =====================================================================
+### 费曼学习平台 · 接口测试文件（配合 VSCode「REST Client」扩展使用）
+### 使用前提：① 已安装 REST Client 扩展  ② 后端服务已启动（npm run dev）
+### 使用方法：光标放到某个请求块内 → 点击上方浮现的 "Send Request"（或按 Ctrl+Alt+R）
+### 执行顺序：1 注册 → 2 登录 → 3 创建 → 4/5 查询 → 6 更新 → 7 删除
+### 亮点：Token 与知识点 _id 会自动从前面请求的响应中提取，无需手动复制粘贴
+### =====================================================================
+
+@baseUrl = http://localhost:3000
+
+### 1. 注册新用户（若提示 User already exists，换一个邮箱再试）
+# @name register
+POST {{baseUrl}}/api/users/register
+Content-Type: application/json
+
+{
+  "name": "张三",
+  "email": "zhangsan@example.com",
+  "password": "123456"
+}
+
+### 2. 登录（成功后，响应中的 token 会被后续请求自动引用）
+# @name login
+POST {{baseUrl}}/api/users/login
+Content-Type: application/json
+
+{
+  "email": "zhangsan@example.com",
+  "password": "123456"
+}
+
+### 3. 创建知识点（user 字段由服务器根据 token 自动绑定，无需提交）
+# @name createKp
+POST {{baseUrl}}/api/knowledge-points
+Content-Type: application/json
+Authorization: Bearer {{login.response.body.$.token}}
+
+{
+  "title": "JavaScript 事件循环",
+  "content": "事件循环负责调度调用栈与任务队列：同步代码先执行，微任务清空后才轮到宏任务。"
+}
+
+### 4. 获取当前用户的知识点列表（按创建时间倒序）
+GET {{baseUrl}}/api/knowledge-points
+Authorization: Bearer {{login.response.body.$.token}}
+
+### 5. 获取单个知识点详情（自动使用第 3 步创建出的 _id）
+GET {{baseUrl}}/api/knowledge-points/{{createKp.response.body.$._id}}
+Authorization: Bearer {{login.response.body.$.token}}
+
+### 6. 更新知识点：状态改为「已掌握」并加入复习清单
+PUT {{baseUrl}}/api/knowledge-points/{{createKp.response.body.$._id}}
+Content-Type: application/json
+Authorization: Bearer {{login.response.body.$.token}}
+
+{
+  "title": "JavaScript 事件循环（已掌握）",
+  "content": "事件循环负责调度调用栈与任务队列，宏任务先于微任务执行……",
+  "status": "mastered",
+  "reviewList": true
+}
+
+### 7. 删除知识点（删除后再执行第 5 步，会返回 404 Knowledge point not found）
+DELETE {{baseUrl}}/api/knowledge-points/{{createKp.response.body.$._id}}
+Authorization: Bearer {{login.response.body.$.token}}
+
+### ---------------------------------------------------------------------
+### 常见状态码备忘：
+### 200 成功 ｜ 400 参数缺失或凭证无效 ｜ 401 未登录 / 越权 ｜ 404 资源或接口不存在 ｜ 500 服务器错误
+### ---------------------------------------------------------------------
