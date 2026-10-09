@@ -19,6 +19,10 @@ function Layout() {
         {token ? (
           <>
             <Link to="/">主页</Link>
+            <Link to="/agent">AI助手</Link>
+            <Link to="/graph">知识图谱</Link>
+            <Link to="/knowledge-universe">3D知识宇宙</Link>
+            <Link to="/3d-world">3D视界</Link>
             <button className="btn-logout" onClick={handleLogout}>退出登录</button>
           </>
         ) : (

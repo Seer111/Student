@@ -4,15 +4,34 @@
   "version": "0.1.0",
   "description": "费曼学习平台前端（React + Vite）",
   "type": "module",
+  "main": "electron.cjs",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "electron:dev": "concurrently \"npm run dev\" \"wait-on http://localhost:5173 && cross-env ELECTRON_START_URL=http://localhost:5173 electron .\"",
+    "electron:build": "npm run build && electron-builder"
+  },
+  "build": {
+    "appId": "com.feynman-platform.app",
+    "productName": "Feynman Learning Platform",
+    "files": [
+      "dist/**/*",
+      "electron.cjs"
+    ],
+    "directories": {
+      "output": "release"
+    },
+    "win": {
+      "target": "nsis"
+    }
   },
   "dependencies": {
     "@uiw/react-md-editor": "^4.1.2",
     "axios": "^1.20.0",
+    "d3-force-3d": "^3.0.6",
     "dompurify": "^3.4.15",
+    "echarts": "^6.1.0",
     "katex": "^0.18.7",
     "mermaid": "^11.17.2",
     "react": "^19.3.0",
@@ -22,10 +41,18 @@
     "react-router-dom": "^7.18.4",
     "rehype-katex": "^7.0.1",
     "remark-gfm": "^4.0.1",
-    "remark-math": "^6.0.0"
+    "remark-math": "^6.0.0",
+    "three": "^0.186.1",
+    "vite-plugin-pwa": "^2.0.0"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^6.1.1",
-    "vite": "^8.3.0"
+    "concurrently": "^9.2.1",
+    "cross-env": "^10.1.0",
+    "electron": "^38.3.0",
+    "electron-builder": "^26.0.12",
+    "vite": "^8.3.0",
+    "vite-plugin-pwa": "^1.2.0",
+    "wait-on": "^9.0.3"
   }
 }

@@ -11,8 +11,15 @@ dist/
 logs
 *.log
 
+# Python 编译缓存
+__pycache__/
+*.pyc
+
 # 编辑器与系统文件
 .DS_Store
 .idea/
 .vscode/*
 !.vscode/extensions.json
+
+# 桌面端打包产物（体积大，由 electron-builder 重新生成）
+release/

@@ -1,0 +1,31 @@
+# Docker Compose 编排（16课：容器化部署）
+# 一键启动前后端：docker compose up -d --build
+# 前端运行在 80 端口，后端运行在 3000 端口，前端 Nginx 将 /api 反向代理到后端
+services:
+  backend:
+    build: ./feynman-platform-backend
+    container_name: feynman-backend
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - NODE_ENV=production
+      # 以下敏感配置建议通过 .env 文件注入（docker compose 会自动读取同级 .env）
+      - MONGO_URI=${MONGO_URI}
+      - JWT_SECRET=${JWT_SECRET}
+      - BAIDU_API_KEY=${BAIDU_API_KEY}
+      - BAIDU_SECRET_KEY=${BAIDU_SECRET_KEY}
+      - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY}
+      - QIANFAN_API_KEY=${QIANFAN_API_KEY}
+      - QIANFAN_SECRET_KEY=${QIANFAN_SECRET_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+    restart: always
+
+  frontend:
+    build: ./feynman-platform-frontend
+    container_name: feynman-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    restart: always

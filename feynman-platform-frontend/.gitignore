@@ -3,6 +3,7 @@ node_modules/
 
 # 构建产物
 dist/
+release/
 
 # 日志
 logs

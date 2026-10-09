@@ -1,0 +1,5 @@
+# 排除不需要打进镜像的文件（16课：容器化部署）
+node_modules
+vector_store
+.env
+npm-debug.log

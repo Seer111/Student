@@ -63,12 +63,17 @@ function DashboardPage() {
             <li key={kp._id} className="kp-item">
               <div className="kp-item-header">
                 <h2>{kp.title}</h2>
-                <span className="kp-status">{STATUS_TEXT[kp.status] || kp.status}</span>
+                <div className="kp-badges">
+                  {kp.reviewList && <span className="kp-review-badge">待复习</span>}
+                  <span className="kp-status">{STATUS_TEXT[kp.status] || kp.status}</span>
+                </div>
               </div>
               <div className="markdown-content">
                 <MarkdownRenderer content={kp.content} />
               </div>
               <div className="kp-actions">
+                <Link to={`/feynman/${kp._id}`} className="btn btn-record-link">开始复述</Link>
+                <Link to={`/quiz/${kp._id}`} className="btn btn-plain">开始测评</Link>
                 <Link to={`/kp/edit/${kp._id}`} className="btn btn-plain">编辑</Link>
                 <button className="btn btn-danger" onClick={() => handleDelete(kp._id)}>删除</button>
               </div>

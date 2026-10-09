@@ -33,6 +33,10 @@ mongoose
 // --- 业务路由 ---
 app.use('/api/users', require('./routes/users'));
 app.use('/api/knowledge-points', require('./routes/knowledgePoints'));
+app.use('/api/audio', require('./routes/audio')); // 07课：录音转文字
+app.use('/api/ai', require('./routes/ai')); // 08/09/11课：AI 润色评价、出题评分、RAG 问答
+app.use('/api/graph', require('./routes/graph')); // 12课：知识图谱
+app.use('/api/attempts', require('./routes/attempts')); // 07课：复述记录
 
 // 欢迎路由：用于快速验证服务是否正常启动
 app.get('/', (req, res) => {

@@ -64,6 +64,110 @@ Authorization: Bearer {{login.response.body.$.token}}
 DELETE {{baseUrl}}/api/knowledge-points/{{createKp.response.body.$._id}}
 Authorization: Bearer {{login.response.body.$.token}}
 
+### =====================================================================
+### 07~12课新增 AI 接口测试（使用前先在 .env 中配置对应 AI 服务的 Key）
+### =====================================================================
+
+### 8. AI 润色与评价（08课）：原始内容 vs 学生复述
+POST {{baseUrl}}/api/ai/evaluate
+Content-Type: application/json
+Authorization: Bearer {{login.response.body.$.token}}
+
+{
+  "originalContent": "React 的 State 是组件内部自身管理的可变状态，改变它会导致组件重新渲染。",
+  "transcribedText": "React的state就是组件里面的数据，改数据的话页面会刷新",
+  "knowledgePointId": "{{createKp.response.body.$._id}}"
+}
+
+### 9. AI 出题（09课）：单选题
+POST {{baseUrl}}/api/ai/generate-question
+Content-Type: application/json
+Authorization: Bearer {{login.response.body.$.token}}
+
+{
+  "knowledgePointContent": "JavaScript 事件循环负责调度调用栈与任务队列：同步代码先执行，微任务清空后才轮到宏任务。",
+  "difficulty": "中等",
+  "type": "single-choice"
+}
+
+### 10. AI 出题（09课）：简答题
+POST {{baseUrl}}/api/ai/generate-question
+Content-Type: application/json
+Authorization: Bearer {{login.response.body.$.token}}
+
+{
+  "knowledgePointContent": "JavaScript 事件循环负责调度调用栈与任务队列：同步代码先执行，微任务清空后才轮到宏任务。",
+  "difficulty": "基础",
+  "type": "short-answer"
+}
+
+### 11. AI 简答题评分（09课进阶）
+POST {{baseUrl}}/api/ai/grade-answer
+Content-Type: application/json
+Authorization: Bearer {{login.response.body.$.token}}
+
+{
+  "question": "请简述 JavaScript 事件循环的执行顺序。",
+  "answerKeyPoints": ["同步代码先执行", "微任务先于宏任务", "每次宏任务结束后清空微任务队列"],
+  "studentAnswer": "同步代码先跑完，然后微任务，最后宏任务。"
+}
+
+### 12. RAG 知识库问答（11课）：先创建/更新过知识点并完成向量索引
+POST {{baseUrl}}/api/ai/rag-qa
+Content-Type: application/json
+Authorization: Bearer {{login.response.body.$.token}}
+
+{
+  "question": "事件循环中微任务和宏任务的执行顺序是什么？"
+}
+
+### 13. 知识图谱数据（12课）
+GET {{baseUrl}}/api/graph/knowledge-map
+Authorization: Bearer {{login.response.body.$.token}}
+
+### 14. 保存复述记录（07课课后作业）
+POST {{baseUrl}}/api/attempts
+Content-Type: application/json
+Authorization: Bearer {{login.response.body.$.token}}
+
+{
+  "knowledgePointId": "{{createKp.response.body.$._id}}",
+  "transcribedText": "这是语音转录后的复述文本",
+  "aiFeedback": {
+    "score": 85,
+    "provider": "DeepSeek"
+  }
+}
+
+### 15. 查询某知识点的复述记录
+GET {{baseUrl}}/api/attempts/kp/{{createKp.response.body.$._id}}
+Authorization: Bearer {{login.response.body.$.token}}
+
+### 16. 音频转文字（07课）：multipart/form-data 上传，字段名必须为 audio
+###     需要真实的 .wav 音频文件（16000Hz 单声道），且已配置百度语音识别 Key
+POST {{baseUrl}}/api/audio/transcribe
+Authorization: Bearer {{login.response.body.$.token}}
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="audio"; filename="test.wav"
+Content-Type: audio/wav
+
+< ./test-audio.wav
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+### 17. 本地 Whisper 转文字（7.5课进阶）：需先启动 Python Whisper 服务（默认 5001 端口）
+POST {{baseUrl}}/api/audio/transcribe-local
+Authorization: Bearer {{login.response.body.$.token}}
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="audio"; filename="test.wav"
+Content-Type: audio/wav
+
+< ./test-audio.wav
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
 ### ---------------------------------------------------------------------
 ### 常见状态码备忘：
 ### 200 成功 ｜ 400 参数缺失或凭证无效 ｜ 401 未登录 / 越权 ｜ 404 资源或接口不存在 ｜ 500 服务器错误
