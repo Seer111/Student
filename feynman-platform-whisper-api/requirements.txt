@@ -1,0 +1,12 @@
+# 本地 Whisper 语音识别服务依赖（Python 3.10+，含 3.14）
+# 安装：pip install -r requirements.txt
+# 注意：openai-whisper 读音频依赖系统里的 ffmpeg（见 README「快速开始」第 0 步）
+
+flask>=3.0
+
+# Whisper 本体：自带模型定义、分词与音频解码逻辑
+openai-whisper>=20231117
+
+# PyTorch：从 PyPI 装到的是 CPU 版（2.10+ 已提供 cp314 wheel，Python 3.14 可直接用）
+# 要用 NVIDIA GPU，请先按 https://pytorch.org 的命令装 CUDA 版，再执行本文件（pip 会跳过已满足的 torch）
+torch>=2.4

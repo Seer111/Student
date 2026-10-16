@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "dev": "node --watch index.js"
+    "dev": "node --watch index.js",
+    "vectors:sync": "node scripts/syncVectorStore.js",
+    "vectors:audit": "node scripts/syncVectorStore.js --dry-run --verify"
   },
   "keywords": [
     "feynman",

@@ -1,0 +1,8 @@
+# 构建上下文瘦身：虚拟环境和缓存不需要进镜像（Dockerfile 只 COPY 三个文件）
+venv/
+.venv/
+__pycache__/
+*.pyc
+# 转写用的临时音频
+*.wav
+temp_audio.*

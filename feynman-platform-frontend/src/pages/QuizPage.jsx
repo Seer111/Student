@@ -9,6 +9,9 @@ const QUESTION_TYPES = [
   { value: 'single-choice', label: '单选题' },
   { value: 'short-answer', label: '简答题' },
 ];
+// 学习阶段的显示文案与序号（只前进不回退，序号用于比较）
+const STATUS_TEXT = { not_started: '未开始', in_progress: '学习中', mastered: '已掌握' };
+const STATUS_RANK = { not_started: 0, in_progress: 1, mastered: 2 };
 
 function QuizPage() {
   const { id } = useParams(); // 知识点 ID
@@ -21,6 +24,7 @@ function QuizPage() {
   const [result, setResult] = useState(null); // { isCorrect, explanation }
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const [statusUpdated, setStatusUpdated] = useState(null); // 阶段自动流转提示（{from,to}）
 
   // 1. 加载知识点内容
   useEffect(() => {
@@ -45,6 +49,7 @@ function QuizPage() {
     setSelectedOption('');
     setShortAnswer('');
     setError('');
+    setStatusUpdated(null);
     try {
       const response = await apiClient.post('/ai/generate-question', {
         knowledgePointContent: knowledgePoint.content,
@@ -69,6 +74,18 @@ function QuizPage() {
     }
   };
 
+  // 3.5 答对后把「未开始」推进为「学习中」（只前进不回退；简答题由后端推进，这里只处理前端比对的单选）
+  const advanceOnCorrect = async () => {
+    if ((STATUS_RANK[knowledgePoint?.status] ?? 0) >= STATUS_RANK.in_progress) return;
+    try {
+      const response = await apiClient.put(`/knowledge-points/${id}`, { status: 'in_progress' });
+      setKnowledgePoint(response.data);
+      setStatusUpdated({ from: 'not_started', to: 'in_progress' });
+    } catch (err) {
+      console.error('自动更新学习阶段失败', err);
+    }
+  };
+
   // 4. 提交答案：单选前端直接比对；简答调用 AI 阅卷
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -80,7 +97,8 @@ function QuizPage() {
       }
       const isCorrect = selectedOption === question.answer;
       setResult({ isCorrect, explanation: question.explanation });
-      if (!isCorrect) await updateReviewStatus(true);
+      if (isCorrect) await advanceOnCorrect();
+      else await updateReviewStatus(true);
     } else {
       if (!shortAnswer.trim()) {
         alert('请输入你的回答！');
@@ -93,8 +111,10 @@ function QuizPage() {
           question: question.question,
           answerKeyPoints: question.answer_key_points,
           studentAnswer: shortAnswer,
+          knowledgePointId: id, // 答对时后端会把学习阶段推进到「学习中」
         });
         setResult(response.data);
+        setStatusUpdated(response.data.statusUpdated || null);
         if (!response.data.isCorrect) await updateReviewStatus(true);
       } catch (err) {
         console.error(err);
@@ -202,6 +222,11 @@ function QuizPage() {
             <p><strong>正确答案是: {question.answer}</strong></p>
           )}
           <p><strong>解释:</strong> {result.explanation}</p>
+          {statusUpdated && (
+            <p className="status-notice">
+              ✅ 学习阶段已自动更新：{STATUS_TEXT[statusUpdated.from]} → {STATUS_TEXT[statusUpdated.to]}
+            </p>
+          )}
           {!result.isCorrect && (
             <p className="review-notice">该知识点已加入你的复习列表。</p>
           )}

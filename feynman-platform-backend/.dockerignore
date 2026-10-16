@@ -1,5 +1,7 @@
 # 排除不需要打进镜像的文件（16课：容器化部署）
 node_modules
-vector_store
+# 注意：vector_store/ 不排除 —— 它是 10 课 RAG 的本地向量索引
+#（docs.json + hnswlib.index，约 32 KB），打进镜像后容器启动即可检索课程文档；
+# 如需在容器里重建索引，用卷覆盖 /app/vector_store 即可，不要靠在构建期排除。
 .env
 npm-debug.log

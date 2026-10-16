@@ -5,6 +5,7 @@ import App from './App.jsx';
 import './index.css';
 import { BrowserRouter } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext.jsx';
+import ErrorBoundary from './components/ErrorBoundary.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -12,7 +13,10 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <BrowserRouter>
       {/* AuthProvider：提供全局登录状态（token / user / login / logout） */}
       <AuthProvider>
-        <App />
+        {/* 最外层错误边界：连布局或路由本身崩掉时，也不会变成整页白屏 */}
+        <ErrorBoundary>
+          <App />
+        </ErrorBoundary>
       </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>,

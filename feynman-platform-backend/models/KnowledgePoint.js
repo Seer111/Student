@@ -29,6 +29,17 @@ const KnowledgePointSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    references: {
+      // 显式引用（12课知识图谱的"引用"边）：本知识点依赖/延伸到的其它知识点
+      // 存 id 而不是标题——改标题不会让引用失效，也不会因为同名标题互相覆盖
+      type: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'KnowledgePoint',
+        },
+      ],
+      default: [],
+    },
   },
   { timestamps: true }
 );

@@ -25,7 +25,7 @@ router.post('/', auth, async (req, res) => {
     res.json(attempt);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Server Error');
+    res.status(500).json({ msg: 'Server Error' });
   }
 });
 
@@ -41,7 +41,7 @@ router.get('/kp/:knowledgePointId', auth, async (req, res) => {
     res.json(attempts);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Server Error');
+    res.status(500).json({ msg: 'Server Error' });
   }
 });
 

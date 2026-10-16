@@ -42,10 +42,9 @@ feynman-platform-backend/
 │   └── llmService.js         # 多 LLM 统一封装（自动回退 + embedding）
 ├── middleware/
 │   └── auth.js               # JWT 认证中间件
-├── data/
-│   └── vectors/              # 向量索引与元数据持久化目录（运行时自动生成）
+├── vector_store/             # 向量索引与元数据持久化目录（运行时自动生成，不入库）
 ├── api-tests.http            # 接口测试脚本（配合 VSCode REST Client 扩展使用）
-├── Dockerfile                # 后端容器镜像（多阶段构建）
+├── Dockerfile                # 后端容器镜像
 ├── .dockerignore
 ├── .env                      # 本地环境变量（不入库）
 ├── .env.example              # 环境变量模板
@@ -205,7 +204,7 @@ POST /api/ai/evaluate
 
 ## RAG 私有知识库说明
 
-- 创建 / 更新知识点时，后端自动将内容按 500 字分块（50 字重叠）调用千帆 Embedding-V1 生成 384 维向量，写入本地 `data/vectors/` 目录（hnswlib 索引 + 元数据 JSON）
+- 创建 / 更新知识点时，后端自动将内容按 500 字分块（50 字重叠）调用千帆 Embedding-V1 生成 384 维向量，写入本地 `vector_store/` 目录（hnswlib 索引 + 元数据 JSON）
 - `/api/ai/rag-qa` 先对问题进行向量检索（top-k，按用户隔离），再把检索到的上下文与问题组装成结构化 Prompt 交给 LLM 生成答案
 - 若 hnswlib-node 加载失败（如平台不支持原生模块），自动降级为纯 JS 余弦相似度检索，功能不受影响
 

@@ -87,6 +87,10 @@ async function chatWithFallback(messages, options = {}) {
   throw new Error(`所有 LLM 服务均调用失败 -> ${errors.join(' | ')}`);
 }
 
+// 千帆 embedding-v1 单次请求的输入条数上限是 16，一次塞 20 条会直接 400；
+// 所以这里按批切分再合并（重建索引、长正文切出很多块时都会用到）
+const EMBED_BATCH_SIZE = 16;
+
 /**
  * 调用百度千帆 Embedding-V1 将文本转换为向量（10课 RAG 向量化）
  * @param {string[]} texts - 待向量化的文本数组
@@ -98,23 +102,35 @@ async function embedding(texts) {
     throw new Error('百度千帆 QIANFAN_API_KEY 未配置，无法进行文本向量化');
   }
 
-  const response = await axios.post(
-    'https://qianfan.baidubce.com/v2/embeddings',
-    {
-      model: process.env.QIANFAN_EMBEDDING_MODEL || 'embedding-v1',
-      input: texts,
-    },
-    {
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        'Content-Type': 'application/json',
-      },
-      timeout: 60000,
-    },
-  );
+  const list = Array.isArray(texts) ? texts : [texts];
+  const vectors = [];
 
-  // 千帆 v2 返回 OpenAI 兼容结构：{ data: [{ embedding: [...] }, ...] }
-  return response.data.data.map((item) => item.embedding);
+  for (let start = 0; start < list.length; start += EMBED_BATCH_SIZE) {
+    const batch = list.slice(start, start + EMBED_BATCH_SIZE);
+    const response = await axios.post(
+      'https://qianfan.baidubce.com/v2/embeddings',
+      {
+        model: process.env.QIANFAN_EMBEDDING_MODEL || 'embedding-v1',
+        input: batch,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${apiKey}`,
+          'Content-Type': 'application/json',
+        },
+        timeout: 60000,
+      },
+    );
+
+    // 千帆 v2 返回 OpenAI 兼容结构：{ data: [{ embedding: [...], index }] }
+    // 按 index 排序，保证与输入顺序严格对应
+    response.data.data
+      .slice()
+      .sort((a, b) => (a.index ?? 0) - (b.index ?? 0))
+      .forEach((item) => vectors.push(item.embedding));
+  }
+
+  return vectors;
 }
 
 module.exports = { chatWithFallback, callProvider, embedding, FALLBACK_ORDER };

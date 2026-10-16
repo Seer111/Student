@@ -4,12 +4,30 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+const auth = require('../middleware/auth');
 
 // 生成 JWT：载荷携带用户 ID，有效期 5 小时
 function signToken(userId) {
   const payload = { user: { id: userId } };
   return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '5h' });
 }
+
+// @route   GET /api/users/me
+// @desc    获取当前登录用户的信息（前端凭 token 换取昵称/邮箱等资料）
+// @access  Private
+router.get('/me', auth, async (req, res) => {
+  try {
+    // select('-password')：即使是 bcrypt 哈希也绝不回传给前端
+    const user = await User.findById(req.user.id).select('-password');
+    if (!user) {
+      return res.status(404).json({ msg: 'User not found' });
+    }
+    res.json(user);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ msg: 'Server Error' });
+  }
+});
 
 // @route   POST /api/users/register
 // @desc    注册新用户（密码哈希后入库），注册成功直接返回 JWT（注册即登录）
@@ -45,7 +63,7 @@ router.post('/register', async (req, res) => {
     res.json({ token: signToken(user.id) });
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Server Error');
+    res.status(500).json({ msg: 'Server Error' });
   }
 });
 
@@ -78,7 +96,7 @@ router.post('/login', async (req, res) => {
     res.json({ token: signToken(user.id) });
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Server Error');
+    res.status(500).json({ msg: 'Server Error' });
   }
 });
 

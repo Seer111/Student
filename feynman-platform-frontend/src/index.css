@@ -14,6 +14,46 @@ body {
   line-height: 1.6;
 }
 
+/* ===== 设计 token（批次 16）=====
+   缓动、时长、圆角、三态语义色统一收在这里，组件里不再写零散硬编码值。
+   时长档位：快 .14s（按钮/小色块）/ 常 .2s（卡片、阴影）/ 慢 .34s（入场动画）。 */
+:root {
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --dur-fast: 0.14s;
+  --dur: 0.2s;
+  --dur-slow: 0.34s;
+
+  /* 圆角梯度：卡片 12px > 内容块 8px > 按钮 6px */
+  --radius-card: 12px;
+  --radius-inner: 8px;
+  --radius-btn: 6px;
+
+  /* 三态语义色（底色 / 描边 / 文字三件套）：与 2D 图 CATEGORY_STYLE、3D 页 STATUS_COLOR、
+     复述页 .ref-status-* 同一口径——未开始=蓝、学习中=青绿、已掌握=绿，
+     「待复习」是另一条通道（琥珀 #ea580c），不参与三态。 */
+  --status-not-started: #2b6cb0;
+  --status-not-started-bg: #ebf4ff;
+  --status-not-started-border: #bee3f8;
+  --status-in-progress: #2c7a7b;
+  --status-in-progress-bg: #e6fffa;
+  --status-in-progress-border: #b2f5ea;
+  --status-mastered: #276749;
+  --status-mastered-bg: #f0fff4;
+  --status-mastered-border: #c6f6d5;
+}
+
+/* 仅供屏幕阅读器的文本（骨架屏的「正在加载」提示等） */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 /* ===== 整体布局（Layout） ===== */
 .app-layout {
   min-height: 100vh;
@@ -64,6 +104,16 @@ body {
   color: #fff;
 }
 
+/* 导航栏右侧的当前用户名（来自 GET /api/users/me，AuthContext 负责加载） */
+.navbar .navbar-user {
+  color: #a5b4fc;
+  font-size: 0.9rem;
+  max-width: 10rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .main-content {
   flex: 1;
   width: 100%;
@@ -92,7 +142,7 @@ body {
   background: #4f46e5;
   color: #fff;
   border: none;
-  border-radius: 6px;
+  border-radius: var(--radius-btn);
   padding: 0.5rem 1.1rem;
   font-size: 0.95rem;
   cursor: pointer;
@@ -188,25 +238,57 @@ body {
   margin-bottom: 0;
 }
 
+/* ===== 知识点列表（Dashboard，批次 16 收敛留白 / 单层容器 / 阴影层级）===== */
 .kp-list {
   list-style: none;
-  margin-top: 1.2rem;
+  margin-top: 0.9rem;
   display: grid;
-  gap: 1rem;
+  /* minmax(0, 1fr) 而不是默认的 auto：auto 列会被“最宽那张卡片的最小内容宽”撑开，
+     窄屏下就会出现整页横向溢出（实测 390px 视口被撑到 444px）。 */
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.7rem;
 }
 
 .kp-item {
   background: #fff;
-  border: 1px solid #e2e8f0;
-  border-radius: 10px;
-  padding: 1rem 1.25rem;
+  border: none;
+  border-radius: var(--radius-card);
+  padding: 0.8rem 1rem;
+  min-width: 0;
+  /* 去掉硬边框，改用浅阴影建立层级 */
+  box-shadow: 0 1px 2px rgba(30, 41, 88, 0.05), 0 6px 16px -10px rgba(30, 41, 88, 0.18);
+  transition: box-shadow var(--dur) var(--ease), transform var(--dur) var(--ease);
+  /* 入场：只播一次的 animation，且用 backwards 而不是 forwards/both——
+     forwards 的动画终值会一直压住 hover 的 translateY，卡片就再也浮不起来了。
+     延迟 --i × 45ms（组件里已把 --i 封在 7 档以内）。 */
+  animation: kp-rise var(--dur-slow) var(--ease) backwards;
+  animation-delay: calc(var(--i, 0) * 45ms);
+}
+
+/* hover 位移只在真有指针的设备上生效（触屏没有 hover，避免点一下卡片就粘住） */
+@media (hover: hover) and (pointer: fine) {
+  .kp-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(30, 41, 88, 0.06), 0 14px 28px -12px rgba(30, 41, 88, 0.28);
+  }
+}
+
+@keyframes kp-rise {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 .kp-item-header {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 0.5rem;
+  gap: 0.6rem;
+  margin-bottom: 0.35rem;
 }
 
 .kp-item-header h2 {
@@ -215,6 +297,8 @@ body {
   margin-right: auto;
 }
 
+/* 状态下拉：三态各一套「底色 + 描边 + 文字」，颜色全部走 token（与 2D/3D 图同口径）。
+   基础 .kp-status 仍保留旧样式，避免影响复述页里同样叫 .kp-status 的得分徽标。 */
 .kp-status {
   font-size: 0.78rem;
   padding: 0.15rem 0.6rem;
@@ -224,30 +308,110 @@ body {
   white-space: nowrap;
 }
 
+select.kp-status {
+  border: 1px solid #c7d0f0;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background var(--dur) var(--ease), color var(--dur) var(--ease),
+    border-color var(--dur) var(--ease);
+}
+
+select.kp-status:hover {
+  border-color: #4f46e5;
+}
+
+select.kp-status.kp-status-not_started {
+  background: var(--status-not-started-bg);
+  color: var(--status-not-started);
+  border-color: var(--status-not-started-border);
+}
+
+select.kp-status.kp-status-in_progress {
+  background: var(--status-in-progress-bg);
+  color: var(--status-in-progress);
+  border-color: var(--status-in-progress-border);
+}
+
+select.kp-status.kp-status-mastered {
+  background: var(--status-mastered-bg);
+  color: var(--status-mastered);
+  border-color: var(--status-mastered-border);
+}
+
+/* 状态点：颜色之外再加一个形状通道——未开始空心 / 学习中半实心 / 已掌握实心 */
+.kp-status-dot {
+  flex: none;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  border: 1.5px solid currentColor;
+  background: transparent;
+}
+
+.kp-status-dot-not_started {
+  color: var(--status-not-started);
+}
+
+.kp-status-dot-in_progress {
+  color: var(--status-in-progress);
+  background: linear-gradient(90deg, currentColor 50%, transparent 50%);
+}
+
+.kp-status-dot-mastered {
+  color: var(--status-mastered);
+  background: currentColor;
+}
+
 .kp-actions {
   display: flex;
   gap: 0.5rem;
-  margin-top: 0.75rem;
+  margin-top: 0.6rem;
 }
 
+/* 内容直接落在卡片上：去掉第二层容器的底色/描边/内边距，只保留一层留白。
+   代码块、引用、表格这些块级元素各自带背景，不需要外层再包一层。 */
 .markdown-content {
-  background: #f9fafc;
-  border: 1px solid #eef1f6;
-  border-radius: 8px;
-  padding: 0.75rem 1rem;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  font-size: 0.92rem;
+  color: #4a5568;
   overflow-x: auto;
 }
 
-/* Markdown 渲染内容的补充样式 */
+/* Markdown 渲染内容的补充样式（只在 Dashboard 的卡片里使用） */
 .markdown-content h1,
 .markdown-content h2,
 .markdown-content h3 {
   color: #1e2958;
-  margin: 0.6em 0 0.4em;
+  margin: 0.5em 0 0.35em;
+}
+
+/* 正文里即使还有一级标题也不能压过卡片头部（头部 h2 是 1.15rem），层级由文字大小说明 */
+.markdown-content h1 {
+  font-size: 1.05rem;
+}
+
+.markdown-content h2 {
+  font-size: 0.98rem;
+}
+
+.markdown-content h3 {
+  font-size: 0.94rem;
 }
 
 .markdown-content p {
-  margin: 0.4em 0;
+  margin: 0.35em 0;
+}
+
+/* 首尾元素不要额外外边距，否则卡片上下留白会虚高 */
+.markdown-content > :first-child {
+  margin-top: 0;
+}
+
+.markdown-content > :last-child {
+  margin-bottom: 0;
 }
 
 .markdown-content code {
@@ -258,12 +422,17 @@ body {
   font-size: 0.9em;
 }
 
+/* 代码块保留深色主题，但降低体量：缩小内边距、圆角并入同一套梯度、限高后内部滚动，
+   不让深色块把整张卡片撑得很高、压过正文。 */
 .markdown-content pre {
   background: #1e2958;
   color: #e2e8f0;
-  border-radius: 8px;
-  padding: 0.8rem 1rem;
-  overflow-x: auto;
+  border-radius: var(--radius-inner);
+  padding: 0.6rem 0.8rem;
+  font-size: 0.85rem;
+  line-height: 1.55;
+  max-height: 220px;
+  overflow: auto;
 }
 
 .markdown-content pre code {
@@ -274,20 +443,21 @@ body {
 
 .markdown-content table {
   border-collapse: collapse;
-  margin: 0.6em 0;
+  margin: 0.5em 0;
+  font-size: 0.88rem;
 }
 
 .markdown-content th,
 .markdown-content td {
   border: 1px solid #cbd5e0;
-  padding: 0.35rem 0.7rem;
+  padding: 0.3rem 0.6rem;
 }
 
 .markdown-content blockquote {
   border-left: 3px solid #4f46e5;
   padding-left: 0.8rem;
   color: #64748b;
-  margin: 0.6em 0;
+  margin: 0.5em 0;
 }
 
 /* Mermaid 图表容器：居中显示 */
@@ -510,14 +680,28 @@ body {
 }
 
 /* ===== 14课：3D知识宇宙页 ===== */
+.universe-stage {
+  position: relative;
+  width: 100%;
+  height: 75vh;
+  min-height: 420px;
+  border-radius: 12px;
+  overflow: hidden;
+  /* canvas 首帧之前的兜底底色，避免闪白 */
+  background: radial-gradient(circle at 30% 20%, #101a34 0%, #05070f 72%);
+  box-shadow: 0 12px 44px rgba(6, 10, 30, 0.38);
+}
+
 .universe-overlay {
   position: absolute;
   top: 16px;
   right: 16px;
-  width: 240px;
-  background: rgba(15, 23, 42, 0.92);
+  width: 250px;
+  background: rgba(10, 16, 34, 0.72);
+  backdrop-filter: blur(8px);
   color: #e2e8f0;
-  border: 1px solid rgba(139, 165, 201, 0.4);
+  border: 1px solid rgba(125, 165, 235, 0.32);
+  box-shadow: 0 8px 30px rgba(20, 40, 90, 0.45), inset 0 0 24px rgba(90, 140, 255, 0.08);
   border-radius: 10px;
   padding: 0.9rem 1rem;
   pointer-events: none;
@@ -538,6 +722,104 @@ body {
   margin-top: 0.4rem;
   color: #cbd5e1 !important;
   line-height: 1.5;
+  /* 知识点正文可能很长，浮层里只显示前 6 行，避免面板被撑满整个画面 */
+  display: -webkit-box;
+  -webkit-line-clamp: 6;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.universe-hud {
+  position: absolute;
+  left: 16px;
+  bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 0.75rem 0.9rem;
+  border-radius: 10px;
+  background: rgba(10, 16, 34, 0.6);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(125, 165, 235, 0.22);
+  color: #cbd8ee;
+  font-size: 0.82rem;
+  z-index: 10;
+}
+
+.universe-stats {
+  display: flex;
+  gap: 1rem;
+}
+
+.universe-stats b {
+  color: #fff;
+  font-size: 1rem;
+}
+
+.universe-legend {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.85rem;
+  margin: 0;
+  padding: 0;
+}
+
+.universe-legend li {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.universe-legend i {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+/* 3D 知识宇宙：航线飞船图例（三角＝飞船，亮蓝=引用、暗灰=提及） */
+.universe-ship-legend {
+  margin-top: 0.1rem;
+}
+
+.universe-legend i.ship-mark {
+  width: 0;
+  height: 0;
+  border-radius: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 9px solid #bfe0ff;
+  filter: drop-shadow(0 0 6px rgba(120, 180, 255, 0.85));
+}
+
+.universe-legend i.ship-mark-auto {
+  border-bottom-color: #8a97ad;
+  filter: drop-shadow(0 0 4px rgba(138, 151, 173, 0.5));
+}
+
+.universe-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.universe-btn {
+  background: rgba(79, 70, 229, 0.25);
+  border: 1px solid rgba(129, 140, 248, 0.5);
+  color: #dbe4ff;
+  border-radius: 8px;
+  padding: 0.28rem 0.7rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background var(--dur) var(--ease), transform var(--dur-fast) var(--ease);
+}
+
+.universe-btn:hover {
+  background: rgba(99, 102, 241, 0.45);
+}
+
+.universe-btn:active {
+  transform: translateY(1px);
 }
 
 /* ===== Dashboard：待复习标记与复述按钮 ===== */
@@ -568,4 +850,556 @@ body {
 .btn-record {
   background: #dc2626;
   color: #fff;
+}
+
+/* ===== 13课：3D视界教学演示页 ===== */
+.demo-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 0.9rem 1.1rem;
+  margin-bottom: 0.8rem;
+  box-shadow: 0 1px 3px rgba(30, 41, 88, 0.06);
+}
+
+.demo-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.6rem 0.9rem;
+}
+
+.demo-label {
+  min-width: 3.4rem;
+  color: #64748b;
+  font-size: 0.85rem;
+}
+
+.demo-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.demo-chip {
+  background: #f7f8fc;
+  color: #334155;
+  border: 1px solid #d6ddf0;
+  border-radius: 999px;
+  padding: 0.25rem 0.85rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.demo-chip:hover {
+  border-color: #a5b4fc;
+}
+
+.demo-chip.is-active {
+  background: #4f46e5;
+  border-color: #4f46e5;
+  color: #fff;
+}
+
+.demo-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: #334155;
+  font-size: 0.88rem;
+  cursor: pointer;
+}
+
+.demo-check input[type='checkbox'] {
+  width: 0.95rem;
+  height: 0.95rem;
+  cursor: pointer;
+}
+
+.demo-color {
+  width: 2.1rem;
+  height: 1.6rem;
+  padding: 0;
+  border: 1px solid #d6ddf0;
+  border-radius: 6px;
+  background: none;
+  cursor: pointer;
+}
+
+.demo-readout {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.4rem;
+  border-top: 1px dashed #e2e8f0;
+  padding-top: 0.6rem;
+  color: #475569;
+  font-family: ui-monospace, Consolas, 'Courier New', monospace;
+  font-size: 0.8rem;
+}
+
+.demo-stage {
+  width: 100%;
+  height: 62vh;
+  min-height: 320px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #1a2a3a;
+}
+
+.demo-notes {
+  margin-top: 0.9rem;
+  padding-left: 1.2rem;
+  color: #475569;
+  font-size: 0.88rem;
+  line-height: 1.85;
+}
+
+.demo-notes b {
+  color: #1e2958;
+}
+
+.demo-notes code {
+  background: #eef1fa;
+  color: #4338ca;
+  border-radius: 4px;
+  padding: 0.05rem 0.35rem;
+  font-family: ui-monospace, Consolas, 'Courier New', monospace;
+  font-size: 0.84rem;
+}
+
+/* ===== 错误边界兜底面板（任何页面渲染出错时替代白屏） ===== */
+.error-panel {
+  border-left: 4px solid #dc2626;
+  max-width: 760px;
+  margin: 1.6rem auto;
+}
+
+.error-title {
+  color: #b91c1c;
+  margin-bottom: 0.4rem;
+}
+
+.error-message {
+  color: #1e2958;
+  font-family: ui-monospace, Consolas, 'Courier New', monospace;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  word-break: break-all;
+}
+
+.error-details {
+  margin: 0.9rem 0 0.4rem;
+  color: #64748b;
+  font-size: 0.85rem;
+}
+
+.error-details summary {
+  cursor: pointer;
+}
+
+.error-details pre {
+  background: #f7f8fc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 0.6rem 0.8rem;
+  margin-top: 0.5rem;
+  overflow-x: auto;
+  font-size: 0.78rem;
+  line-height: 1.65;
+  white-space: pre-wrap;
+}
+
+.error-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 0.8rem;
+}
+
+.error-actions a.btn {
+  text-decoration: none;
+  display: inline-block;
+}
+
+.error-hint {
+  color: #718096;
+  font-size: 0.82rem;
+  margin-top: 0.7rem;
+}
+
+/* ===== 知识点表单：引用选择器 ===== */
+.ref-hint {
+  color: #718096;
+  font-size: 0.82rem;
+  line-height: 1.7;
+  margin: 0.15rem 0 0.55rem;
+}
+
+.ref-search {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #d6ddf0;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  margin-bottom: 0.55rem;
+}
+
+.ref-search:focus {
+  outline: none;
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+}
+
+.ref-list {
+  max-height: 16rem;
+  overflow-y: auto;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  background: #fbfcff;
+  padding: 0.35rem;
+}
+
+.ref-item {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.45rem 0.6rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: #2d3748;
+}
+
+.ref-item:hover {
+  background: #eef2ff;
+}
+
+.ref-item.is-selected {
+  background: #eef2ff;
+  color: #3730a3;
+  font-weight: 600;
+}
+
+.ref-item input[type='checkbox'] {
+  width: 1rem;
+  height: 1rem;
+  cursor: pointer;
+  accent-color: #4f46e5;
+}
+
+.ref-title {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ref-status {
+  flex: none;
+  font-size: 0.74rem;
+  font-weight: 500;
+  border-radius: 999px;
+  padding: 0.08rem 0.55rem;
+  border: 1px solid transparent;
+}
+
+.ref-status-not_started {
+  color: #2b6cb0;
+  background: #ebf4ff;
+  border-color: #bee3f8;
+}
+
+.ref-status-in_progress {
+  color: #2c7a7b;
+  background: #e6fffa;
+  border-color: #b2f5ea;
+}
+
+.ref-status-mastered {
+  color: #276749;
+  background: #f0fff4;
+  border-color: #c6f6d5;
+}
+
+.ref-empty {
+  color: #94a3b8;
+  font-size: 0.85rem;
+  padding: 0.6rem;
+  margin: 0;
+}
+
+.ref-count {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: #64748b;
+  font-size: 0.82rem;
+  margin: 0.5rem 0 0;
+}
+
+.ref-clear {
+  background: none;
+  border: none;
+  color: #4f46e5;
+  font-size: 0.82rem;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+}
+
+/* ===== 学习阶段自动流转提示（复述评分 / 测评阅卷后） ===== */
+.status-notice {
+  color: #276749;
+  background: #f0fff4;
+  border: 1px solid #c6f6d5;
+  border-radius: 8px;
+  padding: 0.45rem 0.7rem;
+  font-size: 0.87rem;
+  margin: 0.7rem 0 0;
+}
+
+/* ===== 复述页：引用关系（我引用了谁 / 谁引用了我） ===== */
+.relation-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+  margin-top: 0.6rem;
+}
+
+.relation-grid h3 {
+  margin: 0 0 0.5rem;
+  font-size: 0.95rem;
+  color: #4a5568;
+}
+
+.relation-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.relation-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: #fbfcff;
+  margin-bottom: 0.4rem;
+}
+
+.relation-link {
+  color: #4f46e5;
+  text-decoration: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.relation-link:hover {
+  text-decoration: underline;
+}
+
+.relation-hint {
+  color: #94a3b8;
+  font-size: 0.8rem;
+  margin: 0.6rem 0 0;
+}
+
+/* ===== 知识图谱：拖拽建引用的引导虚线 ===== */
+.graph-canvas-wrap {
+  position: relative;
+}
+
+.graph-ghost {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* 别把鼠标事件从图表上抢走 */
+}
+
+.graph-ghost line {
+  stroke: #4f46e5;
+  stroke-width: 2;
+  stroke-dasharray: 7 5;
+}
+
+.graph-notice {
+  color: #4338ca;
+  background: #eef2ff;
+  border: 1px solid #c7d2fe;
+  border-radius: 8px;
+  padding: 0.4rem 0.7rem;
+  font-size: 0.85rem;
+  margin: 0 0 0.6rem;
+}
+
+/* ===== Dashboard 按钮三级 + 骨架屏 + 动效降级（批次 16）=====
+   按钮层级：主操作实心主色 / 次操作描边幽灵 / 删除极轻幽灵（贴右、默认低透明度）。
+   全部按 .kp-btn-* 命名并写在文件末尾，靠“同优先级后写者胜”覆盖通用 .btn / .btn:hover，
+   因此不会影响其它页面里使用 .btn 的按钮。 */
+.kp-btn-primary {
+  background: #4f46e5;
+  border: 1px solid #4f46e5;
+  color: #fff;
+}
+
+.kp-btn-primary:hover {
+  background: #4338ca;
+  border-color: #4338ca;
+}
+
+.kp-btn-secondary {
+  background: transparent;
+  border: 1px solid #d6ddf0;
+  color: #1e2958;
+}
+
+.kp-btn-secondary:hover {
+  background: #f4f6fc;
+  border-color: #b9c4e0;
+}
+
+.kp-actions .kp-btn-danger {
+  margin-left: auto;
+  background: transparent;
+  border: 1px solid transparent;
+  color: #94a3b8;
+  opacity: 0.45;
+  transition: opacity var(--dur) var(--ease), color var(--dur) var(--ease),
+    background var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+
+.kp-actions .kp-btn-danger:hover {
+  background: #fef2f2;
+  border-color: #fecaca;
+  color: #dc2626;
+}
+
+/* 默认藏起来的删除按钮：鼠标悬停卡片、或键盘把焦点移进卡片时才显形 */
+.kp-item:hover .kp-btn-danger,
+.kp-item:focus-within .kp-btn-danger,
+.kp-actions .kp-btn-danger:focus-visible {
+  opacity: 1;
+}
+
+/* 触屏没有 hover，删除按钮必须常显 */
+@media (hover: none) {
+  .kp-actions .kp-btn-danger {
+    opacity: 1;
+    color: #b91c1c;
+    border-color: #fecaca;
+  }
+}
+
+/* 骨架屏：尺寸贴近真实卡片（标题条 + 两行正文 + 一排按钮块），避免加载完成时的布局跳动 */
+.kp-skeleton {
+  pointer-events: none;
+}
+
+.kp-skeleton-bar {
+  height: 0.72rem;
+  border-radius: var(--radius-btn);
+  background: linear-gradient(90deg, #eef1f6 25%, #f7f9fc 37%, #eef1f6 63%);
+  background-size: 400% 100%;
+  animation: kp-shimmer 1.4s var(--ease) infinite;
+}
+
+.kp-skeleton-title {
+  width: 42%;
+  height: 1rem;
+  margin-bottom: 0.45rem;
+}
+
+/* 行宽参差一点更像正文，不然是一堵灰墙 */
+.kp-skeleton-bar:nth-child(3n) {
+  width: 92%;
+}
+
+.kp-skeleton-bar:nth-child(4n) {
+  width: 84%;
+}
+
+.kp-skeleton-short {
+  width: 62%;
+  margin-top: 0.4rem;
+}
+
+.kp-skeleton-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.6rem;
+}
+
+.kp-skeleton-btn {
+  width: 5.1rem;
+  height: 1.9rem;
+}
+
+@keyframes kp-shimmer {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: 0 0;
+  }
+}
+
+/* 键盘可达性：焦点必须可见（只在 Dashboard 的交互元素上生效，避免改动其它页面外观） */
+.list-header a:focus-visible,
+.kp-item a:focus-visible,
+.kp-item button:focus-visible,
+select.kp-status:focus-visible {
+  outline: 2px solid #4f46e5;
+  outline-offset: 2px;
+}
+
+/* 窄屏（<640px）：单列、按钮撑满、删除常显（触屏没有 hover 可依赖） */
+@media (max-width: 640px) {
+  .kp-item-header {
+    flex-wrap: wrap;
+  }
+
+  .kp-actions {
+    flex-wrap: wrap;
+  }
+
+  .kp-actions .btn {
+    flex: 1 1 45%;
+    min-width: 0;
+    text-align: center;
+  }
+
+  .kp-actions .kp-btn-danger {
+    flex-basis: 100%;
+    margin-left: 0;
+    opacity: 1;
+    color: #b91c1c;
+    border-color: #fecaca;
+  }
+}
+
+/* 用户关掉动效就彻底静止：入场、骨架微光、悬停位移与所有过渡一律取消 */
+@media (prefers-reduced-motion: reduce) {
+  .kp-item,
+  .kp-skeleton-bar {
+    animation: none !important;
+  }
+
+  .kp-item,
+  .kp-item .kp-btn-danger,
+  .kp-skeleton-bar,
+  select.kp-status {
+    transition: none !important;
+  }
+
+  .kp-item:hover {
+    transform: none;
+  }
 }

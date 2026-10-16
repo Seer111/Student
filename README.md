@@ -22,7 +22,7 @@
 | 09 | AI 出题与智能测评 | 单选/简答出题、自动评分、错题本与复习 |
 | 10~11 | RAG 与私有知识库 | 千帆 Embedding + HNSW 向量检索、按用户隔离、AI 助手问答 |
 | 12 | 知识图谱可视化 | 知识点关联图谱（2D，ECharts） |
-| 13~14 | 3D 可视化 | Three.js 3D 视界、CesiumJS 3D 知识地球 |
+| 13~14 | 3D 可视化 | Three.js 3D 知识视界、d3-force-3d 3D 知识宇宙（第 13 课预告的 CesiumJS 数字地球未在代码中落地） |
 | 15 | 跨平台部署 | Electron 桌面端（NSIS 安装包）、PWA 移动端 |
 | 16 | 项目总结与部署 | Docker Compose 一键部署、项目展示 |
 
@@ -60,7 +60,7 @@
 ├── feynman-platform-whisper-api/ # 本地 Whisper 语音识别服务（可选）
 ├── 课程文档/                     # 全部课程讲义（01~16 课 .md）
 ├── 课程PPT/                      # 课程幻灯片（.pptx）
-├── docker-compose.yml            # 一键部署（后端 + 前端 + MongoDB）
+├── docker-compose.yml            # 容器编排（前端 Nginx + 后端服务；数据库为外部 MongoDB Atlas）
 └── .gitignore
 ```
 
@@ -107,7 +107,7 @@ npm run dev
 - AI 测评：AI 出题（单选 / 简答）→ 自动评分 → 错题加入复习
 - RAG 私有知识库：知识点自动向量化入库，AI 助手基于私有知识回答（附来源）
 - 知识图谱可视化（2D）：知识点关联关系图谱
-- 3D 可视化：Three.js 3D 知识视界 + CesiumJS 3D 知识地球
+- 3D 可视化：Three.js 3D 知识视界 + d3-force-3d 3D 知识宇宙（课程讲义预告的 CesiumJS 数字地球未实现）
 - 跨平台：Electron 桌面端安装包 + PWA 移动端（离线可用）
 
 ## 部署
@@ -115,8 +115,11 @@ npm run dev
 ### Docker 一键部署
 
 ```bash
-docker compose up -d
+# 先在仓库根目录创建 .env（同 docker-compose.yml 同级），填入 MONGO_URI / JWT_SECRET / AI Key
+docker compose up -d --build
 ```
+
+说明：`docker-compose.yml` 只编排**前端（Nginx，80 端口）+ 后端（3000 端口）两个容器**，**不包含 MongoDB 服务**——数据库仍使用 `MONGO_URI` 指向的 MongoDB Atlas 集群，请确认 Atlas 的 Network Access 已放行容器出口 IP。前端通过相对路径 `/api` 请求后端，由 Nginx 反向代理，因此除 80 端口外无需额外暴露。
 
 ### 桌面端（Windows 安装包）
 

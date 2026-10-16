@@ -5,6 +5,9 @@ import { useParams, Link } from 'react-router-dom';
 import apiClient from '../api/axios';
 import useAudioRecorder from '../hooks/useAudioRecorder';
 
+// 学习阶段文案（后端在评分后可能自动推进阶段，返回 {from,to} 供这里提示）
+const STATUS_TEXT = { not_started: '未开始', in_progress: '学习中', mastered: '已掌握' };
+
 function FeynmanRecordPage() {
   const { id } = useParams(); // 知识点 ID
   const [knowledgePoint, setKnowledgePoint] = useState(null);
@@ -20,6 +23,21 @@ function FeynmanRecordPage() {
   // 历史复述记录（07课课后作业）
   const [attempts, setAttempts] = useState([]);
   const [isSaving, setIsSaving] = useState(false);
+
+  // 引用关系（12课）：本知识点引用了谁、被谁引用
+  const [relations, setRelations] = useState(null);
+  useEffect(() => {
+    const fetchRelations = async () => {
+      try {
+        const response = await apiClient.get(`/knowledge-points/${id}/references`);
+        setRelations(response.data);
+      } catch (err) {
+        console.error('加载引用关系失败', err);
+        setRelations({ outgoing: [], incoming: [] });
+      }
+    };
+    fetchRelations();
+  }, [id]);
 
   const { status, audioUrl, startRecording, stopRecording } = useAudioRecorder();
 
@@ -211,6 +229,13 @@ function FeynmanRecordPage() {
               {aiFeedback.autoAddedToReview && (
                 <p className="review-notice">⚠️ 本次评分低于 60 分，该知识点已自动加入你的复习列表。</p>
               )}
+
+              {aiFeedback.statusUpdated && (
+                <p className="status-notice">
+                  ✅ 学习阶段已自动更新：{STATUS_TEXT[aiFeedback.statusUpdated.from]} →{' '}
+                  {STATUS_TEXT[aiFeedback.statusUpdated.to]}
+                </p>
+              )}
             </div>
             <div className="ai-feedback-score">
               <h3>综合得分</h3>
@@ -219,6 +244,60 @@ function FeynmanRecordPage() {
               </div>
             </div>
           </div>
+        )}
+      </section>
+
+      {/* 引用关系（12课）：我引用了谁 / 谁引用了我 */}
+      <section className="record-card">
+        <h2>关联的知识点</h2>
+        {relations === null ? (
+          <p className="status-text">正在加载引用关系...</p>
+        ) : (
+          <>
+            <div className="relation-grid">
+              <div>
+                <h3>我引用了（{relations.outgoing.length}）</h3>
+                {relations.outgoing.length === 0 ? (
+                  <p className="ref-empty">还没有引用其它知识点。</p>
+                ) : (
+                  <ul className="relation-list">
+                    {relations.outgoing.map((item) => (
+                      <li key={item._id}>
+                        <Link to={`/feynman/${item._id}`} className="relation-link">
+                          {item.title}
+                        </Link>
+                        <span className={`ref-status ref-status-${item.status}`}>
+                          {STATUS_TEXT[item.status] || item.status}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+              <div>
+                <h3>被引用（{relations.incoming.length}）</h3>
+                {relations.incoming.length === 0 ? (
+                  <p className="ref-empty">还没有别的知识点引用它。</p>
+                ) : (
+                  <ul className="relation-list">
+                    {relations.incoming.map((item) => (
+                      <li key={item._id}>
+                        <Link to={`/feynman/${item._id}`} className="relation-link">
+                          {item.title}
+                        </Link>
+                        <span className={`ref-status ref-status-${item.status}`}>
+                          {STATUS_TEXT[item.status] || item.status}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            </div>
+            <p className="relation-hint">
+              引用是手动建立的：在知识点编辑页勾选「引用」，或在 2D 知识图谱里从一个节点拖到另一个节点。
+            </p>
+          </>
         )}
       </section>
 

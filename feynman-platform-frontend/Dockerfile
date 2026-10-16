@@ -1,6 +1,7 @@
 # 前端 Dockerfile（16课：容器化部署，多阶段构建）
 # --- 构建阶段 ---
-FROM node:18-alpine AS builder
+# Node 22：vite 8 要求 ^20.19.0 || >=22.12.0，官方 18 镜像会在 npm install 阶段因 engines 报错
+FROM node:22-alpine AS builder
 
 WORKDIR /app
 

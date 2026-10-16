@@ -3,6 +3,7 @@
 const { chatWithFallback } = require('../utils/llmService');
 const { queryVectorStore } = require('../services/vectorStoreService');
 const KnowledgePoint = require('../models/KnowledgePoint');
+const { advanceStatus, advanceStatusByScore } = require('../utils/knowledgeStatus');
 
 // 评分阈值：AI 评分低于该值时，自动将知识点加入复习列表（08课挑战任务）
 const REVIEW_SCORE_THRESHOLD = 60;
@@ -85,6 +86,19 @@ ${transcribedText}
         console.log(`知识点 ${knowledgePointId} 评分 ${result.score} 低于 ${REVIEW_SCORE_THRESHOLD}，已加入复习列表`);
       } catch (err) {
         console.warn('自动更新复习状态失败：', err.message);
+      }
+    }
+
+    // 学习阶段自动流转：有评分就至少算「学习中」，≥85 分直接算「已掌握」（只前进不回退）
+    if (knowledgePointId) {
+      try {
+        const advanced = await advanceStatusByScore(knowledgePointId, result.score, req.user?.id);
+        if (advanced) {
+          result.statusUpdated = advanced; // 前端据此提示「阶段已更新」
+          console.log(`知识点 ${knowledgePointId} 阶段自动流转：${advanced.from} -> ${advanced.to}（评分 ${result.score}）`);
+        }
+      } catch (err) {
+        console.warn('自动更新学习阶段失败：', err.message);
       }
     }
 
@@ -172,7 +186,7 @@ ${jsonTemplate}`;
  * 输入：题目、答案要点、学生回答；输出：对错判断 + 解释
  */
 exports.gradeAnswer = async (req, res) => {
-  const { question, answerKeyPoints, studentAnswer } = req.body;
+  const { question, answerKeyPoints, studentAnswer, knowledgePointId } = req.body;
 
   if (!question || !answerKeyPoints || !studentAnswer) {
     return res.status(400).json({ msg: 'Question, answer key points and student answer are required.' });
@@ -201,7 +215,22 @@ ${studentAnswer}
       [{ role: 'user', content: prompt }],
       { temperature: 0.2, maxTokens: 500 },
     );
-    res.json(extractJson(content));
+    const graded = extractJson(content);
+
+    // 答对就把它推进到「学习中」（只前进不回退；阶段本来就是「学习中/已掌握」时这里不做任何事）
+    if (knowledgePointId && graded.isCorrect) {
+      try {
+        const advanced = await advanceStatus(knowledgePointId, 'in_progress', req.user?.id);
+        if (advanced) {
+          graded.statusUpdated = advanced;
+          console.log(`知识点 ${knowledgePointId} 阶段自动流转：${advanced.from} -> ${advanced.to}（测评答对）`);
+        }
+      } catch (err) {
+        console.warn('自动更新学习阶段失败：', err.message);
+      }
+    }
+
+    res.json(graded);
   } catch (error) {
     console.error('AI 评分失败:', error.message);
     res.status(500).json({ msg: 'AI 评分失败，请稍后重试', detail: error.message });

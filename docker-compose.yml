@@ -13,12 +13,16 @@ services:
       # 以下敏感配置建议通过 .env 文件注入（docker compose 会自动读取同级 .env）
       - MONGO_URI=${MONGO_URI}
       - JWT_SECRET=${JWT_SECRET}
-      - BAIDU_API_KEY=${BAIDU_API_KEY}
-      - BAIDU_SECRET_KEY=${BAIDU_SECRET_KEY}
+      # 说明：百度语音识别（07课）复用 QIANFAN_API_KEY（bce-v3 Bearer 鉴权），
+      # 旧的 BAIDU_API_KEY / BAIDU_SECRET_KEY 与 QIANFAN_SECRET_KEY 代码里并未读取，已移除
       - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY}
       - QIANFAN_API_KEY=${QIANFAN_API_KEY}
-      - QIANFAN_SECRET_KEY=${QIANFAN_SECRET_KEY}
       - OPENAI_API_KEY=${OPENAI_API_KEY}
+      # 本地 Whisper 服务（7.5课进阶，可选）：容器要访问宿主机上的 Python 服务
+      - WHISPER_API_URL=${WHISPER_API_URL:-http://host.docker.internal:5001/transcribe}
+    # Linux 上让 host.docker.internal 指向宿主机（Docker Desktop 已内置该名字）
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     restart: always
 
   frontend:
