@@ -15,7 +15,7 @@
 // 对外入口只有两个：removeKnowledgePointFromStore（知识点被删/被改）与 compactVectorStore。
 const fs = require('fs');
 const path = require('path');
-const { embedding } = require('../utils/llmService');
+const { embedding } = require('./llm');
 
 // 向量库文件目录（后端根目录下）
 const VECTOR_STORE_PATH = path.join(__dirname, '..', 'vector_store');

@@ -1,6 +1,6 @@
-// 多 LLM 服务统一封装（08课）
-// 目标：DeepSeek 为主用、百度千帆为备用、OpenAI 可选，统一为 OpenAI 兼容的调用方式，
-//       并提供自动回退（fallback）能力，保证 AI 功能的高可用。
+// 对话类 LLM 调用：DeepSeek 主用、千帆备用、OpenAI 可选，统一成 OpenAI 兼容格式。
+// 与「向量化」分开（见 ./embedding.js）：两者的鉴权、超时、失败策略完全不同，
+// 放在一个文件里会让调用方误以为它们是同一套能力。
 const axios = require('axios');
 
 // 各 LLM 服务配置：baseUrl、默认模型、鉴权方式（全部使用 Bearer Token）
@@ -87,50 +87,4 @@ async function chatWithFallback(messages, options = {}) {
   throw new Error(`所有 LLM 服务均调用失败 -> ${errors.join(' | ')}`);
 }
 
-// 千帆 embedding-v1 单次请求的输入条数上限是 16，一次塞 20 条会直接 400；
-// 所以这里按批切分再合并（重建索引、长正文切出很多块时都会用到）
-const EMBED_BATCH_SIZE = 16;
-
-/**
- * 调用百度千帆 Embedding-V1 将文本转换为向量（10课 RAG 向量化）
- * @param {string[]} texts - 待向量化的文本数组
- * @returns {Promise<number[][]>} - 与输入顺序对应的向量数组
- */
-async function embedding(texts) {
-  const apiKey = process.env.QIANFAN_API_KEY;
-  if (!apiKey) {
-    throw new Error('百度千帆 QIANFAN_API_KEY 未配置，无法进行文本向量化');
-  }
-
-  const list = Array.isArray(texts) ? texts : [texts];
-  const vectors = [];
-
-  for (let start = 0; start < list.length; start += EMBED_BATCH_SIZE) {
-    const batch = list.slice(start, start + EMBED_BATCH_SIZE);
-    const response = await axios.post(
-      'https://qianfan.baidubce.com/v2/embeddings',
-      {
-        model: process.env.QIANFAN_EMBEDDING_MODEL || 'embedding-v1',
-        input: batch,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${apiKey}`,
-          'Content-Type': 'application/json',
-        },
-        timeout: 60000,
-      },
-    );
-
-    // 千帆 v2 返回 OpenAI 兼容结构：{ data: [{ embedding: [...], index }] }
-    // 按 index 排序，保证与输入顺序严格对应
-    response.data.data
-      .slice()
-      .sort((a, b) => (a.index ?? 0) - (b.index ?? 0))
-      .forEach((item) => vectors.push(item.embedding));
-  }
-
-  return vectors;
-}
-
-module.exports = { chatWithFallback, callProvider, embedding, FALLBACK_ORDER };
+module.exports = { chatWithFallback, callProvider, PROVIDERS, FALLBACK_ORDER };

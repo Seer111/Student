@@ -1,7 +1,7 @@
 // AI 控制器（08课 & 09课 & 11课）
 // 职责：AI 文本润色与评价、AI 出题、AI 评分、RAG 知识库问答
 // 提示词模板统一放在 services/prompts/，这里只负责「取参数 → 调模型 → 容错解析 → 回响应」
-const { chatWithFallback } = require('../utils/llmService');
+const { chatWithFallback } = require('../services/llm');
 const { queryVectorStore } = require('../services/vectorStoreService');
 const {
   buildEvaluatePrompt,
