@@ -1,0 +1,45 @@
+/* 测评页（09 课）专属样式
+   从 styles/record-quiz-cards.css 迁过来：这些类只在 QuizPage 用，
+   和「复述页卡片」没有关系，放在通用文件里会让下一个改卡片的人误以为要一起改。 */
+
+.quiz-options {
+  display: flex;
+  gap: 0.6rem;
+  margin: 0.4rem 0 0.8rem;
+  flex-wrap: wrap;
+}
+
+.quiz-option-list {
+  margin: 0.8rem 0;
+}
+
+.quiz-option {
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.quiz-textarea {
+  width: 100%;
+  border: 1px solid #cbd5e0;
+  border-radius: 8px;
+  padding: 0.7rem;
+  font-family: inherit;
+  font-size: 0.95rem;
+  margin: 0.6rem 0;
+  resize: vertical;
+}
+
+.quiz-result-text {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.quiz-correct {
+  color: #16a34a;
+}
+
+.quiz-wrong {
+  color: #dc2626;
+}

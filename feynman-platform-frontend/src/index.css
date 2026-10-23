@@ -5,7 +5,7 @@
      styles/layout.css             导航与页面容器
      styles/components.css         按钮 / 卡片 / 标题 / 表单控件
      styles/feedback.css           状态提示（跨页面复用）
-     styles/record-quiz-cards.css  复述页与测评页的通用卡片
+     styles/record-quiz-cards.css  复述页的通用卡片（测评页样式已迁到 pages/QuizPage.css）
      components/ErrorBoundary.css  错误边界面板
      pages/*.css                   各页面自己的样式
 
@@ -17,9 +17,13 @@
 @import './styles/feedback.css';
 @import './styles/record-quiz-cards.css';
 @import './components/ErrorBoundary.css';
+@import './pages/LoginPage.css';
+@import './pages/RegisterPage.css';
 @import './pages/KnowledgePointFormPage.css';
 @import './pages/DashboardPage.css';
 @import './pages/FeynmanRecordPage.css';
+@import './pages/QuizPage.css';
 @import './pages/GraphPage.css';
 @import './pages/KnowledgeUniversePage.css';
 @import './pages/ThreeJSPage.css';
+@import './pages/AgentPage.css';

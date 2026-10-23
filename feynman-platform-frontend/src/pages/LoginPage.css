@@ -1,0 +1,8 @@
+/* 登录页样式
+
+   现状：这一页的版式完全由共享类搭成（`form-box` / `form-item` / `form-actions` /
+   `form-error` / `form-tip` / `card` / `btn`），没有只属于登录页的规则，
+   所以这里暂时是空的——保留文件是为了让「每个页面都有自己的同名 css」这条约定成立，
+   以后这页出现独有样式时直接写在这里，不要再塞回 styles/components.css。
+
+   注：`.form-box` 与 `.form-tip` 是登录、注册两页共用的，仍在 styles/components.css。 */
