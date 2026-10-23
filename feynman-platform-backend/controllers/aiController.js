@@ -1,7 +1,14 @@
 // AI 控制器（08课 & 09课 & 11课）
 // 职责：AI 文本润色与评价、AI 出题、AI 评分、RAG 知识库问答
+// 提示词模板统一放在 services/prompts/，这里只负责「取参数 → 调模型 → 容错解析 → 回响应」
 const { chatWithFallback } = require('../utils/llmService');
 const { queryVectorStore } = require('../services/vectorStoreService');
+const {
+  buildEvaluatePrompt,
+  buildQuestionPrompt,
+  buildGradingPrompt,
+  buildRagPrompt,
+} = require('../services/prompts');
 const KnowledgePoint = require('../models/KnowledgePoint');
 const { advanceStatus, advanceStatusByScore } = require('../utils/knowledgeStatus');
 
@@ -39,28 +46,7 @@ exports.evaluateFeynmanAttempt = async (req, res) => {
     return res.status(400).json({ msg: 'Original content and transcribed text are required.' });
   }
 
-  const prompt = `你是一个严格而友善的费曼学习法教练。请将学生的复述与原始知识点内容进行对比，\
-完成文本润色与综合评价。
-
-【原始知识点内容】:
-"""
-${originalContent}
-"""
-
-【学生的复述】:
-"""
-${transcribedText}
-"""
-
-请严格按照以下 JSON 格式返回，不要包含任何额外的解释或文字，确保所有字段都存在：
-{
-  "polishedText": "对学生的复述进行润色后的完整文本，修正口语化表达与逻辑顺序",
-  "evaluation": "对复述质量的整体评价（3-5句话），指出其是否抓住了知识点的核心",
-  "strengths": ["优点1", "优点2", "优点3"],
-  "weaknesses": ["待改进点1", "待改进点2", "待改进点3"],
-  "score": 85
-}
-说明：score 为 0-100 的整数，根据内容的完整性、准确性、表达清晰度综合评分。`;
+  const prompt = buildEvaluatePrompt({ originalContent, transcribedText });
 
   try {
     const { content, provider } = await chatWithFallback(
@@ -127,45 +113,8 @@ exports.generateQuestion = async (req, res) => {
     return res.status(400).json({ msg: 'Invalid difficulty, must be 基础/中等/困难.' });
   }
 
-  // 根据题型选择不同的出题 Prompt 与 JSON 模板
-  const isSingle = type === 'single-choice';
-  const jsonTemplate = isSingle
-    ? `{
-  "type": "single-choice",
-  "difficulty": "${difficulty}",
-  "question": "这里是题干",
-  "options": {
-    "A": "选项A的内容",
-    "B": "选项B的内容",
-    "C": "选项C的内容",
-    "D": "选项D的内容"
-  },
-  "answer": "C",
-  "explanation": "这里是对正确答案的简短解释"
-}`
-    : `{
-  "type": "short-answer",
-  "difficulty": "${difficulty}",
-  "question": "这里是简答题题干",
-  "answer_key_points": [
-    "答案要点1",
-    "答案要点2",
-    "答案要点3"
-  ]
-}`;
-
-  const prompt = `你是一个专业的计算机科学出题专家。请根据以下提供的知识点内容和指定的难度，\
-生成一个相关的${isSingle ? '单项选择题' : '简答题'}。
-
-【知识点内容】:
-"""
-${knowledgePointContent}
-"""
-
-【指定难度】: ${difficulty}
-
-请严格按照以下 JSON 格式返回题目，不要包含任何额外的解释或文字，确保所有字段都存在。
-${jsonTemplate}`;
+  // 题型对应的 JSON 模板与提示词都在 services/prompts/questionGenerator.js 里
+  const prompt = buildQuestionPrompt({ knowledgePointContent, difficulty, type });
 
   try {
     const { content } = await chatWithFallback(
@@ -192,23 +141,7 @@ exports.gradeAnswer = async (req, res) => {
     return res.status(400).json({ msg: 'Question, answer key points and student answer are required.' });
   }
 
-  const prompt = `你是一个客观的计算机科学阅卷老师。请根据以下题目、答案要点和学生的回答，\
-判断学生的回答是否正确，并给出解释。
-
-【题目】:
-${question}
-
-【答案要点】:
-${Array.isArray(answerKeyPoints) ? answerKeyPoints.join('\n') : answerKeyPoints}
-
-【学生的回答】:
-${studentAnswer}
-
-请严格按照以下 JSON 格式返回你的评判结果，不要包含任何额外的解释或文字。
-{
-  "isCorrect": true,
-  "explanation": "这里是你的评判理由，比如：回答基本正确，覆盖了主要区别。或：回答混淆了State和Props的概念。"
-}`;
+  const prompt = buildGradingPrompt({ question, answerKeyPoints, studentAnswer });
 
   try {
     const { content } = await chatWithFallback(
@@ -257,19 +190,7 @@ exports.answerWithRAG = async (req, res) => {
       ? relevantDocs.map((doc, i) => `--- 文档 ${i + 1}（知识点：${doc.title}）---\n${doc.content}`).join('\n\n')
       : '（知识库中暂时没有检索到相关内容）';
 
-    const prompt = `<role>你是一个知识库问答机器人。</role>
-<instruction>请根据下面提供的<context>信息来回答用户的<question>。\
-如果上下文中没有相关信息，就明确说你不知道，不要编造答案。请让回答简洁明了。</instruction>
-
-<context>
-${context}
-</context>
-
-<question>
-${question}
-</question>
-
-<answer>你的回答是：</answer>`;
+    const prompt = buildRagPrompt({ context, question });
 
     // 3. 生成：调用 LLM 生成回答
     const { content, provider } = await chatWithFallback(
