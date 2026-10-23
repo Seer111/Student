@@ -7,6 +7,12 @@
 //   1) 元数据打墓碑（deleted: true）：查询时直接过滤，纯 JS 降级路径也靠它；
 //   2) 可用时调用 hnswlib 的 markDelete：被标记的点不再进入检索结果，也不再占用候选名额。
 //   墓碑多了会白占索引槽位，所以超过阈值时自动重建一次索引（compactVectorStore）。
+//
+// 三层实现（对应上面 1) 2)，加上第三层重建）：
+//   1) 墓碑 tombstone —— docs.json 里给块打 deleted: true（tombstoneChunks）；所有查询先过 liveDocs()
+//   2) 索引标记删除 markDelete —— 让死块不再进入 searchKnn、不占候选名额；失败不致命，墓碑兜底
+//   3) 重建 compactVectorStore —— 丢墓碑、重新向量化存活块、label 重排；由 shouldCompact() 判断时机
+// 对外入口只有两个：removeKnowledgePointFromStore（知识点被删/被改）与 compactVectorStore。
 const fs = require('fs');
 const path = require('path');
 const { embedding } = require('../utils/llmService');
@@ -104,6 +110,43 @@ function liveDocs(docs = readDocs()) {
 }
 
 /**
+ * 某个知识点当前还活着的块（纯函数，不读盘）
+ * 单独抽出来是为了让「哪些块该摘」这个判断可以脱离文件系统测试。
+ * @param {Array} docs - docs.json 里的全部块
+ * @param {string} knowledgePointId
+ * @returns {Array} 该知识点的存活块（顺序与入参一致）
+ */
+function chunksOfKnowledgePoint(docs, knowledgePointId) {
+  const id = String(knowledgePointId);
+  return docs.filter((doc) => doc.knowledgePointId === id && !doc.deleted);
+}
+
+/**
+ * 给某个知识点的存活块打墓碑（就地修改传入的数组，纯函数不读盘）
+ * 幂等：已经打过墓碑的块会被 chunksOfKnowledgePoint 过滤掉，重复调用返回空数组。
+ * @returns {Array} 本次被打上墓碑的块（调用方据此决定要不要调 markDelete）
+ */
+function tombstoneChunks(docs, knowledgePointId) {
+  const targets = chunksOfKnowledgePoint(docs, knowledgePointId);
+  targets.forEach((doc) => {
+    doc.deleted = true;
+  });
+  return targets;
+}
+
+/**
+ * 是否该重建索引回收槽位（纯函数，纯算术，便于阈值回归测试）
+ * 两个条件同时成立才重建：总块数够多（重建要重新向量化，代价不小）+ 墓碑占比够高。
+ * @param {number} totalDocs - docs.json 里的总块数（含墓碑）
+ * @param {number} tombstones - 其中墓碑的块数
+ * @returns {boolean}
+ */
+function shouldCompact(totalDocs, tombstones) {
+  if (totalDocs < COMPACT_MIN_DOCS) return false;
+  return tombstones / totalDocs >= COMPACT_TOMBSTONE_RATIO;
+}
+
+/**
  * 将单个知识点内容向量化并写入向量库（10课）
  * @param {object} kp - 知识点对象，需要 _id、title、content、user 字段
  * @returns {Promise<number>} - 本次写入的文本块数量
@@ -172,16 +215,12 @@ async function addKnowledgePointToStore(kp) {
 async function removeKnowledgePointFromStore(knowledgePointId) {
   const id = String(knowledgePointId);
   const docs = readDocs();
-  const targets = docs.filter((doc) => doc.knowledgePointId === id && !doc.deleted);
+  // 「哪些块该摘」交给纯函数判断，方便单测；这里只负责把结果落盘
+  const targets = tombstoneChunks(docs, id);
   if (targets.length === 0) {
     console.log(`[vectorStore] 知识点 ${id} 在向量库里没有存活块（可能从未索引过）`);
     return 0;
   }
-
-  // 1) 元数据墓碑
-  targets.forEach((doc) => {
-    doc.deleted = true;
-  });
   writeDocs(docs);
 
   // 2) HNSW 标记删除（没有 meta.json 的旧库会跳过，靠墓碑兜底，下次重建即回收）
@@ -254,7 +293,7 @@ async function compactVectorStore() {
 async function maybeCompact() {
   const docs = readDocs();
   const tombstones = docs.length - liveDocs(docs).length;
-  if (docs.length >= COMPACT_MIN_DOCS && tombstones / docs.length >= COMPACT_TOMBSTONE_RATIO) {
+  if (shouldCompact(docs.length, tombstones)) {
     console.log(
       `[vectorStore] 墓碑块 ${tombstones}/${docs.length}（${Math.round((tombstones / docs.length) * 100)}%）超过阈值，自动重建索引`,
     );
@@ -381,4 +420,8 @@ module.exports = {
   storeStats,
   splitText,
   listLiveChunks,
+  // 纯函数，导出给自检脚本与单测用（不读盘、不改盘）
+  chunksOfKnowledgePoint,
+  tombstoneChunks,
+  shouldCompact,
 };
