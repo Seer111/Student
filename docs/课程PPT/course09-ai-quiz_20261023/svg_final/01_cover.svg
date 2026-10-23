@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <rect x="0" y="0" width="1280" height="720" fill="#F5F7FA"/>
+  <line x1="80" y1="64" x2="80" y2="664" stroke="#16233A" stroke-width="4"/>
+  <text x="1160" y="330" text-anchor="end" font-family="Microsoft YaHei, Arial, sans-serif" font-size="230" font-weight="700" fill="#16233A" opacity="0.05">09</text>
+  <text x="112" y="150" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" fill="#6B7A90">《大前端与AI实战》· 第九次课</text>
+  <text x="112" y="268" font-family="Microsoft YaHei, Arial, sans-serif" font-size="84" font-weight="700" fill="#16233A">让平台「能练」</text>
+  <text x="112" y="336" font-family="Microsoft YaHei, Arial, sans-serif" font-size="30" fill="#1F2933">AI 出题与智能测评系统</text>
+  <line x1="112" y1="392" x2="612" y2="392" stroke="#D9E1EC" stroke-width="1"/>
+  <text x="112" y="444" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#1F2933">知识点</text>
+  <text x="210" y="444" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#2F80ED">→</text>
+  <text x="252" y="444" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#1F2933">一道可评分的题</text>
+  <text x="446" y="444" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#2F80ED">→</text>
+  <text x="488" y="444" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#1F2933">错题回到复习计划</text>
+  <text x="112" y="520" font-family="Microsoft YaHei, Arial, sans-serif" font-size="18" fill="#6B7A90">能教、能评，还差一个「能练」——今天把它补上。</text>
+  <line x1="112" y1="612" x2="1168" y2="612" stroke="#D9E1EC" stroke-width="1"/>
+  <text x="112" y="648" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" fill="#6B7A90">费曼学习平台 · 4 小时实验课 · 第 2–3 小时</text>
+  <text x="1168" y="648" text-anchor="end" font-family="Consolas, monospace" font-size="15" fill="#6B7A90">01 / 14</text>
+</svg>

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <rect x="0" y="0" width="1280" height="720" fill="#F5F7FA"/>
+  <line x1="80" y1="64" x2="80" y2="664" stroke="#16233A" stroke-width="4"/>
+  <text x="1168" y="96" text-anchor="end" font-family="Consolas, monospace" font-size="15" fill="#6B7A90">11 / 14</text>
+  <text x="112" y="96" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" fill="#6B7A90">PART 3 · 前端考场</text>
+  <text x="112" y="150" font-family="Microsoft YaHei, Arial, sans-serif" font-size="36" font-weight="700" fill="#16233A">把考场挂到平台上</text>
+  <line x1="112" y1="176" x2="1168" y2="176" stroke="#D9E1EC" stroke-width="1"/>
+  <text x="112" y="216" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#1F2933">一个链接、一条路由，答题页就有了入口。</text>
+
+  <rect x="112" y="288" width="300" height="132" rx="10" fill="#FFFFFF" stroke="#D9E1EC"/>
+  <text x="136" y="326" font-family="Microsoft YaHei, Arial, sans-serif" font-size="18" font-weight="700" fill="#16233A">① 入口按钮</text>
+  <text x="136" y="358" font-family="Consolas, monospace" font-size="14" fill="#6B7A90">DashboardPage.jsx</text>
+  <text x="136" y="386" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" fill="#4A5568">卡片操作区加「开始测评」</text>
+
+  <line x1="412" y1="354" x2="500" y2="354" stroke="#2F80ED" stroke-width="2"/>
+  <text x="452" y="344" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" fill="#2F80ED">点击</text>
+
+  <rect x="500" y="288" width="300" height="132" rx="10" fill="#FFFFFF" stroke="#D9E1EC"/>
+  <text x="524" y="326" font-family="Microsoft YaHei, Arial, sans-serif" font-size="18" font-weight="700" fill="#16233A">② 路由</text>
+  <text x="524" y="358" font-family="Consolas, monospace" font-size="14" fill="#6B7A90">App.jsx</text>
+  <text x="524" y="386" font-family="Consolas, monospace" font-size="15" fill="#4A5568">/quiz/:id → QuizPage</text>
+
+  <line x1="800" y1="354" x2="888" y2="354" stroke="#2F80ED" stroke-width="2"/>
+  <text x="844" y="344" text-anchor="middle" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" fill="#2F80ED">渲染</text>
+
+  <rect x="888" y="288" width="280" height="132" rx="10" fill="#FFFFFF" stroke="#16233A" stroke-width="1.5"/>
+  <text x="912" y="326" font-family="Microsoft YaHei, Arial, sans-serif" font-size="18" font-weight="700" fill="#16233A">③ 答题页</text>
+  <text x="912" y="358" font-family="Consolas, monospace" font-size="14" fill="#6B7A90">QuizPage.jsx</text>
+  <text x="912" y="386" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" fill="#4A5568">用 :id 拉正文并出题</text>
+
+  <line x1="112" y1="470" x2="1168" y2="470" stroke="#D9E1EC" stroke-width="1"/>
+  <text x="112" y="508" font-family="Microsoft YaHei, Arial, sans-serif" font-size="17" fill="#1F2933">链路提示：入口按钮传的是知识点 _id，页面拿到 id 就知道该给谁出题——不需要额外参数。</text>
+  <text x="112" y="542" font-family="Microsoft YaHei, Arial, sans-serif" font-size="17" fill="#1F2933">注意：入口放卡片操作区，别挤占「开始复述」的位置；两条学习路径要并列可见。</text>
+  <rect x="112" y="580" width="1056" height="56" rx="8" fill="#FFFFFF" stroke="#D9E1EC"/>
+  <text x="136" y="614" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" fill="#6B7A90">改完立刻点一次：URL 里出现 /quiz/&lt;24 位 id&gt; 就算通。</text>
+</svg>

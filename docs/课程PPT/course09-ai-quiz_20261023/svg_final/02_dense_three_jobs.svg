@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <rect x="0" y="0" width="1280" height="720" fill="#F5F7FA"/>
+  <line x1="80" y1="64" x2="80" y2="664" stroke="#16233A" stroke-width="4"/>
+  <text x="1168" y="96" text-anchor="end" font-family="Consolas, monospace" font-size="15" fill="#6B7A90">02 / 14</text>
+  <text x="112" y="96" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" fill="#6B7A90">开课 · 今天做什么</text>
+  <text x="112" y="150" font-family="Microsoft YaHei, Arial, sans-serif" font-size="36" font-weight="700" fill="#16233A">今天做三件事，把「练」接进闭环</text>
+  <line x1="112" y1="176" x2="1168" y2="176" stroke="#D9E1EC" stroke-width="1"/>
+  <text x="112" y="216" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#1F2933">后端出题、前端考场、AI 阅卷三段拼起来，就是一条能跑通的练习闭环。</text>
+
+  <line x1="140" y1="292" x2="1168" y2="292" stroke="#D9E1EC" stroke-width="2"/>
+
+  <circle cx="140" cy="292" r="10" fill="#16233A"/>
+  <text x="140" y="266" text-anchor="middle" font-family="Consolas, monospace" font-size="14" fill="#6B7A90">45 min</text>
+  <text x="112" y="342" font-family="Microsoft YaHei, Arial, sans-serif" font-size="19" font-weight="700" fill="#16233A">① 后端出题官</text>
+  <text x="112" y="372" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" fill="#4A5568">出题 Prompt、generateQuestion、</text>
+  <text x="112" y="396" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" fill="#4A5568">JSON 容错与 Postman 验证。</text>
+
+  <circle cx="472" cy="292" r="10" fill="#16233A"/>
+  <text x="472" y="266" text-anchor="middle" font-family="Consolas, monospace" font-size="14" fill="#6B7A90">90 min</text>
+  <text x="444" y="342" font-family="Microsoft YaHei, Arial, sans-serif" font-size="19" font-weight="700" fill="#16233A">② 前端考场</text>
+  <text x="444" y="372" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" fill="#4A5568">QuizPage 五个状态与串行流程，</text>
+  <text x="444" y="396" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" fill="#4A5568">错题写入复习列表。</text>
+
+  <circle cx="804" cy="292" r="10" fill="#16233A"/>
+  <text x="804" y="266" text-anchor="middle" font-family="Consolas, monospace" font-size="14" fill="#6B7A90">45 min</text>
+  <text x="776" y="342" font-family="Microsoft YaHei, Arial, sans-serif" font-size="19" font-weight="700" fill="#16233A">③ AI 阅卷（讨论）</text>
+  <text x="776" y="372" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" fill="#4A5568">简答题为什么必须交给模型评分，</text>
+  <text x="776" y="396" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" fill="#4A5568">评分 Prompt 怎么写。</text>
+
+  <circle cx="1136" cy="292" r="10" fill="#F2994A"/>
+  <text x="1136" y="266" text-anchor="middle" font-family="Consolas, monospace" font-size="14" fill="#B06A1F">交付</text>
+  <text x="976" y="342" font-family="Microsoft YaHei, Arial, sans-serif" font-size="19" font-weight="700" fill="#B06A1F">④ 挑战任务</text>
+
+  <rect x="112" y="440" width="1056" height="86" rx="10" fill="#FFFFFF" stroke="#D9E1EC"/>
+  <text x="136" y="474" font-family="Microsoft YaHei, Arial, sans-serif" font-size="17" fill="#1F2933">每段都有可交付物：一个能返回本题的接口、一个能答题的页面、一份能判分的 Prompt。</text>
+  <text x="136" y="502" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" fill="#6B7A90">跟做建议：先照抄跑通，再改字段；卡住时先看 Postman 的返回，再怀疑页面。</text>
+
+  <text x="112" y="580" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" fill="#6B7A90">本节课件对应源码：feynman-platform（React + Express + MongoDB）。</text>
+  <text x="112" y="612" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" fill="#6B7A90">前 20 分钟讲「为什么」，后面全是动手。</text>
+</svg>

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <rect x="0" y="0" width="1280" height="720" fill="#F5F7FA"/>
+  <line x1="80" y1="64" x2="80" y2="664" stroke="#16233A" stroke-width="4"/>
+  <text x="1168" y="96" text-anchor="end" font-family="Consolas, monospace" font-size="15" fill="#6B7A90">12 / 14</text>
+  <text x="112" y="96" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" fill="#6B7A90">PART 4 · AI 阅卷与交付</text>
+  <text x="112" y="150" font-family="Microsoft YaHei, Arial, sans-serif" font-size="36" font-weight="700" fill="#16233A">开放答案，只能交给阅卷老师</text>
+  <line x1="112" y1="176" x2="1168" y2="176" stroke="#D9E1EC" stroke-width="1"/>
+  <text x="112" y="216" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#1F2933">简答题没有唯一字符串，只能让模型按「答案要点」判分。</text>
+
+  <rect x="112" y="252" width="480" height="150" rx="10" fill="#FFFFFF" stroke="#D9E1EC"/>
+  <text x="136" y="288" font-family="Microsoft YaHei, Arial, sans-serif" font-size="18" font-weight="700" fill="#16233A">选择题 · 前端比较</text>
+  <text x="136" y="322" font-family="Consolas, monospace" font-size="14" fill="#4A5568">selectedOption === question.answer</text>
+  <text x="136" y="352" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" fill="#6B7A90">确定性判断，零成本、零延迟。</text>
+  <text x="136" y="378" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" fill="#6B7A90">适用：单选、多选、填空（固定词）。</text>
+
+  <rect x="640" y="252" width="528" height="150" rx="10" fill="#FFFFFF" stroke="#16233A" stroke-width="1.5"/>
+  <text x="664" y="288" font-family="Microsoft YaHei, Arial, sans-serif" font-size="18" font-weight="700" fill="#16233A">简答题 · 模型判断</text>
+  <text x="664" y="322" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" fill="#4A5568">输入：题目 + answer_key_points + 学生回答</text>
+  <text x="664" y="350" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" fill="#4A5568">输出：{ isCorrect, explanation }</text>
+  <text x="664" y="378" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" fill="#6B7A90">判定原则：覆盖要点即算对，允许措辞不同。</text>
+
+  <rect x="112" y="432" width="1056" height="188" rx="10" fill="#0F1B2D"/>
+  <text x="136" y="466" font-family="Consolas, monospace" font-size="14" fill="#7FA7D9">评分 Prompt  ·  骨架</text>
+  <text x="136" y="498" font-family="Consolas, monospace" font-size="15" fill="#D8E2F0">你是阅卷老师。题目：${question}</text>
+  <text x="136" y="524" font-family="Consolas, monospace" font-size="15" fill="#8FB8E8">答案要点：${answerKeyPoints}    学生回答：${studentAnswer}</text>
+  <text x="136" y="550" font-family="Consolas, monospace" font-size="15" fill="#D8E2F0">覆盖主要要点即判正确；只输出 JSON：</text>
+  <text x="160" y="576" font-family="Consolas, monospace" font-size="15" fill="#8FB8E8">{ "isCorrect": true, "explanation": "缺了点 X，但主线对" }</text>
+  <text x="136" y="606" font-family="Consolas, monospace" font-size="14" fill="#7FA7D9">要点写得越具体，判分越稳定；不要只写「理解概念」。</text>
+</svg>

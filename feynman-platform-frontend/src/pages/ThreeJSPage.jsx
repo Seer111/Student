@@ -241,89 +241,106 @@ function ThreeJSPage() {
 
   return (
     <div>
-      <h1 className="page-title">3D 视界</h1>
-      <p className="graph-hint">
-        Three.js 的三要素：<b>场景</b>负责装东西、<b>相机</b>决定从哪看、<b>渲染器</b>每帧把三维投影成画面。
-        下面每个开关改的都是同一个场景对象，可以边点边看变化；左键拖拽旋转视角、滚轮缩放、右键平移。
-      </p>
+      <header className="three-header">
+        <h1 className="page-title">3D 视界</h1>
+        <p className="three-subtitle">
+          场景装东西、相机决定从哪看、渲染器每帧把三维投影成画面；右边每个开关改的都是同一个场景对象
+        </p>
+      </header>
 
-      <div className="demo-panel">
-        <div className="demo-row">
-          <span className="demo-label">几何体</span>
-          <div className="demo-chips">
-            {Object.entries(GEOMETRY_OPTIONS).map(([key, option]) => (
-              <button
-                key={key}
-                type="button"
-                className={`demo-chip${params.geometry === key ? ' is-active' : ''}`}
-                onClick={pick('geometry', key)}
-              >
-                {option.label}
-              </button>
-            ))}
-          </div>
-        </div>
+      <div className="three-layout">
+        <aside className="three-panel">
+          <section>
+            <h2 className="three-group-title">几何体</h2>
+            <div className="demo-chips">
+              {Object.entries(GEOMETRY_OPTIONS).map(([key, option]) => (
+                <button
+                  key={key}
+                  type="button"
+                  className={`demo-chip${params.geometry === key ? ' is-active' : ''}`}
+                  onClick={pick('geometry', key)}
+                >
+                  {option.label}
+                </button>
+              ))}
+            </div>
+          </section>
 
-        <div className="demo-row">
-          <span className="demo-label">材质</span>
-          <div className="demo-chips">
-            {Object.entries(MATERIAL_OPTIONS).map(([key, option]) => (
-              <button
-                key={key}
-                type="button"
-                className={`demo-chip${params.material === key ? ' is-active' : ''}`}
-                onClick={pick('material', key)}
-              >
-                {option.label}
-              </button>
-            ))}
-          </div>
-          <label className="demo-check">
-            颜色
-            <input
-              type="color"
-              className="demo-color"
-              value={params.color}
-              onChange={(event) => setParams((prev) => ({ ...prev, color: event.target.value }))}
-            />
-          </label>
-        </div>
+          <section>
+            <h2 className="three-group-title">材质</h2>
+            <div className="demo-chips">
+              {Object.entries(MATERIAL_OPTIONS).map(([key, option]) => (
+                <button
+                  key={key}
+                  type="button"
+                  className={`demo-chip${params.material === key ? ' is-active' : ''}`}
+                  onClick={pick('material', key)}
+                >
+                  {option.label}
+                </button>
+              ))}
+            </div>
+            <label className="demo-check three-color">
+              颜色
+              <input
+                type="color"
+                className="demo-color"
+                value={params.color}
+                onChange={(event) => setParams((prev) => ({ ...prev, color: event.target.value }))}
+              />
+            </label>
+          </section>
 
-        <div className="demo-row">
-          <span className="demo-label">开关</span>
-          <label className="demo-check">
-            <input type="checkbox" checked={params.wireframe} onChange={toggle('wireframe')} />
-            线框模式
-          </label>
-          <label className="demo-check">
-            <input type="checkbox" checked={params.spin} onChange={toggle('spin')} />
-            物体自转
-          </label>
-          <label className="demo-check">
-            <input type="checkbox" checked={params.autoRotate} onChange={toggle('autoRotate')} />
-            相机自动环绕
-          </label>
-          <label className="demo-check">
-            <input type="checkbox" checked={params.lights} onChange={toggle('lights')} />
-            场景光照
-          </label>
-          <label className="demo-check">
-            <input type="checkbox" checked={params.helpers} onChange={toggle('helpers')} />
-            坐标轴 / 网格
-          </label>
-          <button type="button" className="btn btn-plain" onClick={resetView}>
-            重置视角
-          </button>
-        </div>
+          <section>
+            <h2 className="three-group-title">显示</h2>
+            <div className="three-switches">
+              <label className="demo-check">
+                <input type="checkbox" checked={params.wireframe} onChange={toggle('wireframe')} />
+                线框模式
+              </label>
+              <label className="demo-check">
+                <input type="checkbox" checked={params.spin} onChange={toggle('spin')} />
+                物体自转
+              </label>
+              <label className="demo-check">
+                <input type="checkbox" checked={params.autoRotate} onChange={toggle('autoRotate')} />
+                相机自动环绕
+              </label>
+              <label className="demo-check">
+                <input type="checkbox" checked={params.lights} onChange={toggle('lights')} />
+                场景光照
+              </label>
+              <label className="demo-check">
+                <input type="checkbox" checked={params.helpers} onChange={toggle('helpers')} />
+                坐标轴 / 网格
+              </label>
+            </div>
+          </section>
 
-        <div className="demo-readout">
-          <span>相机位置 (x, y, z)：{readout.camera}</span>
-          <span>物体旋转 (x, y)：{readout.rotation}</span>
-          <span>帧率：{readout.fps} FPS</span>
+          <button type="button" className="three-reset" onClick={resetView}>重置视角</button>
+        </aside>
+
+        <div className="three-main">
+          <div ref={mountRef} className="demo-stage" />
+
+          <dl className="three-readout">
+            <div>
+              <dt>相机位置</dt>
+              <dd>{readout.camera}</dd>
+            </div>
+            <div>
+              <dt>物体旋转</dt>
+              <dd>{readout.rotation}</dd>
+            </div>
+            <div>
+              <dt>帧率</dt>
+              <dd>{readout.fps} FPS</dd>
+            </div>
+          </dl>
+
+          <p className="three-hint">左键拖拽旋转视角 · 滚轮缩放 · 右键平移</p>
         </div>
       </div>
-
-      <div ref={mountRef} className="demo-stage" />
 
       <ul className="demo-notes">
         <li>

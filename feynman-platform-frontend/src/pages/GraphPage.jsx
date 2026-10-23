@@ -55,6 +55,13 @@ function GraphPage() {
               const degree = node.degree ?? 0;
               return `<strong>${node.name}</strong><br/>状态：${statusName}<br/>关联：${degree} 个知识点<br/>${node.value || ''}`;
             }
+            // 边的类型改由悬停说明（线上的文字不再常驻，见 backend/routes/graph.js 里的注释）
+            if (params.dataType === 'edge') {
+              const isAuto = params.data?.kind === 'auto';
+              return isAuto
+                ? '<strong>提及</strong><br/>正文里写到了对方的标题（系统自动发现）'
+                : '<strong>引用</strong><br/>你手动建立的关系（可在详情页修改）';
+            }
             return '';
           },
         },
@@ -89,6 +96,8 @@ function GraphPage() {
             roam: true, // 开启鼠标缩放和平移漫游
             label: { show: true, position: 'right', formatter: '{b}', fontSize: 12 },
             labelLayout: { hideOverlap: true }, // 挤不下时自动隐藏标签，避免文字糊成一团
+            // 边上不画常驻文字：拖动/缩放时这些文字不跟手，会糊成一片（类型改由 tooltip 说明）
+            edgeLabel: { show: false },
             categories: Object.values(CATEGORY_STYLE).map((item) => ({
               name: item.name,
               // 每个分类自己带色：ECharts 的默认调色板与 CATEGORY_STYLE 不是同一组颜色
@@ -241,25 +250,53 @@ function GraphPage() {
     chartInstanceRef.current.on('click', handler);
   }, [navigate, loading]); // loading 结束后重新绑定（此时实例已存在）
 
+  // 重置视图：ECharts 的 restore 会把缩放/平移恢复到初始状态（力导向布局会重新收敛一次）
+  const handleResetView = useCallback(() => {
+    chartInstanceRef.current?.dispatchAction({ type: 'restore' });
+  }, []);
+
   return (
     <div>
       <div className="list-header">
         <h1 className="page-title">知识图谱</h1>
-        <span className="graph-stats">
-          节点 {stats.nodeCount} · 关系 {stats.linkCount}
-          {stats.linkCount > 0 && `（引用 ${stats.explicitCount} · 提及 ${stats.autoCount}）`}
-        </span>
       </div>
-      <p className="graph-hint">
-        节点越大 = 关联的知识点越多（引用 + 提及，上限 6）；蓝色实线箭头 = 手动建立的「引用」，
-        灰色虚线 = 正文里写到了对方标题的「提及」。从一个节点拖到另一个节点上松手可直接建立引用，
-        拖拽空白处移动节点，滚轮缩放，点击节点进入编辑。
-      </p>
-      {loading && <p className="status-text">正在生成知识图谱...</p>}
+      <p className="graph-subtitle">点越大关联越多，颜色是学习状态；实线箭头是你建立的引用，虚线是正文里提到的知识点</p>
+
+      {/* 工具栏：图注（状态色 + 两种边）与统计放在同一行，右侧只留一个「重置视图」 */}
+      <div className="graph-toolbar">
+        <ul className="graph-legend">
+          {Object.entries(CATEGORY_STYLE).map(([key, item]) => (
+            <li key={key}>
+              <i className="legend-dot" style={{ background: item.color }} aria-hidden="true" />
+              {item.name}
+            </li>
+          ))}
+          <li>
+            <i className="legend-edge legend-edge-explicit" aria-hidden="true" />
+            引用
+          </li>
+          <li>
+            <i className="legend-edge legend-edge-auto" aria-hidden="true" />
+            提及
+          </li>
+        </ul>
+        <div className="graph-toolbar-right">
+          <span className="graph-stats">
+            节点 {stats.nodeCount} · 关系 {stats.linkCount}
+            {stats.linkCount > 0 && `（引用 ${stats.explicitCount} · 提及 ${stats.autoCount}）`}
+          </span>
+          <button type="button" className="graph-reset" onClick={handleResetView}>重置视图</button>
+        </div>
+      </div>
+
+      <p className="graph-hint">滚轮缩放 · 从节点拖到另一个节点松手即可建立引用 · 点击节点进入编辑</p>
+
+      {loading && <p className="status-text">正在生成知识图谱…</p>}
       {error && <p className="status-text form-error">{error}</p>}
-      {notice && <p className="graph-notice">{notice}</p>}
+      {notice && <p className="graph-notice" role="status">{notice}</p>}
+
       <div className="graph-canvas-wrap">
-        <div ref={chartRef} style={{ height: '600px', width: '100%' }} />
+        <div ref={chartRef} className="graph-canvas" />
         {/* 拖拽建引用时跟随鼠标的引导虚线（纯装饰，不拦鼠标事件） */}
         {ghost && (
           <svg className="graph-ghost">

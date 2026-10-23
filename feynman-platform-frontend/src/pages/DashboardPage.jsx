@@ -20,6 +20,10 @@ const STATUS_TEXT = {
 // 列表入场的 stagger 上限：每项 45ms，最多 7 档（7 × 45 = 315ms ≤ 320ms），避免长列表末尾等太久
 const MAX_STAGGER_INDEX = 7;
 
+// 正文折叠阈值：约 4 行正文（中文按字符计）。低于它的卡片不显示「展开全文」，
+// 高于它的先折叠成 260px 再让用户点开——列表高度因此收敛（批次 16 遗留的 212~844px 极差就是这里来的）。
+const CLAMP_THRESHOLD = 180;
+
 /**
  * 剔除正文开头与知识点标题重复的一级/二级标题。
  * 为什么需要：实测 11 个知识点里有 10 个正文首行就是 `# <标题>`，于是卡片头部 h2 与正文 h1
@@ -77,6 +81,38 @@ function DashboardPage() {
   const [knowledgePoints, setKnowledgePoints] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  // 正文展开状态：逐卡独立记录（Set 里存 _id），不写进后端数据
+  const [expandedIds, setExpandedIds] = useState(() => new Set());
+  // 状态下拉菜单：同一时间只开一个（存 _id）。为什么不用原生 select：
+  // 原生下拉列表由系统绘制，样式改不动（打开后是一张白色系统菜单，和卡片风格完全不搭），
+  // 而且它的弹出层会盖住相邻卡片的边框，看起来像「线条压在文字上」。
+  const [openStatusId, setOpenStatusId] = useState(null);
+
+  // 点胶囊外部 / 按 Esc 关闭状态下拉
+  useEffect(() => {
+    if (!openStatusId) return undefined;
+    const handlePointerDown = (event) => {
+      if (!event.target.closest('.kp-status-pill')) setOpenStatusId(null);
+    };
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') setOpenStatusId(null);
+    };
+    document.addEventListener('mousedown', handlePointerDown);
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('mousedown', handlePointerDown);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [openStatusId]);
+
+  const toggleExpanded = (id) => {
+    setExpandedIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  };
 
   // useEffect：组件首次挂载时获取知识点列表（副作用：发送网络请求）
   useEffect(() => {
@@ -145,60 +181,128 @@ function DashboardPage() {
     );
   }
 
+  // 顶部统计：全部用真实列表算，不做假 KPI（学习中是后端 status 枚举的真值，「待复习」是另一个通道）
+  const summary = {
+    total: knowledgePoints.length,
+    inProgress: knowledgePoints.filter((kp) => kp.status === 'in_progress').length,
+    review: knowledgePoints.filter((kp) => kp.reviewList).length,
+  };
+
   return (
     <div>
       {header}
 
       {knowledgePoints.length === 0 ? (
-        <p className="status-text">你还没有任何知识点，快去创建一个吧！</p>
+        <div className="kp-empty">
+          <h2>还没有知识点</h2>
+          <p>写下一个你正在学的概念，复述一次，系统会给你打分。</p>
+          <Link to="/kp/new" className="btn kp-btn-primary">+ 新建第一个知识点</Link>
+        </div>
       ) : (
-        <ul className="kp-list">
-          {knowledgePoints.map((kp, index) => (
-            <li
-              key={kp._id}
-              className="kp-item"
-              // --i 只给入场动画算延迟；上限封在 7 档，长列表不会越往下等越久
-              style={{ '--i': Math.min(index, MAX_STAGGER_INDEX) }}
-            >
-              <div className="kp-item-header">
-                <h2>{kp.title}</h2>
-                <div className="kp-badges">
-                  {kp.reviewList && <span className="kp-review-badge">待复习</span>}
-                  {/* 状态点：给颜色之外再加一个形状通道（○ 空心 / ◐ 半实心 / ● 实心），
-                      灰度打印或色觉差异下也能区分；状态文字由下面的下拉框提供 */}
-                  <span className={`kp-status-dot kp-status-dot-${kp.status}`} aria-hidden="true" />
-                  {/* 状态下拉：直接在这里改学习状态（以前只显示、改不了，三态成了“死枚举”） */}
-                  <select
-                    className={`kp-status kp-status-${kp.status}`}
-                    value={kp.status}
-                    onChange={(e) => handleStatusChange(kp._id, e.target.value)}
-                    aria-label="学习状态"
-                  >
-                    {Object.entries(STATUS_TEXT).map(([value, label]) => (
-                      <option key={value} value={value}>{label}</option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-              <div className="markdown-content">
-                <MarkdownRenderer content={stripLeadingTitle(kp.content, kp.title)} />
-              </div>
-              <div className="kp-actions">
-                <Link to={`/feynman/${kp._id}`} className="btn kp-btn-primary">开始复述</Link>
-                <Link to={`/quiz/${kp._id}`} className="btn kp-btn-secondary">开始测评</Link>
-                <Link to={`/kp/edit/${kp._id}`} className="btn kp-btn-secondary">编辑</Link>
-                <button
-                  type="button"
-                  className="btn kp-btn-danger"
-                  onClick={() => handleDelete(kp._id)}
-                  aria-label={`删除知识点：${kp.title}`}
+        <>
+          <p className="kp-summary">
+            共 <b>{summary.total}</b> 个知识点 · 学习中 <b>{summary.inProgress}</b>
+            {summary.review > 0 && (
+              <>
+                {' '}· 待复习 <b>{summary.review}</b>
+              </>
+            )}
+          </p>
+
+          <ul className="kp-list">
+            {knowledgePoints.map((kp, index) => {
+              // 正文只在渲染前处理一次：剔除与卡头同名的首行标题；超长则折叠
+              const body = stripLeadingTitle(kp.content, kp.title);
+              const expanded = expandedIds.has(kp._id);
+              const clampable = body.length > CLAMP_THRESHOLD;
+
+              return (
+                <li
+                  key={kp._id}
+                  className="kp-item"
+                  // --i 只给入场动画算延迟；上限封在 7 档，长列表不会越往下等越久
+                  style={{ '--i': Math.min(index, MAX_STAGGER_INDEX) }}
                 >
-                  删除
-                </button>
-              </div>
-            </li>
-          ))}
-        </ul>
+                  <div className="kp-item-header">
+                    <h2>{kp.title}</h2>
+                    <div className="kp-badges">
+                      {kp.reviewList && <span className="kp-review-badge">待复习</span>}
+                      {/* 状态胶囊：状态点（形状通道）+ 自定义下拉（可改状态）。
+                          点仍是 ○ 空心 / ◐ 半实心 / ● 实心，灰度下也能分辨；
+                          菜单是自己画的，圆角/字号/底色与卡片同一套，不会被系统弹层压住边框 */}
+                      <span className={`kp-status-pill kp-status-pill-${kp.status}`}>
+                        <span className={`kp-status-dot kp-status-dot-${kp.status}`} aria-hidden="true" />
+                        <button
+                          type="button"
+                          className="kp-status-btn"
+                          onClick={() => setOpenStatusId(openStatusId === kp._id ? null : kp._id)}
+                          aria-haspopup="listbox"
+                          aria-expanded={openStatusId === kp._id}
+                          aria-label={`学习状态：${STATUS_TEXT[kp.status]}，点击修改`}
+                        >
+                          {STATUS_TEXT[kp.status]}
+                          <svg className="kp-status-caret" viewBox="0 0 10 6" aria-hidden="true">
+                            <path d="M1 1l4 4 4-4" />
+                          </svg>
+                        </button>
+
+                        {openStatusId === kp._id && (
+                          <div className="kp-status-menu" role="listbox" aria-label="选择学习状态">
+                            {Object.entries(STATUS_TEXT).map(([value, label]) => (
+                              <button
+                                key={value}
+                                type="button"
+                                role="option"
+                                aria-selected={value === kp.status}
+                                className={`kp-status-option${value === kp.status ? ' is-active' : ''}`}
+                                onClick={() => {
+                                  setOpenStatusId(null);
+                                  if (value !== kp.status) handleStatusChange(kp._id, value);
+                                }}
+                              >
+                                <span className={`kp-status-dot kp-status-dot-${value}`} aria-hidden="true" />
+                                {label}
+                              </button>
+                            ))}
+                          </div>
+                        )}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className={`markdown-content${clampable && !expanded ? ' is-clamped' : ''}`}>
+                    <MarkdownRenderer content={body} />
+                  </div>
+
+                  {clampable && (
+                    <button
+                      type="button"
+                      className="kp-expand"
+                      onClick={() => toggleExpanded(kp._id)}
+                      aria-expanded={expanded}
+                    >
+                      {expanded ? '收起' : '展开全文'}
+                    </button>
+                  )}
+
+                  <div className="kp-actions">
+                    <Link to={`/feynman/${kp._id}`} className="btn kp-btn-primary">开始复述</Link>
+                    <Link to={`/quiz/${kp._id}`} className="btn kp-btn-secondary">开始测评</Link>
+                    <Link to={`/kp/edit/${kp._id}`} className="btn kp-btn-secondary">编辑</Link>
+                    <button
+                      type="button"
+                      className="btn kp-btn-danger"
+                      onClick={() => handleDelete(kp._id)}
+                      aria-label={`删除知识点：${kp.title}`}
+                    >
+                      删除
+                    </button>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+        </>
       )}
     </div>
   );

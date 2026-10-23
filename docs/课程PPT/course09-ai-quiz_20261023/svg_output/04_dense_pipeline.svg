@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <rect x="0" y="0" width="1280" height="720" fill="#F5F7FA"/>
+  <line x1="80" y1="64" x2="80" y2="664" stroke="#16233A" stroke-width="4"/>
+  <text x="1168" y="96" text-anchor="end" font-family="Consolas, monospace" font-size="15" fill="#6B7A90">04 / 14</text>
+  <text x="112" y="96" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" fill="#6B7A90">PART 2 · 后端出题官</text>
+  <text x="112" y="150" font-family="Microsoft YaHei, Arial, sans-serif" font-size="36" font-weight="700" fill="#16233A">一条链路：知识点 → 题目 → 分数 → 复习</text>
+  <line x1="112" y1="176" x2="1168" y2="176" stroke="#D9E1EC" stroke-width="1"/>
+  <text x="112" y="216" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#1F2933">出题只是中间一步；真正的价值在末端的复习回流。</text>
+
+  <rect x="112" y="268" width="160" height="86" rx="8" fill="#FFFFFF" stroke="#D9E1EC"/>
+  <text x="128" y="300" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" font-weight="700" fill="#16233A">① 知识点正文</text>
+  <text x="128" y="328" font-family="Microsoft YaHei, Arial, sans-serif" font-size="13" fill="#6B7A90">MongoDB 里已有</text>
+
+  <line x1="272" y1="311" x2="316" y2="311" stroke="#2F80ED" stroke-width="2"/>
+
+  <rect x="316" y="268" width="160" height="86" rx="8" fill="#FFFFFF" stroke="#D9E1EC"/>
+  <text x="332" y="300" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" font-weight="700" fill="#16233A">② 出题 Prompt</text>
+  <text x="332" y="328" font-family="Microsoft YaHei, Arial, sans-serif" font-size="13" fill="#6B7A90">角色 + 输入 + 格式</text>
+
+  <line x1="476" y1="311" x2="520" y2="311" stroke="#2F80ED" stroke-width="2"/>
+
+  <rect x="520" y="268" width="140" height="86" rx="8" fill="#FFFFFF" stroke="#D9E1EC"/>
+  <text x="536" y="300" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" font-weight="700" fill="#16233A">③ LLM</text>
+  <text x="536" y="328" font-family="Microsoft YaHei, Arial, sans-serif" font-size="13" fill="#6B7A90">唯一不可控环节</text>
+
+  <line x1="660" y1="311" x2="704" y2="311" stroke="#2F80ED" stroke-width="2"/>
+
+  <rect x="704" y="268" width="180" height="86" rx="8" fill="#FFFFFF" stroke="#16233A" stroke-width="1.5"/>
+  <text x="720" y="300" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" font-weight="700" fill="#16233A">④ 严格 JSON 题</text>
+  <text x="720" y="328" font-family="Microsoft YaHei, Arial, sans-serif" font-size="13" fill="#2F80ED">所以格式必须卡死</text>
+
+  <line x1="884" y1="311" x2="928" y2="311" stroke="#2F80ED" stroke-width="2"/>
+
+  <rect x="928" y="268" width="240" height="86" rx="8" fill="#FFFFFF" stroke="#D9E1EC"/>
+  <text x="944" y="300" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" font-weight="700" fill="#16233A">⑤ 答题页作答</text>
+  <text x="944" y="328" font-family="Microsoft YaHei, Arial, sans-serif" font-size="13" fill="#6B7A90">渲染 → 选择 → 提交</text>
+
+  <line x1="130" y1="380" x2="130" y2="418" stroke="#F2994A" stroke-width="2"/>
+  <line x1="130" y1="418" x2="1080" y2="418" stroke="#F2994A" stroke-width="2"/>
+  <text x="180" y="410" font-family="Microsoft YaHei, Arial, sans-serif" font-size="14" fill="#B06A1F">⑥ 评分后：错了写回 reviewList → 复习列表</text>
+
+  <rect x="112" y="452" width="1056" height="96" rx="10" fill="#0F1B2D"/>
+  <text x="136" y="484" font-family="Consolas, monospace" font-size="14" fill="#7FA7D9">题目对象的数据形状</text>
+  <text x="136" y="512" font-family="Consolas, monospace" font-size="15" fill="#D8E2F0">type · difficulty · question · options{A,B,C,D} · answer · explanation</text>
+  <text x="136" y="536" font-family="Consolas, monospace" font-size="14" fill="#7FA7D9">前三个给页面渲染，answer 给评分，explanation 给讲解。</text>
+
+  <text x="112" y="596" font-family="Microsoft YaHei, Arial, sans-serif" font-size="17" fill="#1F2933">讲解点：整条链路里，只有 LLM 的输出不受你控制——所以第 ④ 步要写死格式、第 ⑦ 步要兜底解析。</text>
+  <text x="112" y="632" font-family="Microsoft YaHei, Arial, sans-serif" font-size="14" fill="#6B7A90">先画链路，再写代码：每一格的输入输出对上了，接口自然就对了。</text>
+</svg>

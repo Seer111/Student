@@ -23,3 +23,17 @@ __pycache__/
 
 # 桌面端打包产物（体积大，由 electron-builder 重新生成）
 release/
+
+# 构建缓存与临时目录
+.vite/
+dev-dist/
+*.tmp
+*.tmpdir/
+Thumbs.db
+
+# 课件工程的中间产物（源文件 svg_output/ notes/ 保留，导出物与备份不入库）
+docs/课程PPT/*/backup/
+docs/课程PPT/*/exports/
+
+# agent 运行时留下的临时抓取物
+_dsh*

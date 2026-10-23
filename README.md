@@ -26,7 +26,7 @@
 | 15 | 跨平台部署 | Electron 桌面端（NSIS 安装包）、PWA 移动端 |
 | 16 | 项目总结与部署 | Docker Compose 一键部署、项目展示 |
 
-各课程讲义见 `课程文档/` 目录，课程幻灯片见 `课程PPT/` 目录。
+各课程讲义见 `docs/课程文档/`，课程幻灯片见 `docs/课程PPT/`。
 
 ## 技术栈
 
@@ -39,29 +39,47 @@
 
 ## 仓库结构
 
+按「应用代码 / 文档资料 / 脚本工具」三层组织：三个可独立运行的应用各自是一个完整工程（自带 package.json、Dockerfile、README），
+文档与课件全部收进 `docs/`，根目录只留编排与约定文件。
+
 ```
 .
-├── feynman-platform-backend/     # 后端服务（Express + MongoDB）
-│   ├── index.js                  # 服务入口
-│   ├── models/                   # User / KnowledgePoint / FeynmanAttempt 数据模型
-│   ├── routes/                   # 用户、知识点、音频、AI、测评、图谱路由
-│   ├── controllers/              # 百度语音识别控制器
-│   ├── services/                 # 向量库服务（HNSW + 千帆 Embedding）
-│   ├── utils/                    # 多 LLM 服务（DeepSeek/千帆/OpenAI 自动回退）
-│   ├── vector_store/             # 向量索引运行时数据（不入库）
-│   ├── api-tests.http            # REST Client 接口测试脚本
-│   └── .env.example              # 环境变量模板（.env 不入库）
-├── feynman-platform-frontend/    # 前端应用（React + Vite）
-│   ├── src/pages/                # 登录/注册/主页/费曼复述/AI助手/测评/图谱/3D 页面
-│   ├── public/                   # PWA 图标与 manifest
-│   ├── electron.cjs              # Electron 主进程
-│   ├── dist/                     # PWA 构建产物（不入库）
-│   └── release/                  # Electron 安装包（不入库）
-├── feynman-platform-whisper-api/ # 本地 Whisper 语音识别服务（可选）
-├── 课程文档/                     # 全部课程讲义（01~16 课 .md）
-├── 课程PPT/                      # 课程幻灯片（.pptx）
-├── docker-compose.yml            # 容器编排（前端 Nginx + 后端服务；数据库为外部 MongoDB Atlas）
+├── feynman-platform-backend/      # 后端服务（Express + MongoDB）
+│   ├── index.js                   # 服务入口
+│   ├── models/ routes/ controllers/ services/ utils/ middleware/
+│   ├── scripts/                   # 运维脚本（向量库补索引/审计）
+│   ├── vector_store/              # 向量索引运行时数据（不入库）
+│   ├── api-tests.http             # REST Client 接口测试脚本
+│   └── .env.example               # 环境变量模板（.env 不入库）
+├── feynman-platform-frontend/     # 前端应用（React + Vite）
+│   ├── src/pages|components|utils|api|context/
+│   ├── public/                    # PWA 图标与 manifest
+│   ├── electron.cjs               # Electron 主进程
+│   ├── nginx.conf                 # 容器内静态托管配置
+│   ├── dist/ release/             # 构建与打包产物（不入库）
+│   └── eslint.config.js           # 代码规范（npm run lint）
+├── feynman-platform-whisper-api/  # 本地 Whisper 语音识别服务（可选，Python + Flask）
+├── docs/
+│   ├── 课程文档/                  # 16 次课讲义（.md）
+│   ├── 课程PPT/                   # 课件（.pptx）+ ppt-master 可再生成工程
+│   ├── 设计/界面美化提示词.md      # 界面设计提示词（按截图逐屏）
+│   └── 截图/                      # 各页面截图与用户提供的原始截图
+├── scripts/generate-pwa-icons.js  # 生成 PWA 图标（零依赖，node 直接跑）
+├── docker-compose.yml             # 容器编排（前端 Nginx + 后端；数据库为外部 Atlas）
+├── package.json                   # 仓库根脚本（代理到各子工程，不含依赖）
+├── AGENTS.md                      # 给 AI agent 的仓库约定
+├── 记忆文档.md                     # 项目记忆（现状 / 踩坑 / 遗留）
 └── .gitignore
+```
+
+根目录提供几条代理脚本，省去记目录：
+
+```bash
+npm run dev:backend      # 起后端（端口 3000）
+npm run dev:frontend     # 起前端（端口 5173）
+npm run lint             # 前端 ESLint
+npm run build            # 前端生产构建
+npm run vectors:audit    # 向量库与知识库一致性核对
 ```
 
 ## 快速开始

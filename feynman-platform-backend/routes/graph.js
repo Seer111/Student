@@ -41,7 +41,10 @@ router.get('/knowledge-map', auth, async (req, res) => {
         source,
         target,
         kind, // explicit = 手动建立的引用；auto = 正文里写到了对方的标题（自动发现）
-        label: { show: true, formatter: kind === 'explicit' ? '引用' : '提及' },
+        // 注意：这里不放 label。边上的文字属于「怎么画」，不放「数据」里——
+        // 之前给每条边塞了 label 对象，ECharts 会给每条线都画上「引用 / 提及」两个字，
+        // 拖动/缩放图谱时这些文字不跟手，叠在一起糊成一团（批次 19 修的正是这个）。
+        // 现在靠三种视觉通道区分：颜色深浅、实线/虚线、有无箭头；悬停时用 tooltip 说明。
       });
       degreeById.set(source, (degreeById.get(source) || 0) + 1);
       degreeById.set(target, (degreeById.get(target) || 0) + 1);

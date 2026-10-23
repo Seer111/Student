@@ -28,6 +28,19 @@ body {
   --radius-inner: 8px;
   --radius-btn: 6px;
 
+  /* 中性面 + 一个 ink：品牌色不再刷在导航/按钮背景上，只留给链接、焦点环与图表 */
+  --ink: #1d1f20;
+  --ink-hover: #2f3437;
+  --ink-soft: #4a5058;
+  --ground: #f7f8fa;
+  --surface: #ffffff;
+  --line: #e6e9f0;
+  --line-strong: #cdd4e2;
+  --focus: #4f46e5;
+  --danger: #c0392b;
+  --danger-bg: #fdf1ef;
+  --danger-line: #f0cdc6;
+
   /* 三态语义色（底色 / 描边 / 文字三件套）：与 2D 图 CATEGORY_STYLE、3D 页 STATUS_COLOR、
      复述页 .ref-status-* 同一口径——未开始=蓝、学习中=青绿、已掌握=绿，
      「待复习」是另一条通道（琥珀 #ea580c），不参与三态。 */
@@ -125,50 +138,62 @@ body {
 /* ===== 通用组件 ===== */
 .page-title {
   font-size: 1.5rem;
-  color: #1e2958;
+  color: var(--ink);
   margin-bottom: 1rem;
 }
 
+/* 卡片：白面 + 1px 细线，**不再叠阴影**（提示词第 0 节第 7 条：边框与阴影二选一） */
 .card {
-  background: #fff;
-  border: 1px solid #e2e8f0;
-  border-radius: 10px;
-  padding: 1rem 1.25rem;
-  box-shadow: 0 1px 3px rgba(30, 41, 88, 0.06);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  padding: 1.25rem;
 }
 
+/* 通用按钮：主色从中性 ink 出发（不在 chrome 上刷品牌色），
+   品牌靛蓝只留给链接、焦点环与图表；这一改动同时作用于复述/测评/表单页 */
 .btn {
   display: inline-block;
-  background: #4f46e5;
+  background: var(--ink);
   color: #fff;
-  border: none;
+  border: 1px solid var(--ink);
   border-radius: var(--radius-btn);
   padding: 0.5rem 1.1rem;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
+  line-height: 1.4;
   cursor: pointer;
   text-decoration: none;
+  transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease),
+    opacity var(--dur) var(--ease);
 }
 
 .btn:hover {
-  background: #4338ca;
+  background: var(--ink-hover);
+  border-color: var(--ink-hover);
 }
 
+/* 破坏性操作：描边负面色，默认不抢焦点（提示词第 0 节第 3 条） */
 .btn-danger {
-  background: #dc2626;
+  background: transparent;
+  color: var(--danger);
+  border: 1px solid var(--danger-line);
 }
 
 .btn-danger:hover {
-  background: #b91c1c;
+  background: var(--danger-bg);
+  border-color: var(--danger);
 }
 
 .btn-plain {
-  background: #eef1fa;
-  color: #1e2958;
-  border: 1px solid #d6ddf0;
+  background: var(--surface);
+  color: var(--ink-soft);
+  border: 1px solid var(--line);
 }
 
 .btn-plain:hover {
-  background: #e0e6f6;
+  background: var(--ground);
+  border-color: var(--line-strong);
+  color: var(--ink);
 }
 
 /* ===== 表单 ===== */
@@ -336,6 +361,132 @@ select.kp-status.kp-status-mastered {
   background: var(--status-mastered-bg);
   color: var(--status-mastered);
   border-color: var(--status-mastered-border);
+}
+
+/* 状态胶囊（批次 18）：把「状态点 + 下拉」合成一个控件——淡底 + 同色深字 + 6px 圆角 + 24px 高。
+   下拉本体退化成透明文字，语义仍由原生 select 承担（键盘、读屏、移动端选择器都还在）。 */
+.kp-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  height: 24px;
+  padding: 0 0.25rem 0 0.45rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius-btn);
+  font-size: 0.75rem;
+  white-space: nowrap;
+  transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+
+.kp-status-pill-not_started {
+  background: var(--status-not-started-bg);
+  border-color: var(--status-not-started-border);
+  color: var(--status-not-started);
+}
+
+.kp-status-pill-in_progress {
+  background: var(--status-in-progress-bg);
+  border-color: var(--status-in-progress-border);
+  color: var(--status-in-progress);
+}
+
+.kp-status-pill-mastered {
+  background: var(--status-mastered-bg);
+  border-color: var(--status-mastered-border);
+  color: var(--status-mastered);
+}
+
+.kp-status-pill .kp-status-dot {
+  width: 0.45rem;
+  height: 0.45rem;
+  border-width: 1.2px;
+}
+
+/* 胶囊内的触发按钮：只保留文字 + 一个小箭头，视觉仍是「一个胶囊」；
+   为什么不用原生 select——系统弹层改不动样式，而且会盖住相邻卡片边框（批次 19 修） */
+.kp-status-pill {
+  position: relative; /* 菜单以胶囊为定位基准，打开时不会被卡片的边框压住 */
+  z-index: 2; /* 压在同一行的其它装饰之上；菜单内部再给更高层级 */
+}
+
+.kp-status-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  height: 22px;
+  padding: 0 0.15rem 0 0;
+  border: none;
+  background: transparent;
+  color: inherit;
+  font-size: 0.75rem;
+  font-family: inherit;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.kp-status-btn:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+.kp-status-caret {
+  width: 9px;
+  height: 6px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.6;
+}
+
+/* 状态下拉菜单：白底 + 1px 线 + 浮层阴影（阴影只给真正浮起来的元素用） */
+.kp-status-menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  z-index: 40;
+  min-width: 8.4rem;
+  padding: 0.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: 0 10px 26px rgba(16, 24, 40, 0.14);
+}
+
+.kp-status-option {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.34rem 0.45rem;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--ink-soft);
+  font-size: 0.78rem;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.kp-status-option:hover {
+  background: #f3f5fa;
+  color: var(--ink);
+}
+
+.kp-status-option.is-active {
+  background: #f3f5fa;
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.kp-status-option:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 1px;
 }
 
 /* 状态点：颜色之外再加一个形状通道——未开始空心 / 学习中半实心 / 已掌握实心 */
@@ -1245,25 +1396,30 @@ select.kp-status.kp-status-mastered {
    全部按 .kp-btn-* 命名并写在文件末尾，靠“同优先级后写者胜”覆盖通用 .btn / .btn:hover，
    因此不会影响其它页面里使用 .btn 的按钮。 */
 .kp-btn-primary {
-  background: #4f46e5;
-  border: 1px solid #4f46e5;
+  background: var(--ink);
+  border: 1px solid var(--ink);
   color: #fff;
+  padding: 0.4rem 0.9rem;
+  font-size: 0.85rem;
 }
 
 .kp-btn-primary:hover {
-  background: #4338ca;
-  border-color: #4338ca;
+  background: var(--ink-hover);
+  border-color: var(--ink-hover);
 }
 
 .kp-btn-secondary {
-  background: transparent;
-  border: 1px solid #d6ddf0;
-  color: #1e2958;
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  color: var(--ink-soft);
+  padding: 0.4rem 0.9rem;
+  font-size: 0.85rem;
 }
 
 .kp-btn-secondary:hover {
-  background: #f4f6fc;
-  border-color: #b9c4e0;
+  background: var(--ground);
+  border-color: var(--ink-soft);
+  color: var(--ink);
 }
 
 .kp-actions .kp-btn-danger {
@@ -1402,4 +1558,557 @@ select.kp-status:focus-visible {
   .kp-item:hover {
     transform: none;
   }
+}
+
+/* ===== 批次 18：按「界面美化提示词」落地（主页）=====
+   1) 标题用 ink，不再用藏青；2) 列表顶部一行真实统计；
+   3) 正文超长折叠成 260px + 渐隐遮罩 + 「展开全文」；4) 虚线空态。 */
+.kp-item-header h2 {
+  color: var(--ink);
+}
+
+/* 列表顶部统计行：12px 灰字，数字用等宽字形，右侧留白不抢卡片注意力 */
+.kp-summary {
+  margin: 0 0 0.75rem;
+  font-size: 0.75rem;
+  color: #8a94a6;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.01em;
+}
+
+.kp-summary b {
+  color: var(--ink-soft);
+  font-weight: 600;
+}
+
+/* 正文折叠：max-height + 渐隐遮罩（不用 -webkit-line-clamp——
+   正文是多元素的 Markdown，line-clamp 对列表/代码块并不可靠） */
+.markdown-content.is-clamped {
+  max-height: 260px;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(180deg, #000 68%, transparent 100%);
+  mask-image: linear-gradient(180deg, #000 68%, transparent 100%);
+}
+
+.kp-expand {
+  margin-top: 0.35rem;
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--ink-soft);
+  font-size: 0.78rem;
+  font-family: inherit;
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-color: var(--line-strong);
+  text-underline-offset: 3px;
+}
+
+.kp-expand:hover {
+  color: var(--ink);
+  text-decoration-color: var(--ink);
+}
+
+/* 空态：虚线框 + 一句话 + 一个主操作，而不是一行「暂无知识点」 */
+.kp-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 2.5rem 1rem;
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--radius-card);
+  text-align: center;
+}
+
+.kp-empty h2 {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--ink);
+}
+
+.kp-empty p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #8a94a6;
+}
+
+/* 状态胶囊在键盘聚焦时给整只胶囊一个外环（原生 select 的 focus 环被透明底吞掉了） */
+.kp-status-pill:focus-within {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+/* ===== 知识图谱页：工具栏 + 图注 + 画布（批次 18）=====
+   原来是一段 4 行的说明文字 + 画布固定 600px；现在把「图注」做成真正能读的图例，
+   统计压到 12px，唯一的按钮是「重置视图」，画布高度跟着视口走。 */
+.graph-subtitle {
+  margin: 0.2rem 0 0;
+  font-size: 13px;
+  color: #8a94a6;
+}
+
+.graph-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 14px 0 6px;
+}
+
+.graph-legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.graph-legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #5f6875;
+}
+
+.legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+/* 图例里的「边」就是图上那根线本身：实线带箭头 / 虚线，不要另画一套样式 */
+.legend-edge {
+  width: 18px;
+  height: 0;
+  border-top-width: 1.6px;
+  border-top-style: solid;
+}
+
+.legend-edge-explicit {
+  border-top-color: #5b8ff9;
+}
+
+.legend-edge-auto {
+  border-top-style: dashed;
+  border-top-color: #9aa9c4;
+}
+
+.graph-toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto;
+}
+
+.graph-stats {
+  font-size: 12px;
+  color: #8a94a6;
+  font-variant-numeric: tabular-nums;
+}
+
+.graph-reset {
+  height: 32px;
+  padding: 0 12px;
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--ink-soft);
+  font-size: 12px;
+  cursor: pointer;
+  transition: border-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+}
+
+.graph-reset:hover,
+.graph-reset:focus-visible {
+  border-color: var(--ink-soft);
+  color: var(--ink);
+}
+
+.graph-hint {
+  margin: 0 0 10px;
+  font-size: 12px;
+  color: #a0a8b6;
+}
+
+/* 画布：白面 + 1px 边框，高度随视口（最小 460，最大 720） */
+.graph-canvas-wrap {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+}
+
+.graph-canvas {
+  width: 100%;
+  height: clamp(460px, calc(100vh - 300px), 720px);
+}
+
+.graph-notice {
+  margin: 0 0 10px;
+  padding: 6px 10px;
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--ink-soft);
+  font-size: 12px;
+}
+
+@media (max-width: 640px) {
+  .graph-toolbar-right {
+    width: 100%;
+    margin-left: 0;
+    justify-content: space-between;
+  }
+
+  .graph-canvas {
+    height: 60vh;
+  }
+}
+
+/* ===== 3D 视界：两栏面板 + 读数条（批次 18）=====
+   原来控件、画布、说明是纵向堆叠的，整页又被一段 4 行说明撑开；
+   现在左侧是参数面板（滚动时吸顶），右侧只有画布 + 一行等宽读数。 */
+.three-header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.three-header .page-title {
+  margin: 0;
+}
+
+.three-subtitle {
+  margin: 0;
+  font-size: 13px;
+  color: #8a94a6;
+}
+
+.three-layout {
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  gap: 20px;
+  align-items: start;
+  margin-top: 16px;
+}
+
+.three-panel {
+  position: sticky;
+  top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+}
+
+.three-group-title {
+  margin: 0 0 8px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #8a94a6;
+}
+
+.three-switches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+}
+
+.three-color {
+  margin-top: 10px;
+}
+
+.three-reset {
+  width: 100%;
+  height: 32px;
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--ink-soft);
+  font-size: 12px;
+  cursor: pointer;
+  transition: border-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+}
+
+.three-reset:hover,
+.three-reset:focus-visible {
+  border-color: var(--ink-soft);
+  color: var(--ink);
+}
+
+.three-main {
+  min-width: 0;
+}
+
+.three-readout {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin: 12px 0 0;
+  padding: 12px 0 0;
+  border-top: 1px solid var(--line);
+}
+
+.three-readout dt {
+  font-size: 11px;
+  color: #8a94a6;
+}
+
+.three-readout dd {
+  margin: 3px 0 0;
+  font-size: 13px;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+  font-family: ui-monospace, Consolas, 'Courier New', monospace;
+}
+
+.three-hint {
+  margin: 8px 0 0;
+  font-size: 12px;
+  color: #a0a8b6;
+}
+
+/* 覆盖旧的 demo-* 口径：胶囊改成 6px 方角，选中态用同一支 ink（不再用靛蓝做第二主色） */
+.demo-chip {
+  height: 28px;
+  padding: 0 10px;
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--ink-soft);
+  font-size: 12px;
+}
+
+.demo-chip:hover:not(.is-active) {
+  border-color: var(--ink-soft);
+  color: var(--ink);
+}
+
+.demo-chip.is-active {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: #fff;
+}
+
+.demo-check {
+  font-size: 12px;
+  color: var(--ink-soft);
+}
+
+.demo-color {
+  border-color: var(--line-strong);
+  border-radius: 6px;
+}
+
+.demo-stage {
+  height: clamp(360px, calc(100vh - 420px), 560px);
+  border-radius: var(--radius-card);
+  background: #12161f;
+}
+
+.demo-notes {
+  margin-top: 20px;
+  line-height: 1.8;
+  column-gap: 32px;
+}
+
+.demo-notes code {
+  background: #f1f3f8;
+  color: #334155;
+}
+
+@media (min-width: 1000px) {
+  .demo-notes {
+    columns: 2;
+  }
+}
+
+@media (max-width: 900px) {
+  .three-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .three-panel {
+    position: static;
+  }
+}
+
+@media (max-width: 640px) {
+  .three-readout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+  }
+}
+
+/* ===== 3D 知识宇宙：HUD 与浮层（批次 18）=====
+   深色场景里的 chrome 保持中性黑白（不再用靛蓝按钮 / 毛玻璃 / 发光图例），
+   数据仍然只有状态四色一处在发光。 */
+.universe-hud {
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: var(--radius-card);
+  background: rgba(10, 14, 24, 0.82);
+  backdrop-filter: none;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #c9d2e0;
+  font-size: 12px;
+}
+
+.universe-stats {
+  gap: 14px;
+  font-size: 12px;
+  color: #9aa6b8;
+}
+
+.universe-stats b {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.universe-legend {
+  gap: 4px 12px;
+}
+
+.universe-actions {
+  gap: 8px;
+}
+
+.universe-btn {
+  height: 30px;
+  padding: 0 12px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #e8eef8;
+  font-size: 12px;
+}
+
+.universe-btn:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.36);
+}
+
+.universe-btn:active {
+  transform: none;
+}
+
+/* ===== 3D 知识宇宙：HUD 可折叠（批次 19）=====
+   左下角「图例与视角」面板整体可收起，收起后只剩一条标题栏。
+   为什么默认展开：第一次进来需要它解释画面；但 3D 场景里最贵的是画面本身，
+   图例属于「看一眼就记住」的信息，不该永久占住一角。 */
+.universe-hud {
+  gap: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.universe-hud-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 8px 12px;
+  border: none;
+  background: transparent;
+  color: #c9d2e0;
+  font-size: 12px;
+  font-family: inherit;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: color var(--dur) var(--ease), background var(--dur) var(--ease);
+}
+
+.universe-hud-toggle:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.universe-hud-toggle:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: -2px;
+}
+
+.universe-hud-caret {
+  width: 10px;
+  height: 7px;
+  margin-left: auto;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.7;
+  transition: transform var(--dur) var(--ease);
+}
+
+/* 收起时箭头转 90°，指向右侧（表示「还可以展开」） */
+.universe-hud.is-collapsed .universe-hud-caret {
+  transform: rotate(-90deg);
+}
+
+.universe-hud-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0 12px 12px;
+  animation: hud-reveal var(--dur) var(--ease);
+}
+
+/* hidden 属性要被显式压住 display，否则被上面的 display:flex 覆盖掉 */
+.universe-hud-body[hidden] {
+  display: none;
+}
+
+@keyframes hud-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.universe-overlay {
+  width: 232px;
+  top: 14px;
+  right: 14px;
+  padding: 12px 14px;
+  border-radius: var(--radius-card);
+  background: rgba(12, 16, 26, 0.92);
+  backdrop-filter: none;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+}
+
+.universe-overlay h3 {
+  margin: 0 0 4px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.universe-overlay p {
+  margin: 0;
+  font-size: 12px;
+  color: #98a4b8;
+}
+
+.overlay-excerpt {
+  margin-top: 6px !important;
+  font-size: 12px;
+  color: #cbd5e1 !important;
+  line-height: 1.6;
+  -webkit-line-clamp: 5;
 }

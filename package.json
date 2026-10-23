@@ -1,0 +1,21 @@
+{
+  "name": "feynman-platform",
+  "version": "1.0.0",
+  "private": true,
+  "description": "费曼学习平台 monorepo 根目录：只放跨工程的代理脚本，不含依赖",
+  "scripts": {
+    "setup": "npm --prefix feynman-platform-backend install && npm --prefix feynman-platform-frontend install",
+    "dev:backend": "npm --prefix feynman-platform-backend run dev",
+    "start:backend": "npm --prefix feynman-platform-backend start",
+    "dev:frontend": "npm --prefix feynman-platform-frontend run dev",
+    "build": "npm --prefix feynman-platform-frontend run build",
+    "build:electron": "npm --prefix feynman-platform-frontend run build:electron",
+    "lint": "npm --prefix feynman-platform-frontend run lint",
+    "vectors:audit": "npm --prefix feynman-platform-backend run vectors:audit",
+    "vectors:sync": "npm --prefix feynman-platform-backend run vectors:sync",
+    "icons": "node scripts/generate-pwa-icons.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

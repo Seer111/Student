@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <rect x="0" y="0" width="1280" height="720" fill="#F5F7FA"/>
+  <line x1="80" y1="64" x2="80" y2="664" stroke="#16233A" stroke-width="4"/>
+  <text x="1168" y="96" text-anchor="end" font-family="Consolas, monospace" font-size="15" fill="#6B7A90">10 / 14</text>
+  <text x="112" y="96" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" fill="#6B7A90">PART 3 · 前端考场</text>
+  <text x="112" y="150" font-family="Microsoft YaHei, Arial, sans-serif" font-size="36" font-weight="700" fill="#16233A">判对错只要一行，值钱的是后面那一句</text>
+  <line x1="112" y1="176" x2="1168" y2="176" stroke="#D9E1EC" stroke-width="1"/>
+  <text x="112" y="216" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#1F2933">前端比较答案够用；错题必须回流到复习列表，闭环才闭合。</text>
+
+  <rect x="112" y="256" width="500" height="120" rx="10" fill="#0F1B2D"/>
+  <text x="136" y="290" font-family="Consolas, monospace" font-size="14" fill="#7FA7D9">唯一的一次判断</text>
+  <text x="136" y="328" font-family="Consolas, monospace" font-size="16" fill="#D8E2F0">const isCorrect = selectedOption === question.answer;</text>
+  <text x="136" y="356" font-family="Consolas, monospace" font-size="16" fill="#8FB8E8">setResult({ isCorrect, explanation: question.explanation });</text>
+
+  <rect x="112" y="404" width="240" height="120" rx="10" fill="#FFFFFF" stroke="#D9E1EC"/>
+  <text x="136" y="440" font-family="Microsoft YaHei, Arial, sans-serif" font-size="19" font-weight="700" fill="#16233A">答对</text>
+  <text x="136" y="472" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" fill="#4A5568">显示「回答正确」与解析，</text>
+  <text x="136" y="496" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" fill="#4A5568">提供「再来一题」。</text>
+
+  <rect x="376" y="404" width="240" height="120" rx="10" fill="#FFFFFF" stroke="#F2994A"/>
+  <text x="400" y="440" font-family="Microsoft YaHei, Arial, sans-serif" font-size="19" font-weight="700" fill="#B06A1F">答错</text>
+  <text x="400" y="472" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" fill="#4A5568">显示正确答案与解析，</text>
+  <text x="400" y="496" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" fill="#4A5568">并写入复习列表。</text>
+
+  <rect x="700" y="256" width="468" height="268" rx="10" fill="#0F1B2D"/>
+  <text x="724" y="292" font-family="Consolas, monospace" font-size="14" fill="#7FA7D9">错题回流  ·  只有一句写库</text>
+  <text x="724" y="330" font-family="Consolas, monospace" font-size="15" fill="#D8E2F0">if (!isCorrect) {</text>
+  <text x="744" y="358" font-family="Consolas, monospace" font-size="15" fill="#8FB8E8">await api.put(`/knowledge-points/${id}`, { reviewList: true });</text>
+  <text x="744" y="386" font-family="Consolas, monospace" font-size="15" fill="#D8E2F0">setNotice("该知识点已加入你的复习列表");</text>
+  <text x="724" y="414" font-family="Consolas, monospace" font-size="15" fill="#D8E2F0">}</text>
+  <text x="724" y="452" font-family="Consolas, monospace" font-size="14" fill="#7FA7D9">为什么写「复习列表」而不是「错题本」</text>
+  <text x="724" y="480" font-family="Consolas, monospace" font-size="14" fill="#7FA7D9">——复述评分差也会进来，复习计划只有一处。</text>
+
+  <line x1="112" y1="576" x2="1168" y2="576" stroke="#F2994A" stroke-width="1"/>
+  <text x="112" y="606" font-family="Microsoft YaHei, Arial, sans-serif" font-size="17" fill="#B06A1F">局限：字符串比较只能判选择题。</text>
+  <text x="360" y="606" font-family="Microsoft YaHei, Arial, sans-serif" font-size="17" fill="#4A5568">简答题答案不唯一——这就是下一节要请 AI 阅卷的原因。</text>
+</svg>

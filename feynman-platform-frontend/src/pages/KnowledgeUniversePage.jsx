@@ -156,6 +156,8 @@ function KnowledgeUniversePage() {
   const [selectedNode, setSelectedNode] = useState(null); // 当前选中节点信息（UI 浮层）
   const [loading, setLoading] = useState(true);
   const [autoRotate, setAutoRotate] = useState(true);
+  // 左下角「图例与视角」面板是否展开：默认展开（第一次进来需要它解释画面），可以由用户收起
+  const [hudOpen, setHudOpen] = useState(true);
   const navigate = useNavigate();
 
   // 1. 获取知识图谱数据
@@ -831,10 +833,8 @@ function KnowledgeUniversePage() {
         </button>
       </div>
       <p className="graph-hint">
-        每颗星球是一个知识点，星球越大表示它关联的知识点越多（引用 + 提及，与 2D 知识图谱同一口径）；
-        航线上有小飞船往来穿梭：<b>亮实线</b>上跑的是<b>亮蓝大飞船</b>（你手动建立的「引用」），
-        <b>暗虚线</b>上跑的是<b>暗灰小飞船</b>（系统从正文里识别出的「提及」）——速度、体型、亮度都按航线类型区分。
-        拖拽旋转、滚轮缩放、悬停高亮、点击星球聚焦并查看详情。
+        每颗星球是一个知识点，越大表示关联越多（与 2D 图谱同一口径）；按航线类型区分两种关系，
+        左下角图例里能对上号。拖拽旋转、滚轮缩放、点击星球查看详情。
       </p>
       {loading && <p className="status-text">正在构建知识宇宙...</p>}
       {!loading && graphData.nodes.length === 0 && (
@@ -852,43 +852,55 @@ function KnowledgeUniversePage() {
             <p className="overlay-excerpt">{selectedNode.excerpt}</p>
           </div>
         )}
-        {/* 左下角操作区：图例 + 视角按钮 */}
+        {/* 左下角操作区：图例 + 视角按钮（可折叠，默认展开；收起后只剩一个标题条） */}
         {!loading && graphData.nodes.length > 0 && (
-          <div className="universe-hud">
-            <div className="universe-stats">
-              <span>
-                <b>{graphData.nodes.length}</b> 颗星球
-              </span>
-              <span>
-                <b>{graphData.links.length}</b> 条航线
-              </span>
-            </div>
-            <ul className="universe-legend">
-              {LEGEND.map((item) => (
-                <li key={item.label}>
-                  <i style={{ background: item.color, boxShadow: `0 0 8px ${item.color}` }} />
-                  {item.label}
+          <div className={`universe-hud${hudOpen ? '' : ' is-collapsed'}`}>
+            <button
+              type="button"
+              className="universe-hud-toggle"
+              onClick={() => setHudOpen((prev) => !prev)}
+              aria-expanded={hudOpen}
+              aria-controls="universe-hud-body"
+              title={hudOpen ? '收起图例与视角' : '展开图例与视角'}
+            >
+              <span>图例与视角</span>
+              <svg className="universe-hud-caret" viewBox="0 0 12 8" aria-hidden="true">
+                <path d="M1.2 1.6 6 6.4l4.8-4.8" />
+              </svg>
+            </button>
+            <div className="universe-hud-body" id="universe-hud-body" hidden={!hudOpen}>
+              <div className="universe-stats">
+                <span><b>{graphData.nodes.length}</b> 颗星球</span>
+                <span><b>{graphData.links.length}</b> 条航线</span>
+              </div>
+              <ul className="universe-legend">
+                {LEGEND.map((item) => (
+                  <li key={item.label}>
+                    {/* 图例色块就是星球本身的颜色，不加发光（发光会让色块与星球对不上） */}
+                    <i style={{ background: item.color }} />
+                    {item.label}
+                  </li>
+                ))}
+              </ul>
+              {/* 航线上的飞船图例：和航线本身的实线/虚线口径一一对应 */}
+              <ul className="universe-legend universe-ship-legend">
+                <li>
+                  <i className="ship-mark" />
+                  引用航线 · 亮蓝大飞船
                 </li>
-              ))}
-            </ul>
-            {/* 航线上的飞船图例：和航线本身的实线/虚线口径一一对应 */}
-            <ul className="universe-legend universe-ship-legend">
-              <li>
-                <i className="ship-mark" />
-                引用航线 · 亮蓝大飞船
-              </li>
-              <li>
-                <i className="ship-mark ship-mark-auto" />
-                提及航线 · 暗灰小飞船
-              </li>
-            </ul>
-            <div className="universe-actions">
-              <button type="button" className="universe-btn" onClick={() => actionsRef.current.resetView?.()}>
-                回到全景
-              </button>
-              <button type="button" className="universe-btn" onClick={() => setAutoRotate((v) => !v)}>
-                {autoRotate ? '暂停自转' : '开启自转'}
-              </button>
+                <li>
+                  <i className="ship-mark ship-mark-auto" />
+                  提及航线 · 暗灰小飞船
+                </li>
+              </ul>
+              <div className="universe-actions">
+                <button type="button" className="universe-btn" onClick={() => actionsRef.current.resetView?.()}>
+                  回到全景
+                </button>
+                <button type="button" className="universe-btn" onClick={() => setAutoRotate((v) => !v)}>
+                  {autoRotate ? '暂停自转' : '开启自转'}
+                </button>
+              </div>
             </div>
           </div>
         )}

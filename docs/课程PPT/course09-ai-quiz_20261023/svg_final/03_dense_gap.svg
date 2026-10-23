@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <rect x="0" y="0" width="1280" height="720" fill="#F5F7FA"/>
+  <line x1="80" y1="64" x2="80" y2="664" stroke="#16233A" stroke-width="4"/>
+  <text x="1168" y="96" text-anchor="end" font-family="Consolas, monospace" font-size="15" fill="#6B7A90">03 / 14</text>
+  <text x="112" y="96" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" fill="#6B7A90">PART 1 · 为什么要有「练」</text>
+  <text x="112" y="150" font-family="Microsoft YaHei, Arial, sans-serif" font-size="36" font-weight="700" fill="#16233A">能教、能评，还不能练</text>
+  <line x1="112" y1="176" x2="1168" y2="176" stroke="#D9E1EC" stroke-width="1"/>
+  <text x="112" y="216" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#1F2933">没有题就没有练，没有分就没有评——闭环断在「练」。</text>
+
+  <rect x="112" y="268" width="300" height="120" rx="10" fill="#FFFFFF" stroke="#D9E1EC"/>
+  <text x="136" y="304" font-family="Microsoft YaHei, Arial, sans-serif" font-size="18" font-weight="700" fill="#16233A">学</text>
+  <text x="136" y="334" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" fill="#4A5568">知识点录入与阅读</text>
+  <text x="136" y="358" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" fill="#4A5568">已有：完成</text>
+
+  <rect x="500" y="268" width="300" height="120" rx="10" fill="#FFFFFF" stroke="#F2994A" stroke-width="2"/>
+  <text x="524" y="304" font-family="Microsoft YaHei, Arial, sans-serif" font-size="18" font-weight="700" fill="#B06A1F">练</text>
+  <text x="524" y="334" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" fill="#4A5568">没有可判分的题目</text>
+  <text x="524" y="358" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" fill="#B06A1F">缺口：今天补上</text>
+
+  <rect x="888" y="268" width="280" height="120" rx="10" fill="#FFFFFF" stroke="#D9E1EC"/>
+  <text x="912" y="304" font-family="Microsoft YaHei, Arial, sans-serif" font-size="18" font-weight="700" fill="#16233A">评</text>
+  <text x="912" y="334" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" fill="#4A5568">复述评分与复习列表</text>
+  <text x="912" y="358" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" fill="#4A5568">已有：可用但无输入</text>
+
+  <line x1="412" y1="328" x2="492" y2="328" stroke="#2F80ED" stroke-width="2"/>
+  <line x1="808" y1="328" x2="880" y2="328" stroke="#2F80ED" stroke-width="2"/>
+
+  <line x1="112" y1="436" x2="1168" y2="436" stroke="#D9E1EC" stroke-width="1"/>
+  <text x="112" y="476" font-family="Microsoft YaHei, Arial, sans-serif" font-size="17" fill="#1F2933">补法：让 AI 按知识点生成一道题，答完立刻给分。</text>
+  <text x="112" y="510" font-family="Microsoft YaHei, Arial, sans-serif" font-size="17" fill="#1F2933">回报：错题自动进复习列表，学习计划自己长出来。</text>
+  <rect x="112" y="546" width="1056" height="64" rx="8" fill="#FFFFFF" stroke="#D9E1EC"/>
+  <text x="136" y="584" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" fill="#6B7A90">判断标准很简单：用户能不能在「不写新的学习笔记」的前提下，验证自己真的学会了。</text>
+</svg>

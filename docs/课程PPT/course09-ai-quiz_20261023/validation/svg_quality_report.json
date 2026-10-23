@@ -1,0 +1,1451 @@
+{
+  "schema": "ppt-master.svg-quality-report.v1",
+  "stage": "final",
+  "target": "E:\\JavaProject\\SchoolProgram\\课程PPT\\course09-ai-quiz_20261023",
+  "source_fingerprint": {
+    "algorithm": "sha256",
+    "digest": "3ae6f789290608a7e6c1ae334f2807e6530b9eb5160df5c42646ca77f16fee5a",
+    "file_count": 14,
+    "files": [
+      {
+        "file": "01_cover.svg",
+        "sha256": "d3ac9f620f1de483ab0d2e6a2e1c9e533bdb6d055d6ae7dc5a7f99e8bdb8d9ef"
+      },
+      {
+        "file": "02_dense_three_jobs.svg",
+        "sha256": "27b1aa6264fef7a709597827f260ee4aedc5373f74489e73e9c91e5a8443647d"
+      },
+      {
+        "file": "03_dense_gap.svg",
+        "sha256": "19274c952d86c6552ac0385cc92af9db22a705dcdae86e5a1589fbefe9eabd1a"
+      },
+      {
+        "file": "04_dense_pipeline.svg",
+        "sha256": "0c40533e6e8298485a7763a0966284340f6c4a053db8e6cd702bd23256aa635d"
+      },
+      {
+        "file": "05_dense_prompt.svg",
+        "sha256": "5d2f080c939cd5283cfacea492c96d08bf103d989fe0161b15bc0dd4a6b972d6"
+      },
+      {
+        "file": "06_dense_controller.svg",
+        "sha256": "db8827022c665b2a9ee28c835ed51c4c6a75e42b30d9bac4c0b25376b02f9ac2"
+      },
+      {
+        "file": "07_dense_json_fault.svg",
+        "sha256": "992ba47296bb1e7f9d8eddfceb227b1cb3d9a5ef045a2540321458429e3f3494"
+      },
+      {
+        "file": "08_breathing_states.svg",
+        "sha256": "477ae4f3ca23fc751ef52e47369efe37868cd3c0249a00814d81b98313112fdc"
+      },
+      {
+        "file": "09_dense_serial_flow.svg",
+        "sha256": "7a14b5e551d9f22dc62d2c60776ee98759db5381a9914e6a08d4736b57dbf767"
+      },
+      {
+        "file": "10_dense_score_review.svg",
+        "sha256": "572b7cadccb00cac58910b172493550bcdac31225a67a749f4f4e8bb420b4a01"
+      },
+      {
+        "file": "11_breathing_routes.svg",
+        "sha256": "1339b9865e5907f4fda67c273d336c4144ed372b3f5b91b3dcad3bb2ac7d0569"
+      },
+      {
+        "file": "12_dense_ai_grader.svg",
+        "sha256": "e0dbdd9c96d588f1de67a87ef36565a6c392a3b16a5ff8278f46ebc0368282fc"
+      },
+      {
+        "file": "13_dense_tasks.svg",
+        "sha256": "fc14c0ff2f8cb7d09c20b140ad39b04d888c17ebc718cb0536d7957b1554cc82"
+      },
+      {
+        "file": "14_anchor_summary.svg",
+        "sha256": "2507423281436cb5d6babbf108f41d5ec3c420bb342e707a048b93d20b3c117b"
+      }
+    ]
+  },
+  "summary": {
+    "total": 14,
+    "passed": 0,
+    "warnings": 14,
+    "errors": 0
+  },
+  "issue_types": {},
+  "categories": {
+    "blocking": {
+      "count": 0,
+      "issues": []
+    },
+    "introduced": {
+      "count": 56,
+      "issues": [
+        {
+          "file": "01_cover.svg",
+          "message": "Noncanonical compact authoring: Visible text requires one direct root font-family default; semantic groups and text elements keep only real overrides (advisory; normalize with `python3 scripts/compact_svg_styles.py <svg_output> --inplace`, re-stamp pages that carry Chart/Table fallbacks, and rerun the final gate, or leave the explicit form)"
+        },
+        {
+          "file": "01_cover.svg",
+          "message": "Noncanonical compact authoring: Authoring SVG contains noncanonical or redundant inherited style declarations (12 change(s)); examples (group:attr None -> value hoists the shared value onto that group; child:attr value -> None drops the copy the child now inherits): svg[1]:font-family None -> 'Microsoft YaHei, Arial, sans-serif'; text[4]:font-family 'Microsoft YaHei, Arial, sans-serif' -> None; text[5]:font-family 'Microsoft YaHei, Arial, sans-serif' -> None (advisory; normalize with `python3 scripts/compact_svg_styles.py <svg_output> --inplace`, re-stamp pages that carry Chart/Table fallbacks, and rerun the final gate, or leave the explicit form)"
+        },
+        {
+          "file": "01_cover.svg",
+          "message": "15 ungrouped top-level Slide-local element(s) in svg_output (<line> #2, <text> #3, <text> #4, ...); group only logical content units in a top-level <g id=\"...\">. Keep genuine static page framing as a root primitive and declare a supported data-pptx-role such as \"background\" or \"decoration\""
+        },
+        {
+          "file": "01_cover.svg",
+          "message": "page SVG is missing root data-pptx-page-role"
+        },
+        {
+          "file": "02_dense_three_jobs.svg",
+          "message": "Noncanonical compact authoring: Visible text requires one direct root font-family default; semantic groups and text elements keep only real overrides (advisory; normalize with `python3 scripts/compact_svg_styles.py <svg_output> --inplace`, re-stamp pages that carry Chart/Table fallbacks, and rerun the final gate, or leave the explicit form)"
+        },
+        {
+          "file": "02_dense_three_jobs.svg",
+          "message": "Noncanonical compact authoring: Authoring SVG contains noncanonical or redundant inherited style declarations (18 change(s)); examples (group:attr None -> value hoists the shared value onto that group; child:attr value -> None drops the copy the child now inherits): svg[1]:font-family None -> 'Microsoft YaHei, Arial, sans-serif'; text[5]:font-family 'Microsoft YaHei, Arial, sans-serif' -> None; text[6]:font-family 'Microsoft YaHei, Arial, sans-serif' -> None (advisory; normalize with `python3 scripts/compact_svg_styles.py <svg_output> --inplace`, re-stamp pages that carry Chart/Table fallbacks, and rerun the final gate, or leave the explicit form)"
+        },
+        {
+          "file": "02_dense_three_jobs.svg",
+          "message": "30 ungrouped top-level Slide-local element(s) in svg_output (<line> #2, <text> #3, <text> #4, ...); group only logical content units in a top-level <g id=\"...\">. Keep genuine static page framing as a root primitive and declare a supported data-pptx-role such as \"background\" or \"decoration\""
+        },
+        {
+          "file": "02_dense_three_jobs.svg",
+          "message": "page SVG is missing root data-pptx-page-role"
+        },
+        {
+          "file": "03_dense_gap.svg",
+          "message": "Noncanonical compact authoring: Visible text requires one direct root font-family default; semantic groups and text elements keep only real overrides (advisory; normalize with `python3 scripts/compact_svg_styles.py <svg_output> --inplace`, re-stamp pages that carry Chart/Table fallbacks, and rerun the final gate, or leave the explicit form)"
+        },
+        {
+          "file": "03_dense_gap.svg",
+          "message": "Noncanonical compact authoring: Authoring SVG contains noncanonical or redundant inherited style declarations (16 change(s)); examples (group:attr None -> value hoists the shared value onto that group; child:attr value -> None drops the copy the child now inherits): svg[1]:font-family None -> 'Microsoft YaHei, Arial, sans-serif'; text[5]:font-family 'Microsoft YaHei, Arial, sans-serif' -> None; text[6]:font-family 'Microsoft YaHei, Arial, sans-serif' -> None (advisory; normalize with `python3 scripts/compact_svg_styles.py <svg_output> --inplace`, re-stamp pages that carry Chart/Table fallbacks, and rerun the final gate, or leave the explicit form)"
+        },
+        {
+          "file": "03_dense_gap.svg",
+          "message": "25 ungrouped top-level Slide-local element(s) in svg_output (<line> #2, <text> #3, <text> #4, ...); group only logical content units in a top-level <g id=\"...\">. Keep genuine static page framing as a root primitive and declare a supported data-pptx-role such as \"background\" or \"decoration\""
+        },
+        {
+          "file": "03_dense_gap.svg",
+          "message": "page SVG is missing root data-pptx-page-role"
+        },
+        {
+          "file": "04_dense_pipeline.svg",
+          "message": "Noncanonical compact authoring: Visible text requires one direct root font-family default; semantic groups and text elements keep only real overrides (advisory; normalize with `python3 scripts/compact_svg_styles.py <svg_output> --inplace`, re-stamp pages that carry Chart/Table fallbacks, and rerun the final gate, or leave the explicit form)"
+        },
+        {
+          "file": "04_dense_pipeline.svg",
+          "message": "Noncanonical compact authoring: Authoring SVG contains noncanonical or redundant inherited style declarations (17 change(s)); examples (group:attr None -> value hoists the shared value onto that group; child:attr value -> None drops the copy the child now inherits): svg[1]:font-family None -> 'Microsoft YaHei, Arial, sans-serif'; text[5]:font-family 'Microsoft YaHei, Arial, sans-serif' -> None; text[6]:font-family 'Microsoft YaHei, Arial, sans-serif' -> None (advisory; normalize with `python3 scripts/compact_svg_styles.py <svg_output> --inplace`, re-stamp pages that carry Chart/Table fallbacks, and rerun the final gate, or leave the explicit form)"
+        },
+        {
+          "file": "04_dense_pipeline.svg",
+          "message": "34 ungrouped top-level Slide-local element(s) in svg_output (<line> #2, <text> #3, <text> #4, ...); group only logical content units in a top-level <g id=\"...\">. Keep genuine static page framing as a root primitive and declare a supported data-pptx-role such as \"background\" or \"decoration\""
+        },
+        {
+          "file": "04_dense_pipeline.svg",
+          "message": "page SVG is missing root data-pptx-page-role"
+        },
+        {
+          "file": "05_dense_prompt.svg",
+          "message": "Noncanonical compact authoring: Visible text requires one direct root font-family default; semantic groups and text elements keep only real overrides (advisory; normalize with `python3 scripts/compact_svg_styles.py <svg_output> --inplace`, re-stamp pages that carry Chart/Table fallbacks, and rerun the final gate, or leave the explicit form)"
+        },
+        {
+          "file": "05_dense_prompt.svg",
+          "message": "Noncanonical compact authoring: Authoring SVG contains noncanonical or redundant inherited style declarations (16 change(s)); examples (group:attr None -> value hoists the shared value onto that group; child:attr value -> None drops the copy the child now inherits): svg[1]:font-family None -> 'Consolas, monospace'; text[4]:font-family 'Consolas, monospace' -> None; text[19]:font-family 'Consolas, monospace' -> None (advisory; normalize with `python3 scripts/compact_svg_styles.py <svg_output> --inplace`, re-stamp pages that carry Chart/Table fallbacks, and rerun the final gate, or leave the explicit form)"
+        },
+        {
+          "file": "05_dense_prompt.svg",
+          "message": "33 ungrouped top-level Slide-local element(s) in svg_output (<line> #2, <text> #3, <text> #4, ...); group only logical content units in a top-level <g id=\"...\">. Keep genuine static page framing as a root primitive and declare a supported data-pptx-role such as \"background\" or \"decoration\""
+        },
+        {
+          "file": "05_dense_prompt.svg",
+          "message": "page SVG is missing root data-pptx-page-role"
+        },
+        {
+          "file": "06_dense_controller.svg",
+          "message": "Noncanonical compact authoring: Visible text requires one direct root font-family default; semantic groups and text elements keep only real overrides (advisory; normalize with `python3 scripts/compact_svg_styles.py <svg_output> --inplace`, re-stamp pages that carry Chart/Table fallbacks, and rerun the final gate, or leave the explicit form)"
+        },
+        {
+          "file": "06_dense_controller.svg",
+          "message": "Noncanonical compact authoring: Authoring SVG contains noncanonical or redundant inherited style declarations (16 change(s)); examples (group:attr None -> value hoists the shared value onto that group; child:attr value -> None drops the copy the child now inherits): svg[1]:font-family None -> 'Consolas, monospace'; text[4]:font-family 'Consolas, monospace' -> None; text[10]:font-family 'Consolas, monospace' -> None (advisory; normalize with `python3 scripts/compact_svg_styles.py <svg_output> --inplace`, re-stamp pages that carry Chart/Table fallbacks, and rerun the final gate, or leave the explicit form)"
+        },
+        {
+          "file": "06_dense_controller.svg",
+          "message": "32 ungrouped top-level Slide-local element(s) in svg_output (<line> #2, <text> #3, <text> #4, ...); group only logical content units in a top-level <g id=\"...\">. Keep genuine static page framing as a root primitive and declare a supported data-pptx-role such as \"background\" or \"decoration\""
+        },
+        {
+          "file": "06_dense_controller.svg",
+          "message": "page SVG is missing root data-pptx-page-role"
+        },
+        {
+          "file": "07_dense_json_fault.svg",
+          "message": "Noncanonical compact authoring: Visible text requires one direct root font-family default; semantic groups and text elements keep only real overrides (advisory; normalize with `python3 scripts/compact_svg_styles.py <svg_output> --inplace`, re-stamp pages that carry Chart/Table fallbacks, and rerun the final gate, or leave the explicit form)"
+        },
+        {
+          "file": "07_dense_json_fault.svg",
+          "message": "Noncanonical compact authoring: Authoring SVG contains noncanonical or redundant inherited style declarations (11 change(s)); examples (group:attr None -> value hoists the shared value onto that group; child:attr value -> None drops the copy the child now inherits): svg[1]:font-family None -> 'Consolas, monospace'; text[4]:font-family 'Consolas, monospace' -> None; text[10]:font-family 'Consolas, monospace' -> None (advisory; normalize with `python3 scripts/compact_svg_styles.py <svg_output> --inplace`, re-stamp pages that carry Chart/Table fallbacks, and rerun the final gate, or leave the explicit form)"
+        },
+        {
+          "file": "07_dense_json_fault.svg",
+          "message": "25 ungrouped top-level Slide-local element(s) in svg_output (<line> #2, <text> #3, <text> #4, ...); group only logical content units in a top-level <g id=\"...\">. Keep genuine static page framing as a root primitive and declare a supported data-pptx-role such as \"background\" or \"decoration\""
+        },
+        {
+          "file": "07_dense_json_fault.svg",
+          "message": "page SVG is missing root data-pptx-page-role"
+        },
+        {
+          "file": "08_breathing_states.svg",
+          "message": "Noncanonical compact authoring: Visible text requires one direct root font-family default; semantic groups and text elements keep only real overrides (advisory; normalize with `python3 scripts/compact_svg_styles.py <svg_output> --inplace`, re-stamp pages that carry Chart/Table fallbacks, and rerun the final gate, or leave the explicit form)"
+        },
+        {
+          "file": "08_breathing_states.svg",
+          "message": "Noncanonical compact authoring: Authoring SVG contains noncanonical or redundant inherited style declarations (12 change(s)); examples (group:attr None -> value hoists the shared value onto that group; child:attr value -> None drops the copy the child now inherits): svg[1]:font-family None -> 'Microsoft YaHei, Arial, sans-serif'; text[5]:font-family 'Microsoft YaHei, Arial, sans-serif' -> None; text[6]:font-family 'Microsoft YaHei, Arial, sans-serif' -> None (advisory; normalize with `python3 scripts/compact_svg_styles.py <svg_output> --inplace`, re-stamp pages that carry Chart/Table fallbacks, and rerun the final gate, or leave the explicit form)"
+        },
+        {
+          "file": "08_breathing_states.svg",
+          "message": "26 ungrouped top-level Slide-local element(s) in svg_output (<line> #2, <text> #3, <text> #4, ...); group only logical content units in a top-level <g id=\"...\">. Keep genuine static page framing as a root primitive and declare a supported data-pptx-role such as \"background\" or \"decoration\""
+        },
+        {
+          "file": "08_breathing_states.svg",
+          "message": "page SVG is missing root data-pptx-page-role"
+        },
+        {
+          "file": "09_dense_serial_flow.svg",
+          "message": "Noncanonical compact authoring: Visible text requires one direct root font-family default; semantic groups and text elements keep only real overrides (advisory; normalize with `python3 scripts/compact_svg_styles.py <svg_output> --inplace`, re-stamp pages that carry Chart/Table fallbacks, and rerun the final gate, or leave the explicit form)"
+        },
+        {
+          "file": "09_dense_serial_flow.svg",
+          "message": "Noncanonical compact authoring: Authoring SVG contains noncanonical or redundant inherited style declarations (14 change(s)); examples (group:attr None -> value hoists the shared value onto that group; child:attr value -> None drops the copy the child now inherits): svg[1]:font-family None -> 'Microsoft YaHei, Arial, sans-serif'; text[5]:font-family 'Microsoft YaHei, Arial, sans-serif' -> None; text[6]:font-family 'Microsoft YaHei, Arial, sans-serif' -> None (advisory; normalize with `python3 scripts/compact_svg_styles.py <svg_output> --inplace`, re-stamp pages that carry Chart/Table fallbacks, and rerun the final gate, or leave the explicit form)"
+        },
+        {
+          "file": "09_dense_serial_flow.svg",
+          "message": "34 ungrouped top-level Slide-local element(s) in svg_output (<line> #2, <text> #3, <text> #4, ...); group only logical content units in a top-level <g id=\"...\">. Keep genuine static page framing as a root primitive and declare a supported data-pptx-role such as \"background\" or \"decoration\""
+        },
+        {
+          "file": "09_dense_serial_flow.svg",
+          "message": "page SVG is missing root data-pptx-page-role"
+        },
+        {
+          "file": "10_dense_score_review.svg",
+          "message": "Noncanonical compact authoring: Visible text requires one direct root font-family default; semantic groups and text elements keep only real overrides (advisory; normalize with `python3 scripts/compact_svg_styles.py <svg_output> --inplace`, re-stamp pages that carry Chart/Table fallbacks, and rerun the final gate, or leave the explicit form)"
+        },
+        {
+          "file": "10_dense_score_review.svg",
+          "message": "Noncanonical compact authoring: Authoring SVG contains noncanonical or redundant inherited style declarations (12 change(s)); examples (group:attr None -> value hoists the shared value onto that group; child:attr value -> None drops the copy the child now inherits): svg[1]:font-family None -> 'Consolas, monospace'; text[4]:font-family 'Consolas, monospace' -> None; text[10]:font-family 'Consolas, monospace' -> None (advisory; normalize with `python3 scripts/compact_svg_styles.py <svg_output> --inplace`, re-stamp pages that carry Chart/Table fallbacks, and rerun the final gate, or leave the explicit form)"
+        },
+        {
+          "file": "10_dense_score_review.svg",
+          "message": "29 ungrouped top-level Slide-local element(s) in svg_output (<line> #2, <text> #3, <text> #4, ...); group only logical content units in a top-level <g id=\"...\">. Keep genuine static page framing as a root primitive and declare a supported data-pptx-role such as \"background\" or \"decoration\""
+        },
+        {
+          "file": "10_dense_score_review.svg",
+          "message": "page SVG is missing root data-pptx-page-role"
+        },
+        {
+          "file": "11_breathing_routes.svg",
+          "message": "Noncanonical compact authoring: Visible text requires one direct root font-family default; semantic groups and text elements keep only real overrides (advisory; normalize with `python3 scripts/compact_svg_styles.py <svg_output> --inplace`, re-stamp pages that carry Chart/Table fallbacks, and rerun the final gate, or leave the explicit form)"
+        },
+        {
+          "file": "11_breathing_routes.svg",
+          "message": "Noncanonical compact authoring: Authoring SVG contains noncanonical or redundant inherited style declarations (14 change(s)); examples (group:attr None -> value hoists the shared value onto that group; child:attr value -> None drops the copy the child now inherits): svg[1]:font-family None -> 'Microsoft YaHei, Arial, sans-serif'; text[5]:font-family 'Microsoft YaHei, Arial, sans-serif' -> None; text[6]:font-family 'Microsoft YaHei, Arial, sans-serif' -> None (advisory; normalize with `python3 scripts/compact_svg_styles.py <svg_output> --inplace`, re-stamp pages that carry Chart/Table fallbacks, and rerun the final gate, or leave the explicit form)"
+        },
+        {
+          "file": "11_breathing_routes.svg",
+          "message": "27 ungrouped top-level Slide-local element(s) in svg_output (<line> #2, <text> #3, <text> #4, ...); group only logical content units in a top-level <g id=\"...\">. Keep genuine static page framing as a root primitive and declare a supported data-pptx-role such as \"background\" or \"decoration\""
+        },
+        {
+          "file": "11_breathing_routes.svg",
+          "message": "page SVG is missing root data-pptx-page-role"
+        },
+        {
+          "file": "12_dense_ai_grader.svg",
+          "message": "Noncanonical compact authoring: Visible text requires one direct root font-family default; semantic groups and text elements keep only real overrides (advisory; normalize with `python3 scripts/compact_svg_styles.py <svg_output> --inplace`, re-stamp pages that carry Chart/Table fallbacks, and rerun the final gate, or leave the explicit form)"
+        },
+        {
+          "file": "12_dense_ai_grader.svg",
+          "message": "Noncanonical compact authoring: Authoring SVG contains noncanonical or redundant inherited style declarations (11 change(s)); examples (group:attr None -> value hoists the shared value onto that group; child:attr value -> None drops the copy the child now inherits): svg[1]:font-family None -> 'Microsoft YaHei, Arial, sans-serif'; text[5]:font-family 'Microsoft YaHei, Arial, sans-serif' -> None; text[6]:font-family 'Microsoft YaHei, Arial, sans-serif' -> None (advisory; normalize with `python3 scripts/compact_svg_styles.py <svg_output> --inplace`, re-stamp pages that carry Chart/Table fallbacks, and rerun the final gate, or leave the explicit form)"
+        },
+        {
+          "file": "12_dense_ai_grader.svg",
+          "message": "23 ungrouped top-level Slide-local element(s) in svg_output (<line> #2, <text> #3, <text> #4, ...); group only logical content units in a top-level <g id=\"...\">. Keep genuine static page framing as a root primitive and declare a supported data-pptx-role such as \"background\" or \"decoration\""
+        },
+        {
+          "file": "12_dense_ai_grader.svg",
+          "message": "page SVG is missing root data-pptx-page-role"
+        },
+        {
+          "file": "13_dense_tasks.svg",
+          "message": "Noncanonical compact authoring: Visible text requires one direct root font-family default; semantic groups and text elements keep only real overrides (advisory; normalize with `python3 scripts/compact_svg_styles.py <svg_output> --inplace`, re-stamp pages that carry Chart/Table fallbacks, and rerun the final gate, or leave the explicit form)"
+        },
+        {
+          "file": "13_dense_tasks.svg",
+          "message": "Noncanonical compact authoring: Authoring SVG contains noncanonical or redundant inherited style declarations (16 change(s)); examples (group:attr None -> value hoists the shared value onto that group; child:attr value -> None drops the copy the child now inherits): svg[1]:font-family None -> 'Microsoft YaHei, Arial, sans-serif'; text[5]:font-family 'Microsoft YaHei, Arial, sans-serif' -> None; text[6]:font-family 'Microsoft YaHei, Arial, sans-serif' -> None (advisory; normalize with `python3 scripts/compact_svg_styles.py <svg_output> --inplace`, re-stamp pages that carry Chart/Table fallbacks, and rerun the final gate, or leave the explicit form)"
+        },
+        {
+          "file": "13_dense_tasks.svg",
+          "message": "26 ungrouped top-level Slide-local element(s) in svg_output (<line> #2, <text> #3, <text> #4, ...); group only logical content units in a top-level <g id=\"...\">. Keep genuine static page framing as a root primitive and declare a supported data-pptx-role such as \"background\" or \"decoration\""
+        },
+        {
+          "file": "13_dense_tasks.svg",
+          "message": "page SVG is missing root data-pptx-page-role"
+        },
+        {
+          "file": "14_anchor_summary.svg",
+          "message": "Noncanonical compact authoring: Visible text requires one direct root font-family default; semantic groups and text elements keep only real overrides (advisory; normalize with `python3 scripts/compact_svg_styles.py <svg_output> --inplace`, re-stamp pages that carry Chart/Table fallbacks, and rerun the final gate, or leave the explicit form)"
+        },
+        {
+          "file": "14_anchor_summary.svg",
+          "message": "Noncanonical compact authoring: Authoring SVG contains noncanonical or redundant inherited style declarations (17 change(s)); examples (group:attr None -> value hoists the shared value onto that group; child:attr value -> None drops the copy the child now inherits): svg[1]:font-family None -> 'Microsoft YaHei, Arial, sans-serif'; text[4]:font-family 'Microsoft YaHei, Arial, sans-serif' -> None; text[6]:font-family 'Microsoft YaHei, Arial, sans-serif' -> None (advisory; normalize with `python3 scripts/compact_svg_styles.py <svg_output> --inplace`, re-stamp pages that carry Chart/Table fallbacks, and rerun the final gate, or leave the explicit form)"
+        },
+        {
+          "file": "14_anchor_summary.svg",
+          "message": "23 ungrouped top-level Slide-local element(s) in svg_output (<line> #2, <text> #3, <text> #4, ...); group only logical content units in a top-level <g id=\"...\">. Keep genuine static page framing as a root primitive and declare a supported data-pptx-role such as \"background\" or \"decoration\""
+        },
+        {
+          "file": "14_anchor_summary.svg",
+          "message": "page SVG is missing root data-pptx-page-role"
+        }
+      ]
+    },
+    "inherited": {
+      "count": 0,
+      "issues": []
+    },
+    "source-import": {
+      "count": 0,
+      "summary": {
+        "warning_count": 0,
+        "by_code": {}
+      }
+    }
+  },
+  "drift": {
+    "colors": {
+      "#0F1B2D": [
+        "04_dense_pipeline.svg",
+        "05_dense_prompt.svg",
+        "06_dense_controller.svg",
+        "07_dense_json_fault.svg",
+        "09_dense_serial_flow.svg",
+        "10_dense_score_review.svg",
+        "12_dense_ai_grader.svg"
+      ],
+      "#4A5568": [
+        "02_dense_three_jobs.svg",
+        "03_dense_gap.svg",
+        "05_dense_prompt.svg",
+        "06_dense_controller.svg",
+        "08_breathing_states.svg",
+        "10_dense_score_review.svg",
+        "11_breathing_routes.svg",
+        "12_dense_ai_grader.svg",
+        "14_anchor_summary.svg"
+      ],
+      "#7FA7D9": [
+        "04_dense_pipeline.svg",
+        "05_dense_prompt.svg",
+        "06_dense_controller.svg",
+        "07_dense_json_fault.svg",
+        "09_dense_serial_flow.svg",
+        "10_dense_score_review.svg",
+        "12_dense_ai_grader.svg"
+      ],
+      "#8FB8E8": [
+        "05_dense_prompt.svg",
+        "06_dense_controller.svg",
+        "07_dense_json_fault.svg",
+        "09_dense_serial_flow.svg",
+        "10_dense_score_review.svg",
+        "12_dense_ai_grader.svg"
+      ],
+      "#B06A1F": [
+        "02_dense_three_jobs.svg",
+        "03_dense_gap.svg",
+        "04_dense_pipeline.svg",
+        "05_dense_prompt.svg",
+        "07_dense_json_fault.svg",
+        "10_dense_score_review.svg",
+        "13_dense_tasks.svg",
+        "14_anchor_summary.svg"
+      ],
+      "#D8E2F0": [
+        "04_dense_pipeline.svg",
+        "05_dense_prompt.svg",
+        "06_dense_controller.svg",
+        "07_dense_json_fault.svg",
+        "09_dense_serial_flow.svg",
+        "10_dense_score_review.svg",
+        "12_dense_ai_grader.svg"
+      ],
+      "#F2A6A0": [
+        "07_dense_json_fault.svg"
+      ]
+    },
+    "fonts": {},
+    "sizes": {
+      "230": [
+        "01_cover.svg",
+        "14_anchor_summary.svg"
+      ],
+      "84": [
+        "01_cover.svg"
+      ]
+    }
+  },
+  "carrier_receipt": {
+    "scope": "informational-not-a-quota",
+    "pages": 14,
+    "totals": {
+      "text_elements": 274,
+      "image_placements": 0,
+      "icons": 0,
+      "svg_geometry_elements": 122,
+      "preset_shapes": 0,
+      "page_frame_elements": 0,
+      "marker_uses": 0,
+      "inline_emphasis_runs": 0,
+      "gradient_uses": 0,
+      "filter_uses": 0,
+      "text_effects": 0
+    },
+    "pages_with": {
+      "images": 0,
+      "icons": 0,
+      "presets": 0,
+      "charts": 0,
+      "tables": 0,
+      "formulas": 0,
+      "inline_emphasis_runs": 0,
+      "gradient_uses": 0,
+      "filter_uses": 0,
+      "text_effects": 0
+    },
+    "relationship_pages": 0,
+    "geometry_elements": {
+      "circle": 12,
+      "ellipse": 0,
+      "line": 52,
+      "path": 0,
+      "polygon": 0,
+      "polyline": 0,
+      "rect": 58
+    },
+    "preset_names": {},
+    "native_objects": {
+      "chart": 0,
+      "formula_block": 0,
+      "formula_inline": 0,
+      "other": 0,
+      "table": 0
+    },
+    "image_page_max_frame_share_range": []
+  },
+  "project_issues": {
+    "template": [],
+    "animation": [],
+    "illustration": [],
+    "communication_trace": [],
+    "pptx_structure": []
+  },
+  "files": [
+    {
+      "file": "01_cover.svg",
+      "path": "E:\\JavaProject\\SchoolProgram\\课程PPT\\course09-ai-quiz_20261023\\svg_output\\01_cover.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [
+        "Noncanonical compact authoring: Visible text requires one direct root font-family default; semantic groups and text elements keep only real overrides (advisory; normalize with `python3 scripts/compact_svg_styles.py <svg_output> --inplace`, re-stamp pages that carry Chart/Table fallbacks, and rerun the final gate, or leave the explicit form)",
+        "Noncanonical compact authoring: Authoring SVG contains noncanonical or redundant inherited style declarations (12 change(s)); examples (group:attr None -> value hoists the shared value onto that group; child:attr value -> None drops the copy the child now inherits): svg[1]:font-family None -> 'Microsoft YaHei, Arial, sans-serif'; text[4]:font-family 'Microsoft YaHei, Arial, sans-serif' -> None; text[5]:font-family 'Microsoft YaHei, Arial, sans-serif' -> None (advisory; normalize with `python3 scripts/compact_svg_styles.py <svg_output> --inplace`, re-stamp pages that carry Chart/Table fallbacks, and rerun the final gate, or leave the explicit form)",
+        "15 ungrouped top-level Slide-local element(s) in svg_output (<line> #2, <text> #3, <text> #4, ...); group only logical content units in a top-level <g id=\"...\">. Keep genuine static page framing as a root primitive and declare a supported data-pptx-role such as \"background\" or \"decoration\"",
+        "page SVG is missing root data-pptx-page-role"
+      ],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 12,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 1,
+              "circle": 0,
+              "ellipse": 0,
+              "line": 3,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 0,
+            "preset_names": {},
+            "page_frame_elements": 0,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Consolas, monospace",
+          "Microsoft YaHei, Arial, sans-serif"
+        ],
+        "text_elements": 12,
+        "tspan_elements": 0,
+        "sparse_typography_sizes": {
+          "230": 2,
+          "84": 1
+        }
+      },
+      "passed": true,
+      "source_sha256": "d3ac9f620f1de483ab0d2e6a2e1c9e533bdb6d055d6ae7dc5a7f99e8bdb8d9ef"
+    },
+    {
+      "file": "02_dense_three_jobs.svg",
+      "path": "E:\\JavaProject\\SchoolProgram\\课程PPT\\course09-ai-quiz_20261023\\svg_output\\02_dense_three_jobs.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [
+        "Noncanonical compact authoring: Visible text requires one direct root font-family default; semantic groups and text elements keep only real overrides (advisory; normalize with `python3 scripts/compact_svg_styles.py <svg_output> --inplace`, re-stamp pages that carry Chart/Table fallbacks, and rerun the final gate, or leave the explicit form)",
+        "Noncanonical compact authoring: Authoring SVG contains noncanonical or redundant inherited style declarations (18 change(s)); examples (group:attr None -> value hoists the shared value onto that group; child:attr value -> None drops the copy the child now inherits): svg[1]:font-family None -> 'Microsoft YaHei, Arial, sans-serif'; text[5]:font-family 'Microsoft YaHei, Arial, sans-serif' -> None; text[6]:font-family 'Microsoft YaHei, Arial, sans-serif' -> None (advisory; normalize with `python3 scripts/compact_svg_styles.py <svg_output> --inplace`, re-stamp pages that carry Chart/Table fallbacks, and rerun the final gate, or leave the explicit form)",
+        "30 ungrouped top-level Slide-local element(s) in svg_output (<line> #2, <text> #3, <text> #4, ...); group only logical content units in a top-level <g id=\"...\">. Keep genuine static page framing as a root primitive and declare a supported data-pptx-role such as \"background\" or \"decoration\"",
+        "page SVG is missing root data-pptx-page-role"
+      ],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 22,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 2,
+              "circle": 4,
+              "ellipse": 0,
+              "line": 3,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 0,
+            "preset_names": {},
+            "page_frame_elements": 0,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Consolas, monospace",
+          "Microsoft YaHei, Arial, sans-serif"
+        ],
+        "text_elements": 22,
+        "tspan_elements": 0,
+        "contextual_values": {
+          "colors": [
+            "#4A5568",
+            "#B06A1F"
+          ]
+        }
+      },
+      "passed": true,
+      "source_sha256": "27b1aa6264fef7a709597827f260ee4aedc5373f74489e73e9c91e5a8443647d"
+    },
+    {
+      "file": "03_dense_gap.svg",
+      "path": "E:\\JavaProject\\SchoolProgram\\课程PPT\\course09-ai-quiz_20261023\\svg_output\\03_dense_gap.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [
+        "Noncanonical compact authoring: Visible text requires one direct root font-family default; semantic groups and text elements keep only real overrides (advisory; normalize with `python3 scripts/compact_svg_styles.py <svg_output> --inplace`, re-stamp pages that carry Chart/Table fallbacks, and rerun the final gate, or leave the explicit form)",
+        "Noncanonical compact authoring: Authoring SVG contains noncanonical or redundant inherited style declarations (16 change(s)); examples (group:attr None -> value hoists the shared value onto that group; child:attr value -> None drops the copy the child now inherits): svg[1]:font-family None -> 'Microsoft YaHei, Arial, sans-serif'; text[5]:font-family 'Microsoft YaHei, Arial, sans-serif' -> None; text[6]:font-family 'Microsoft YaHei, Arial, sans-serif' -> None (advisory; normalize with `python3 scripts/compact_svg_styles.py <svg_output> --inplace`, re-stamp pages that carry Chart/Table fallbacks, and rerun the final gate, or leave the explicit form)",
+        "25 ungrouped top-level Slide-local element(s) in svg_output (<line> #2, <text> #3, <text> #4, ...); group only logical content units in a top-level <g id=\"...\">. Keep genuine static page framing as a root primitive and declare a supported data-pptx-role such as \"background\" or \"decoration\"",
+        "page SVG is missing root data-pptx-page-role"
+      ],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 16,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 5,
+              "circle": 0,
+              "ellipse": 0,
+              "line": 5,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 0,
+            "preset_names": {},
+            "page_frame_elements": 0,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Consolas, monospace",
+          "Microsoft YaHei, Arial, sans-serif"
+        ],
+        "text_elements": 16,
+        "tspan_elements": 0,
+        "contextual_values": {
+          "colors": [
+            "#4A5568",
+            "#B06A1F"
+          ]
+        }
+      },
+      "passed": true,
+      "source_sha256": "19274c952d86c6552ac0385cc92af9db22a705dcdae86e5a1589fbefe9eabd1a"
+    },
+    {
+      "file": "04_dense_pipeline.svg",
+      "path": "E:\\JavaProject\\SchoolProgram\\课程PPT\\course09-ai-quiz_20261023\\svg_output\\04_dense_pipeline.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [
+        "Noncanonical compact authoring: Visible text requires one direct root font-family default; semantic groups and text elements keep only real overrides (advisory; normalize with `python3 scripts/compact_svg_styles.py <svg_output> --inplace`, re-stamp pages that carry Chart/Table fallbacks, and rerun the final gate, or leave the explicit form)",
+        "Noncanonical compact authoring: Authoring SVG contains noncanonical or redundant inherited style declarations (17 change(s)); examples (group:attr None -> value hoists the shared value onto that group; child:attr value -> None drops the copy the child now inherits): svg[1]:font-family None -> 'Microsoft YaHei, Arial, sans-serif'; text[5]:font-family 'Microsoft YaHei, Arial, sans-serif' -> None; text[6]:font-family 'Microsoft YaHei, Arial, sans-serif' -> None (advisory; normalize with `python3 scripts/compact_svg_styles.py <svg_output> --inplace`, re-stamp pages that carry Chart/Table fallbacks, and rerun the final gate, or leave the explicit form)",
+        "34 ungrouped top-level Slide-local element(s) in svg_output (<line> #2, <text> #3, <text> #4, ...); group only logical content units in a top-level <g id=\"...\">. Keep genuine static page framing as a root primitive and declare a supported data-pptx-role such as \"background\" or \"decoration\"",
+        "page SVG is missing root data-pptx-page-role"
+      ],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 20,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 7,
+              "circle": 0,
+              "ellipse": 0,
+              "line": 8,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 0,
+            "preset_names": {},
+            "page_frame_elements": 0,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Consolas, monospace",
+          "Microsoft YaHei, Arial, sans-serif"
+        ],
+        "text_elements": 20,
+        "tspan_elements": 0,
+        "contextual_values": {
+          "colors": [
+            "#0F1B2D",
+            "#7FA7D9",
+            "#B06A1F",
+            "#D8E2F0"
+          ]
+        }
+      },
+      "passed": true,
+      "source_sha256": "0c40533e6e8298485a7763a0966284340f6c4a053db8e6cd702bd23256aa635d"
+    },
+    {
+      "file": "05_dense_prompt.svg",
+      "path": "E:\\JavaProject\\SchoolProgram\\课程PPT\\course09-ai-quiz_20261023\\svg_output\\05_dense_prompt.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [
+        "Noncanonical compact authoring: Visible text requires one direct root font-family default; semantic groups and text elements keep only real overrides (advisory; normalize with `python3 scripts/compact_svg_styles.py <svg_output> --inplace`, re-stamp pages that carry Chart/Table fallbacks, and rerun the final gate, or leave the explicit form)",
+        "Noncanonical compact authoring: Authoring SVG contains noncanonical or redundant inherited style declarations (16 change(s)); examples (group:attr None -> value hoists the shared value onto that group; child:attr value -> None drops the copy the child now inherits): svg[1]:font-family None -> 'Consolas, monospace'; text[4]:font-family 'Consolas, monospace' -> None; text[19]:font-family 'Consolas, monospace' -> None (advisory; normalize with `python3 scripts/compact_svg_styles.py <svg_output> --inplace`, re-stamp pages that carry Chart/Table fallbacks, and rerun the final gate, or leave the explicit form)",
+        "33 ungrouped top-level Slide-local element(s) in svg_output (<line> #2, <text> #3, <text> #4, ...); group only logical content units in a top-level <g id=\"...\">. Keep genuine static page framing as a root primitive and declare a supported data-pptx-role such as \"background\" or \"decoration\"",
+        "page SVG is missing root data-pptx-page-role"
+      ],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 26,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 5,
+              "circle": 0,
+              "ellipse": 0,
+              "line": 3,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 0,
+            "preset_names": {},
+            "page_frame_elements": 0,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Consolas, monospace",
+          "Microsoft YaHei, Arial, sans-serif"
+        ],
+        "text_elements": 26,
+        "tspan_elements": 0,
+        "contextual_values": {
+          "colors": [
+            "#0F1B2D",
+            "#4A5568",
+            "#7FA7D9",
+            "#8FB8E8",
+            "#B06A1F",
+            "#D8E2F0"
+          ]
+        }
+      },
+      "passed": true,
+      "source_sha256": "5d2f080c939cd5283cfacea492c96d08bf103d989fe0161b15bc0dd4a6b972d6"
+    },
+    {
+      "file": "06_dense_controller.svg",
+      "path": "E:\\JavaProject\\SchoolProgram\\课程PPT\\course09-ai-quiz_20261023\\svg_output\\06_dense_controller.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [
+        "Noncanonical compact authoring: Visible text requires one direct root font-family default; semantic groups and text elements keep only real overrides (advisory; normalize with `python3 scripts/compact_svg_styles.py <svg_output> --inplace`, re-stamp pages that carry Chart/Table fallbacks, and rerun the final gate, or leave the explicit form)",
+        "Noncanonical compact authoring: Authoring SVG contains noncanonical or redundant inherited style declarations (16 change(s)); examples (group:attr None -> value hoists the shared value onto that group; child:attr value -> None drops the copy the child now inherits): svg[1]:font-family None -> 'Consolas, monospace'; text[4]:font-family 'Consolas, monospace' -> None; text[10]:font-family 'Consolas, monospace' -> None (advisory; normalize with `python3 scripts/compact_svg_styles.py <svg_output> --inplace`, re-stamp pages that carry Chart/Table fallbacks, and rerun the final gate, or leave the explicit form)",
+        "32 ungrouped top-level Slide-local element(s) in svg_output (<line> #2, <text> #3, <text> #4, ...); group only logical content units in a top-level <g id=\"...\">. Keep genuine static page framing as a root primitive and declare a supported data-pptx-role such as \"background\" or \"decoration\"",
+        "page SVG is missing root data-pptx-page-role"
+      ],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 25,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 3,
+              "circle": 3,
+              "ellipse": 0,
+              "line": 2,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 0,
+            "preset_names": {},
+            "page_frame_elements": 0,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Consolas, monospace",
+          "Microsoft YaHei, Arial, sans-serif"
+        ],
+        "text_elements": 25,
+        "tspan_elements": 0,
+        "contextual_values": {
+          "colors": [
+            "#0F1B2D",
+            "#4A5568",
+            "#7FA7D9",
+            "#8FB8E8",
+            "#D8E2F0"
+          ]
+        }
+      },
+      "passed": true,
+      "source_sha256": "db8827022c665b2a9ee28c835ed51c4c6a75e42b30d9bac4c0b25376b02f9ac2"
+    },
+    {
+      "file": "07_dense_json_fault.svg",
+      "path": "E:\\JavaProject\\SchoolProgram\\课程PPT\\course09-ai-quiz_20261023\\svg_output\\07_dense_json_fault.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [
+        "Noncanonical compact authoring: Visible text requires one direct root font-family default; semantic groups and text elements keep only real overrides (advisory; normalize with `python3 scripts/compact_svg_styles.py <svg_output> --inplace`, re-stamp pages that carry Chart/Table fallbacks, and rerun the final gate, or leave the explicit form)",
+        "Noncanonical compact authoring: Authoring SVG contains noncanonical or redundant inherited style declarations (11 change(s)); examples (group:attr None -> value hoists the shared value onto that group; child:attr value -> None drops the copy the child now inherits): svg[1]:font-family None -> 'Consolas, monospace'; text[4]:font-family 'Consolas, monospace' -> None; text[10]:font-family 'Consolas, monospace' -> None (advisory; normalize with `python3 scripts/compact_svg_styles.py <svg_output> --inplace`, re-stamp pages that carry Chart/Table fallbacks, and rerun the final gate, or leave the explicit form)",
+        "25 ungrouped top-level Slide-local element(s) in svg_output (<line> #2, <text> #3, <text> #4, ...); group only logical content units in a top-level <g id=\"...\">. Keep genuine static page framing as a root primitive and declare a supported data-pptx-role such as \"background\" or \"decoration\"",
+        "page SVG is missing root data-pptx-page-role"
+      ],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 20,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 3,
+              "circle": 0,
+              "ellipse": 0,
+              "line": 3,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 0,
+            "preset_names": {},
+            "page_frame_elements": 0,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Consolas, monospace",
+          "Microsoft YaHei, Arial, sans-serif"
+        ],
+        "text_elements": 20,
+        "tspan_elements": 0,
+        "contextual_values": {
+          "colors": [
+            "#0F1B2D",
+            "#7FA7D9",
+            "#8FB8E8",
+            "#B06A1F",
+            "#D8E2F0",
+            "#F2A6A0"
+          ]
+        }
+      },
+      "passed": true,
+      "source_sha256": "992ba47296bb1e7f9d8eddfceb227b1cb3d9a5ef045a2540321458429e3f3494"
+    },
+    {
+      "file": "08_breathing_states.svg",
+      "path": "E:\\JavaProject\\SchoolProgram\\课程PPT\\course09-ai-quiz_20261023\\svg_output\\08_breathing_states.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [
+        "Noncanonical compact authoring: Visible text requires one direct root font-family default; semantic groups and text elements keep only real overrides (advisory; normalize with `python3 scripts/compact_svg_styles.py <svg_output> --inplace`, re-stamp pages that carry Chart/Table fallbacks, and rerun the final gate, or leave the explicit form)",
+        "Noncanonical compact authoring: Authoring SVG contains noncanonical or redundant inherited style declarations (12 change(s)); examples (group:attr None -> value hoists the shared value onto that group; child:attr value -> None drops the copy the child now inherits): svg[1]:font-family None -> 'Microsoft YaHei, Arial, sans-serif'; text[5]:font-family 'Microsoft YaHei, Arial, sans-serif' -> None; text[6]:font-family 'Microsoft YaHei, Arial, sans-serif' -> None (advisory; normalize with `python3 scripts/compact_svg_styles.py <svg_output> --inplace`, re-stamp pages that carry Chart/Table fallbacks, and rerun the final gate, or leave the explicit form)",
+        "26 ungrouped top-level Slide-local element(s) in svg_output (<line> #2, <text> #3, <text> #4, ...); group only logical content units in a top-level <g id=\"...\">. Keep genuine static page framing as a root primitive and declare a supported data-pptx-role such as \"background\" or \"decoration\"",
+        "page SVG is missing root data-pptx-page-role"
+      ],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 17,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 7,
+              "circle": 0,
+              "ellipse": 0,
+              "line": 3,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 0,
+            "preset_names": {},
+            "page_frame_elements": 0,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Consolas, monospace",
+          "Microsoft YaHei, Arial, sans-serif"
+        ],
+        "text_elements": 17,
+        "tspan_elements": 0,
+        "contextual_values": {
+          "colors": [
+            "#4A5568"
+          ]
+        }
+      },
+      "passed": true,
+      "source_sha256": "477ae4f3ca23fc751ef52e47369efe37868cd3c0249a00814d81b98313112fdc"
+    },
+    {
+      "file": "09_dense_serial_flow.svg",
+      "path": "E:\\JavaProject\\SchoolProgram\\课程PPT\\course09-ai-quiz_20261023\\svg_output\\09_dense_serial_flow.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [
+        "Noncanonical compact authoring: Visible text requires one direct root font-family default; semantic groups and text elements keep only real overrides (advisory; normalize with `python3 scripts/compact_svg_styles.py <svg_output> --inplace`, re-stamp pages that carry Chart/Table fallbacks, and rerun the final gate, or leave the explicit form)",
+        "Noncanonical compact authoring: Authoring SVG contains noncanonical or redundant inherited style declarations (14 change(s)); examples (group:attr None -> value hoists the shared value onto that group; child:attr value -> None drops the copy the child now inherits): svg[1]:font-family None -> 'Microsoft YaHei, Arial, sans-serif'; text[5]:font-family 'Microsoft YaHei, Arial, sans-serif' -> None; text[6]:font-family 'Microsoft YaHei, Arial, sans-serif' -> None (advisory; normalize with `python3 scripts/compact_svg_styles.py <svg_output> --inplace`, re-stamp pages that carry Chart/Table fallbacks, and rerun the final gate, or leave the explicit form)",
+        "34 ungrouped top-level Slide-local element(s) in svg_output (<line> #2, <text> #3, <text> #4, ...); group only logical content units in a top-level <g id=\"...\">. Keep genuine static page framing as a root primitive and declare a supported data-pptx-role such as \"background\" or \"decoration\"",
+        "page SVG is missing root data-pptx-page-role"
+      ],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 25,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 2,
+              "circle": 5,
+              "ellipse": 0,
+              "line": 3,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 0,
+            "preset_names": {},
+            "page_frame_elements": 0,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Consolas, monospace",
+          "Microsoft YaHei, Arial, sans-serif"
+        ],
+        "text_elements": 25,
+        "tspan_elements": 0,
+        "contextual_values": {
+          "colors": [
+            "#0F1B2D",
+            "#7FA7D9",
+            "#8FB8E8",
+            "#D8E2F0"
+          ]
+        }
+      },
+      "passed": true,
+      "source_sha256": "7a14b5e551d9f22dc62d2c60776ee98759db5381a9914e6a08d4736b57dbf767"
+    },
+    {
+      "file": "10_dense_score_review.svg",
+      "path": "E:\\JavaProject\\SchoolProgram\\课程PPT\\course09-ai-quiz_20261023\\svg_output\\10_dense_score_review.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [
+        "Noncanonical compact authoring: Visible text requires one direct root font-family default; semantic groups and text elements keep only real overrides (advisory; normalize with `python3 scripts/compact_svg_styles.py <svg_output> --inplace`, re-stamp pages that carry Chart/Table fallbacks, and rerun the final gate, or leave the explicit form)",
+        "Noncanonical compact authoring: Authoring SVG contains noncanonical or redundant inherited style declarations (12 change(s)); examples (group:attr None -> value hoists the shared value onto that group; child:attr value -> None drops the copy the child now inherits): svg[1]:font-family None -> 'Consolas, monospace'; text[4]:font-family 'Consolas, monospace' -> None; text[10]:font-family 'Consolas, monospace' -> None (advisory; normalize with `python3 scripts/compact_svg_styles.py <svg_output> --inplace`, re-stamp pages that carry Chart/Table fallbacks, and rerun the final gate, or leave the explicit form)",
+        "29 ungrouped top-level Slide-local element(s) in svg_output (<line> #2, <text> #3, <text> #4, ...); group only logical content units in a top-level <g id=\"...\">. Keep genuine static page framing as a root primitive and declare a supported data-pptx-role such as \"background\" or \"decoration\"",
+        "page SVG is missing root data-pptx-page-role"
+      ],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 22,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 5,
+              "circle": 0,
+              "ellipse": 0,
+              "line": 3,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 0,
+            "preset_names": {},
+            "page_frame_elements": 0,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Consolas, monospace",
+          "Microsoft YaHei, Arial, sans-serif"
+        ],
+        "text_elements": 22,
+        "tspan_elements": 0,
+        "contextual_values": {
+          "colors": [
+            "#0F1B2D",
+            "#4A5568",
+            "#7FA7D9",
+            "#8FB8E8",
+            "#B06A1F",
+            "#D8E2F0"
+          ]
+        }
+      },
+      "passed": true,
+      "source_sha256": "572b7cadccb00cac58910b172493550bcdac31225a67a749f4f4e8bb420b4a01"
+    },
+    {
+      "file": "11_breathing_routes.svg",
+      "path": "E:\\JavaProject\\SchoolProgram\\课程PPT\\course09-ai-quiz_20261023\\svg_output\\11_breathing_routes.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [
+        "Noncanonical compact authoring: Visible text requires one direct root font-family default; semantic groups and text elements keep only real overrides (advisory; normalize with `python3 scripts/compact_svg_styles.py <svg_output> --inplace`, re-stamp pages that carry Chart/Table fallbacks, and rerun the final gate, or leave the explicit form)",
+        "Noncanonical compact authoring: Authoring SVG contains noncanonical or redundant inherited style declarations (14 change(s)); examples (group:attr None -> value hoists the shared value onto that group; child:attr value -> None drops the copy the child now inherits): svg[1]:font-family None -> 'Microsoft YaHei, Arial, sans-serif'; text[5]:font-family 'Microsoft YaHei, Arial, sans-serif' -> None; text[6]:font-family 'Microsoft YaHei, Arial, sans-serif' -> None (advisory; normalize with `python3 scripts/compact_svg_styles.py <svg_output> --inplace`, re-stamp pages that carry Chart/Table fallbacks, and rerun the final gate, or leave the explicit form)",
+        "27 ungrouped top-level Slide-local element(s) in svg_output (<line> #2, <text> #3, <text> #4, ...); group only logical content units in a top-level <g id=\"...\">. Keep genuine static page framing as a root primitive and declare a supported data-pptx-role such as \"background\" or \"decoration\"",
+        "page SVG is missing root data-pptx-page-role"
+      ],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 18,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 5,
+              "circle": 0,
+              "ellipse": 0,
+              "line": 5,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 0,
+            "preset_names": {},
+            "page_frame_elements": 0,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Consolas, monospace",
+          "Microsoft YaHei, Arial, sans-serif"
+        ],
+        "text_elements": 18,
+        "tspan_elements": 0,
+        "contextual_values": {
+          "colors": [
+            "#4A5568"
+          ]
+        }
+      },
+      "passed": true,
+      "source_sha256": "1339b9865e5907f4fda67c273d336c4144ed372b3f5b91b3dcad3bb2ac7d0569"
+    },
+    {
+      "file": "12_dense_ai_grader.svg",
+      "path": "E:\\JavaProject\\SchoolProgram\\课程PPT\\course09-ai-quiz_20261023\\svg_output\\12_dense_ai_grader.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [
+        "Noncanonical compact authoring: Visible text requires one direct root font-family default; semantic groups and text elements keep only real overrides (advisory; normalize with `python3 scripts/compact_svg_styles.py <svg_output> --inplace`, re-stamp pages that carry Chart/Table fallbacks, and rerun the final gate, or leave the explicit form)",
+        "Noncanonical compact authoring: Authoring SVG contains noncanonical or redundant inherited style declarations (11 change(s)); examples (group:attr None -> value hoists the shared value onto that group; child:attr value -> None drops the copy the child now inherits): svg[1]:font-family None -> 'Microsoft YaHei, Arial, sans-serif'; text[5]:font-family 'Microsoft YaHei, Arial, sans-serif' -> None; text[6]:font-family 'Microsoft YaHei, Arial, sans-serif' -> None (advisory; normalize with `python3 scripts/compact_svg_styles.py <svg_output> --inplace`, re-stamp pages that carry Chart/Table fallbacks, and rerun the final gate, or leave the explicit form)",
+        "23 ungrouped top-level Slide-local element(s) in svg_output (<line> #2, <text> #3, <text> #4, ...); group only logical content units in a top-level <g id=\"...\">. Keep genuine static page framing as a root primitive and declare a supported data-pptx-role such as \"background\" or \"decoration\"",
+        "page SVG is missing root data-pptx-page-role"
+      ],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 18,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 4,
+              "circle": 0,
+              "ellipse": 0,
+              "line": 2,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 0,
+            "preset_names": {},
+            "page_frame_elements": 0,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Consolas, monospace",
+          "Microsoft YaHei, Arial, sans-serif"
+        ],
+        "text_elements": 18,
+        "tspan_elements": 0,
+        "contextual_values": {
+          "colors": [
+            "#0F1B2D",
+            "#4A5568",
+            "#7FA7D9",
+            "#8FB8E8",
+            "#D8E2F0"
+          ]
+        }
+      },
+      "passed": true,
+      "source_sha256": "e0dbdd9c96d588f1de67a87ef36565a6c392a3b16a5ff8278f46ebc0368282fc"
+    },
+    {
+      "file": "13_dense_tasks.svg",
+      "path": "E:\\JavaProject\\SchoolProgram\\课程PPT\\course09-ai-quiz_20261023\\svg_output\\13_dense_tasks.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [
+        "Noncanonical compact authoring: Visible text requires one direct root font-family default; semantic groups and text elements keep only real overrides (advisory; normalize with `python3 scripts/compact_svg_styles.py <svg_output> --inplace`, re-stamp pages that carry Chart/Table fallbacks, and rerun the final gate, or leave the explicit form)",
+        "Noncanonical compact authoring: Authoring SVG contains noncanonical or redundant inherited style declarations (16 change(s)); examples (group:attr None -> value hoists the shared value onto that group; child:attr value -> None drops the copy the child now inherits): svg[1]:font-family None -> 'Microsoft YaHei, Arial, sans-serif'; text[5]:font-family 'Microsoft YaHei, Arial, sans-serif' -> None; text[6]:font-family 'Microsoft YaHei, Arial, sans-serif' -> None (advisory; normalize with `python3 scripts/compact_svg_styles.py <svg_output> --inplace`, re-stamp pages that carry Chart/Table fallbacks, and rerun the final gate, or leave the explicit form)",
+        "26 ungrouped top-level Slide-local element(s) in svg_output (<line> #2, <text> #3, <text> #4, ...); group only logical content units in a top-level <g id=\"...\">. Keep genuine static page framing as a root primitive and declare a supported data-pptx-role such as \"background\" or \"decoration\"",
+        "page SVG is missing root data-pptx-page-role"
+      ],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 16,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 6,
+              "circle": 0,
+              "ellipse": 0,
+              "line": 5,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 0,
+            "preset_names": {},
+            "page_frame_elements": 0,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Consolas, monospace",
+          "Microsoft YaHei, Arial, sans-serif"
+        ],
+        "text_elements": 16,
+        "tspan_elements": 0,
+        "contextual_values": {
+          "colors": [
+            "#B06A1F"
+          ]
+        }
+      },
+      "passed": true,
+      "source_sha256": "fc14c0ff2f8cb7d09c20b140ad39b04d888c17ebc718cb0536d7957b1554cc82"
+    },
+    {
+      "file": "14_anchor_summary.svg",
+      "path": "E:\\JavaProject\\SchoolProgram\\课程PPT\\course09-ai-quiz_20261023\\svg_output\\14_anchor_summary.svg",
+      "exists": true,
+      "errors": [],
+      "warnings": [
+        "Noncanonical compact authoring: Visible text requires one direct root font-family default; semantic groups and text elements keep only real overrides (advisory; normalize with `python3 scripts/compact_svg_styles.py <svg_output> --inplace`, re-stamp pages that carry Chart/Table fallbacks, and rerun the final gate, or leave the explicit form)",
+        "Noncanonical compact authoring: Authoring SVG contains noncanonical or redundant inherited style declarations (17 change(s)); examples (group:attr None -> value hoists the shared value onto that group; child:attr value -> None drops the copy the child now inherits): svg[1]:font-family None -> 'Microsoft YaHei, Arial, sans-serif'; text[4]:font-family 'Microsoft YaHei, Arial, sans-serif' -> None; text[6]:font-family 'Microsoft YaHei, Arial, sans-serif' -> None (advisory; normalize with `python3 scripts/compact_svg_styles.py <svg_output> --inplace`, re-stamp pages that carry Chart/Table fallbacks, and rerun the final gate, or leave the explicit form)",
+        "23 ungrouped top-level Slide-local element(s) in svg_output (<line> #2, <text> #3, <text> #4, ...); group only logical content units in a top-level <g id=\"...\">. Keep genuine static page framing as a root primitive and declare a supported data-pptx-role such as \"background\" or \"decoration\"",
+        "page SVG is missing root data-pptx-page-role"
+      ],
+      "info": {
+        "viewbox": "0 0 1280 720",
+        "carrier_receipt": {
+          "text_elements": 17,
+          "images": {
+            "placements": 0,
+            "files": [],
+            "max_frame_share": 0.0
+          },
+          "icons": 0,
+          "effects": {
+            "inline_emphasis_runs": 0,
+            "gradient_uses": 0,
+            "filter_uses": 0,
+            "text_effects": 0
+          },
+          "geometry": {
+            "svg_elements": {
+              "rect": 3,
+              "circle": 0,
+              "ellipse": 0,
+              "line": 4,
+              "polyline": 0,
+              "polygon": 0,
+              "path": 0
+            },
+            "preset_shapes": 0,
+            "preset_names": {},
+            "page_frame_elements": 0,
+            "marker_uses": {
+              "start": 0,
+              "mid": 0,
+              "end": 0
+            }
+          },
+          "native_objects": {
+            "chart": 0,
+            "table": 0,
+            "formula_block": 0,
+            "formula_inline": 0,
+            "other": 0
+          }
+        },
+        "fonts": [
+          "Consolas, monospace",
+          "Microsoft YaHei, Arial, sans-serif"
+        ],
+        "text_elements": 17,
+        "tspan_elements": 0,
+        "contextual_values": {
+          "colors": [
+            "#4A5568",
+            "#B06A1F"
+          ]
+        },
+        "sparse_typography_sizes": {
+          "230": 2
+        }
+      },
+      "passed": true,
+      "source_sha256": "2507423281436cb5d6babbf108f41d5ec3c420bb342e707a048b93d20b3c117b"
+    }
+  ]
+}
