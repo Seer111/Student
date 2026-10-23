@@ -9,6 +9,8 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import apiClient from '../api/axios.js';
 import MarkdownRenderer from '../components/MarkdownRenderer.jsx';
+// 正文去重（剔除开头与标题重复的 h1/h2）是纯函数，放在 utils 里，方便单测
+import { stripLeadingTitle } from '../utils/markdownText.js';
 
 // 后端 status 枚举 → 中文展示文案
 const STATUS_TEXT = {
@@ -23,34 +25,6 @@ const MAX_STAGGER_INDEX = 7;
 // 正文折叠阈值：约 4 行正文（中文按字符计）。低于它的卡片不显示「展开全文」，
 // 高于它的先折叠成 260px 再让用户点开——列表高度因此收敛（批次 16 遗留的 212~844px 极差就是这里来的）。
 const CLAMP_THRESHOLD = 180;
-
-/**
- * 剔除正文开头与知识点标题重复的一级/二级标题。
- * 为什么需要：实测 11 个知识点里有 10 个正文首行就是 `# <标题>`，于是卡片头部 h2 与正文 h1
- * 会相邻出现两个同名标题。这里只在“渲染前”去掉首个非空行，不改数据、不改接口——
- * 换页面、换数据、把同一份内容渲染到别处都不受影响。
- * @param {string} content - 原始 Markdown 正文
- * @param {string} title - 卡片头部显示的标题
- * @returns {string} - 可直接交给 MarkdownRenderer 的正文
- */
-function stripLeadingTitle(content, title) {
-  if (!content) return '';
-  const target = String(title || '').trim();
-  if (!target) return content;
-
-  const lines = String(content).split('\n');
-  const firstIndex = lines.findIndex((line) => line.trim().length > 0);
-  if (firstIndex === -1) return '';
-
-  // 全角空格容错：手工写的内容里「# + 全角空格 + 标题」也常见，这里先统一换成半角再匹配
-  const heading = lines[firstIndex].replace(/\u3000/g, ' ').trim();
-  const match = /^#{1,2}\s+(.+)$/.exec(heading);
-  if (match && match[1].trim() === target) {
-    lines.splice(firstIndex, 1);
-    return lines.join('\n');
-  }
-  return content;
-}
 
 // 加载骨架：与真实卡片同尺寸的占位，替代「加载中...」文字，避免列表出现时整页跳动。
 // 正文行数按实测卡片高度取（真实卡片 212~844px、中位 294px），所以这里铺到接近中位的行数，
