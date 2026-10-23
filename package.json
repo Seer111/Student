@@ -11,6 +11,8 @@
     "build": "npm --prefix feynman-platform-frontend run build",
     "build:electron": "npm --prefix feynman-platform-frontend run build:electron",
     "lint": "npm --prefix feynman-platform-frontend run lint",
+    "test": "npm --prefix feynman-platform-backend test",
+    "check": "npm run lint && npm test",
     "vectors:audit": "npm --prefix feynman-platform-backend run vectors:audit",
     "vectors:sync": "npm --prefix feynman-platform-backend run vectors:sync",
     "icons": "node scripts/generate-pwa-icons.js"

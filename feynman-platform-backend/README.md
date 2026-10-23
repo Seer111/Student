@@ -208,6 +208,23 @@ POST /api/ai/evaluate
 - `/api/ai/rag-qa` 先对问题进行向量检索（top-k，按用户隔离），再把检索到的上下文与问题组装成结构化 Prompt 交给 LLM 生成答案
 - 若 hnswlib-node 加载失败（如平台不支持原生模块），自动降级为纯 JS 余弦相似度检索，功能不受影响
 
+## 测试
+
+项目使用 Node 内置的 `node:test`（不引入任何测试依赖），用例放在 `tests/`：
+
+```bash
+npm test          # 等价于 node --test "tests/*.test.js"
+```
+
+- `tests/graphService.test.js` —— 知识图谱的节点与边规则：显式引用优先、正文提及、去重、自环、同名标题、`sizeValue` 封顶、分类兜底
+- `tests/vectorStore.pure.test.js` —— 向量库「删不删」的纯函数：取存活块、打墓碑（幂等）、自动重建阈值、文本分块
+- `tests/knowledgePointService.test.js` —— 引用校验的每个分支与错误文案（模型查询已被替换，不连库）
+- `tests/knowledgeStatus.test.js` —— 分数 → 阶段、只前进不回退
+- `tests/prompts.test.js` —— 五段提示词的关键约束不能被误删（题型分流、JSON 字段、要点注入）
+
+约定：**纯函数直接测，需要数据库的用替身**，所以整套用例不连 MongoDB、不调 Embedding、不起服务。
+带数据库的端到端冒烟另有做法（自签 JWT + 真接口），见 `记忆文档.md` 的「可复用的验证方法」。
+
 ## 开发规范
 
 - 代码注释、文档与团队交流统一使用中文
