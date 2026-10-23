@@ -1,0 +1,74 @@
+/* 基础 reset + 设计 token
+   由 src/index.css 拆分而来（批次 24）。
+   注意：本文件内的规则顺序与原 index.css 保持一致，改动时不要打乱——
+   有些选择器在同一个文件里被多次覆盖，顺序即优先级。 */
+
+/* ===== 费曼学习平台 - 全局基础样式 ===== */
+
+/* 全局重置：统一盒模型与默认边距 */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Microsoft YaHei', 'PingFang SC', system-ui, -apple-system, sans-serif;
+  color: #2d3748;
+  background: #f7f8fc;
+  line-height: 1.6;
+}
+
+/* ===== 设计 token（批次 16）=====
+   缓动、时长、圆角、三态语义色统一收在这里，组件里不再写零散硬编码值。
+   时长档位：快 .14s（按钮/小色块）/ 常 .2s（卡片、阴影）/ 慢 .34s（入场动画）。 */
+:root {
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --dur-fast: 0.14s;
+  --dur: 0.2s;
+  --dur-slow: 0.34s;
+
+  /* 圆角梯度：卡片 12px > 内容块 8px > 按钮 6px */
+  --radius-card: 12px;
+  --radius-inner: 8px;
+  --radius-btn: 6px;
+
+  /* 中性面 + 一个 ink：品牌色不再刷在导航/按钮背景上，只留给链接、焦点环与图表 */
+  --ink: #1d1f20;
+  --ink-hover: #2f3437;
+  --ink-soft: #4a5058;
+  --ground: #f7f8fa;
+  --surface: #ffffff;
+  --line: #e6e9f0;
+  --line-strong: #cdd4e2;
+  --focus: #4f46e5;
+  --danger: #c0392b;
+  --danger-bg: #fdf1ef;
+  --danger-line: #f0cdc6;
+
+  /* 三态语义色（底色 / 描边 / 文字三件套）：与 2D 图 CATEGORY_STYLE、3D 页 STATUS_COLOR、
+     复述页 .ref-status-* 同一口径——未开始=蓝、学习中=青绿、已掌握=绿，
+     「待复习」是另一条通道（琥珀 #ea580c），不参与三态。 */
+  --status-not-started: #2b6cb0;
+  --status-not-started-bg: #ebf4ff;
+  --status-not-started-border: #bee3f8;
+  --status-in-progress: #2c7a7b;
+  --status-in-progress-bg: #e6fffa;
+  --status-in-progress-border: #b2f5ea;
+  --status-mastered: #276749;
+  --status-mastered-bg: #f0fff4;
+  --status-mastered-border: #c6f6d5;
+}
+
+/* 仅供屏幕阅读器的文本（骨架屏的「正在加载」提示等） */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+

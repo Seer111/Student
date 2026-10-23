@@ -1,0 +1,55 @@
+/* 复述页：引用关系
+   由 src/index.css 拆分而来（批次 24）。
+   注意：本文件内的规则顺序与原 index.css 保持一致，改动时不要打乱——
+   有些选择器在同一个文件里被多次覆盖，顺序即优先级。 */
+
+/* ===== 复述页：引用关系（我引用了谁 / 谁引用了我） ===== */
+.relation-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+  margin-top: 0.6rem;
+}
+
+.relation-grid h3 {
+  margin: 0 0 0.5rem;
+  font-size: 0.95rem;
+  color: #4a5568;
+}
+
+.relation-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.relation-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: #fbfcff;
+  margin-bottom: 0.4rem;
+}
+
+.relation-link {
+  color: #4f46e5;
+  text-decoration: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.relation-link:hover {
+  text-decoration: underline;
+}
+
+.relation-hint {
+  color: #94a3b8;
+  font-size: 0.8rem;
+  margin: 0.6rem 0 0;
+}
+

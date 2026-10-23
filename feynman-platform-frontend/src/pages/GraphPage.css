@@ -1,0 +1,180 @@
+/* 2D 知识图谱
+   由 src/index.css 拆分而来（批次 24）。
+   注意：本文件内的规则顺序与原 index.css 保持一致，改动时不要打乱——
+   有些选择器在同一个文件里被多次覆盖，顺序即优先级。 */
+
+/* ===== 12课：知识图谱页 ===== */
+.graph-stats {
+  color: #64748b;
+  font-size: 0.9rem;
+}
+
+.graph-hint {
+  color: #64748b;
+  font-size: 0.9rem;
+  margin-bottom: 0.6rem;
+}
+
+
+/* ===== 知识图谱：拖拽建引用的引导虚线 ===== */
+.graph-canvas-wrap {
+  position: relative;
+}
+
+.graph-ghost {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* 别把鼠标事件从图表上抢走 */
+}
+
+.graph-ghost line {
+  stroke: #4f46e5;
+  stroke-width: 2;
+  stroke-dasharray: 7 5;
+}
+
+.graph-notice {
+  color: #4338ca;
+  background: #eef2ff;
+  border: 1px solid #c7d2fe;
+  border-radius: 8px;
+  padding: 0.4rem 0.7rem;
+  font-size: 0.85rem;
+  margin: 0 0 0.6rem;
+}
+
+
+/* ===== 知识图谱页：工具栏 + 图注 + 画布（批次 18）=====
+   原来是一段 4 行的说明文字 + 画布固定 600px；现在把「图注」做成真正能读的图例，
+   统计压到 12px，唯一的按钮是「重置视图」，画布高度跟着视口走。 */
+.graph-subtitle {
+  margin: 0.2rem 0 0;
+  font-size: 13px;
+  color: #8a94a6;
+}
+
+.graph-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 14px 0 6px;
+}
+
+.graph-legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.graph-legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #5f6875;
+}
+
+.legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+/* 图例里的「边」就是图上那根线本身：实线带箭头 / 虚线，不要另画一套样式 */
+.legend-edge {
+  width: 18px;
+  height: 0;
+  border-top-width: 1.6px;
+  border-top-style: solid;
+}
+
+.legend-edge-explicit {
+  border-top-color: #5b8ff9;
+}
+
+.legend-edge-auto {
+  border-top-style: dashed;
+  border-top-color: #9aa9c4;
+}
+
+.graph-toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto;
+}
+
+.graph-stats {
+  font-size: 12px;
+  color: #8a94a6;
+  font-variant-numeric: tabular-nums;
+}
+
+.graph-reset {
+  height: 32px;
+  padding: 0 12px;
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--ink-soft);
+  font-size: 12px;
+  cursor: pointer;
+  transition: border-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+}
+
+.graph-reset:hover,
+.graph-reset:focus-visible {
+  border-color: var(--ink-soft);
+  color: var(--ink);
+}
+
+.graph-hint {
+  margin: 0 0 10px;
+  font-size: 12px;
+  color: #a0a8b6;
+}
+
+/* 画布：白面 + 1px 边框，高度随视口（最小 460，最大 720） */
+.graph-canvas-wrap {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+}
+
+.graph-canvas {
+  width: 100%;
+  height: clamp(460px, calc(100vh - 300px), 720px);
+}
+
+.graph-notice {
+  margin: 0 0 10px;
+  padding: 6px 10px;
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--ink-soft);
+  font-size: 12px;
+}
+
+@media (max-width: 640px) {
+  .graph-toolbar-right {
+    width: 100%;
+    margin-left: 0;
+    justify-content: space-between;
+  }
+
+  .graph-canvas {
+    height: 60vh;
+  }
+}
+

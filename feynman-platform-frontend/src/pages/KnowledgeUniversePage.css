@@ -1,0 +1,313 @@
+/* 3D 知识宇宙
+   由 src/index.css 拆分而来（批次 24）。
+   注意：本文件内的规则顺序与原 index.css 保持一致，改动时不要打乱——
+   有些选择器在同一个文件里被多次覆盖，顺序即优先级。 */
+
+/* ===== 14课：3D知识宇宙页 ===== */
+.universe-stage {
+  position: relative;
+  width: 100%;
+  height: 75vh;
+  min-height: 420px;
+  border-radius: 12px;
+  overflow: hidden;
+  /* canvas 首帧之前的兜底底色，避免闪白 */
+  background: radial-gradient(circle at 30% 20%, #101a34 0%, #05070f 72%);
+  box-shadow: 0 12px 44px rgba(6, 10, 30, 0.38);
+}
+
+.universe-overlay {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 250px;
+  background: rgba(10, 16, 34, 0.72);
+  backdrop-filter: blur(8px);
+  color: #e2e8f0;
+  border: 1px solid rgba(125, 165, 235, 0.32);
+  box-shadow: 0 8px 30px rgba(20, 40, 90, 0.45), inset 0 0 24px rgba(90, 140, 255, 0.08);
+  border-radius: 10px;
+  padding: 0.9rem 1rem;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.universe-overlay h3 {
+  color: #fff;
+  margin-bottom: 0.3rem;
+}
+
+.universe-overlay p {
+  font-size: 0.85rem;
+  color: #94a3b8;
+}
+
+.overlay-excerpt {
+  margin-top: 0.4rem;
+  color: #cbd5e1 !important;
+  line-height: 1.5;
+  /* 知识点正文可能很长，浮层里只显示前 6 行，避免面板被撑满整个画面 */
+  display: -webkit-box;
+  -webkit-line-clamp: 6;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.universe-hud {
+  position: absolute;
+  left: 16px;
+  bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 0.75rem 0.9rem;
+  border-radius: 10px;
+  background: rgba(10, 16, 34, 0.6);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(125, 165, 235, 0.22);
+  color: #cbd8ee;
+  font-size: 0.82rem;
+  z-index: 10;
+}
+
+.universe-stats {
+  display: flex;
+  gap: 1rem;
+}
+
+.universe-stats b {
+  color: #fff;
+  font-size: 1rem;
+}
+
+.universe-legend {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.85rem;
+  margin: 0;
+  padding: 0;
+}
+
+.universe-legend li {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.universe-legend i {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+/* 3D 知识宇宙：航线飞船图例（三角＝飞船，亮蓝=引用、暗灰=提及） */
+.universe-ship-legend {
+  margin-top: 0.1rem;
+}
+
+.universe-legend i.ship-mark {
+  width: 0;
+  height: 0;
+  border-radius: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 9px solid #bfe0ff;
+  filter: drop-shadow(0 0 6px rgba(120, 180, 255, 0.85));
+}
+
+.universe-legend i.ship-mark-auto {
+  border-bottom-color: #8a97ad;
+  filter: drop-shadow(0 0 4px rgba(138, 151, 173, 0.5));
+}
+
+.universe-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.universe-btn {
+  background: rgba(79, 70, 229, 0.25);
+  border: 1px solid rgba(129, 140, 248, 0.5);
+  color: #dbe4ff;
+  border-radius: 8px;
+  padding: 0.28rem 0.7rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background var(--dur) var(--ease), transform var(--dur-fast) var(--ease);
+}
+
+.universe-btn:hover {
+  background: rgba(99, 102, 241, 0.45);
+}
+
+.universe-btn:active {
+  transform: translateY(1px);
+}
+
+
+/* ===== 3D 知识宇宙：HUD 与浮层（批次 18）=====
+   深色场景里的 chrome 保持中性黑白（不再用靛蓝按钮 / 毛玻璃 / 发光图例），
+   数据仍然只有状态四色一处在发光。 */
+.universe-hud {
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: var(--radius-card);
+  background: rgba(10, 14, 24, 0.82);
+  backdrop-filter: none;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #c9d2e0;
+  font-size: 12px;
+}
+
+.universe-stats {
+  gap: 14px;
+  font-size: 12px;
+  color: #9aa6b8;
+}
+
+.universe-stats b {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.universe-legend {
+  gap: 4px 12px;
+}
+
+.universe-actions {
+  gap: 8px;
+}
+
+.universe-btn {
+  height: 30px;
+  padding: 0 12px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #e8eef8;
+  font-size: 12px;
+}
+
+.universe-btn:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.36);
+}
+
+.universe-btn:active {
+  transform: none;
+}
+
+/* ===== 3D 知识宇宙：HUD 可折叠（批次 19）=====
+   左下角「图例与视角」面板整体可收起，收起后只剩一条标题栏。
+   为什么默认展开：第一次进来需要它解释画面；但 3D 场景里最贵的是画面本身，
+   图例属于「看一眼就记住」的信息，不该永久占住一角。 */
+.universe-hud {
+  gap: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.universe-hud-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 8px 12px;
+  border: none;
+  background: transparent;
+  color: #c9d2e0;
+  font-size: 12px;
+  font-family: inherit;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: color var(--dur) var(--ease), background var(--dur) var(--ease);
+}
+
+.universe-hud-toggle:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.universe-hud-toggle:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: -2px;
+}
+
+.universe-hud-caret {
+  width: 10px;
+  height: 7px;
+  margin-left: auto;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.7;
+  transition: transform var(--dur) var(--ease);
+}
+
+/* 收起时箭头转 90°，指向右侧（表示「还可以展开」） */
+.universe-hud.is-collapsed .universe-hud-caret {
+  transform: rotate(-90deg);
+}
+
+.universe-hud-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0 12px 12px;
+  animation: hud-reveal var(--dur) var(--ease);
+}
+
+/* hidden 属性要被显式压住 display，否则被上面的 display:flex 覆盖掉 */
+.universe-hud-body[hidden] {
+  display: none;
+}
+
+@keyframes hud-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.universe-overlay {
+  width: 232px;
+  top: 14px;
+  right: 14px;
+  padding: 12px 14px;
+  border-radius: var(--radius-card);
+  background: rgba(12, 16, 26, 0.92);
+  backdrop-filter: none;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+}
+
+.universe-overlay h3 {
+  margin: 0 0 4px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.universe-overlay p {
+  margin: 0;
+  font-size: 12px;
+  color: #98a4b8;
+}
+
+.overlay-excerpt {
+  margin-top: 6px !important;
+  font-size: 12px;
+  color: #cbd5e1 !important;
+  line-height: 1.6;
+  -webkit-line-clamp: 5;
+}
+

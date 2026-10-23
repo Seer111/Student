@@ -1,0 +1,121 @@
+/* 通用组件与表单（.btn / .card / .page-title / input）
+   由 src/index.css 拆分而来（批次 24）。
+   注意：本文件内的规则顺序与原 index.css 保持一致，改动时不要打乱——
+   有些选择器在同一个文件里被多次覆盖，顺序即优先级。 */
+
+/* ===== 通用组件 ===== */
+.page-title {
+  font-size: 1.5rem;
+  color: var(--ink);
+  margin-bottom: 1rem;
+}
+
+/* 卡片：白面 + 1px 细线，**不再叠阴影**（提示词第 0 节第 7 条：边框与阴影二选一） */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  padding: 1.25rem;
+}
+
+/* 通用按钮：主色从中性 ink 出发（不在 chrome 上刷品牌色），
+   品牌靛蓝只留给链接、焦点环与图表；这一改动同时作用于复述/测评/表单页 */
+.btn {
+  display: inline-block;
+  background: var(--ink);
+  color: #fff;
+  border: 1px solid var(--ink);
+  border-radius: var(--radius-btn);
+  padding: 0.5rem 1.1rem;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease),
+    opacity var(--dur) var(--ease);
+}
+
+.btn:hover {
+  background: var(--ink-hover);
+  border-color: var(--ink-hover);
+}
+
+/* 破坏性操作：描边负面色，默认不抢焦点（提示词第 0 节第 3 条） */
+.btn-danger {
+  background: transparent;
+  color: var(--danger);
+  border: 1px solid var(--danger-line);
+}
+
+.btn-danger:hover {
+  background: var(--danger-bg);
+  border-color: var(--danger);
+}
+
+.btn-plain {
+  background: var(--surface);
+  color: var(--ink-soft);
+  border: 1px solid var(--line);
+}
+
+.btn-plain:hover {
+  background: var(--ground);
+  border-color: var(--line-strong);
+  color: var(--ink);
+}
+
+/* ===== 表单 ===== */
+.form-box {
+  max-width: 420px;
+  margin: 2rem auto;
+}
+
+.form-box h1 {
+  font-size: 1.4rem;
+  color: #1e2958;
+  margin-bottom: 1.2rem;
+  text-align: center;
+}
+
+.form-item {
+  margin-bottom: 1rem;
+}
+
+.form-item label {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: 0.92rem;
+  color: #4a5568;
+}
+
+.form-item input {
+  width: 100%;
+  padding: 0.55rem 0.75rem;
+  border: 1px solid #cbd5e0;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  outline: none;
+}
+
+.form-item input:focus {
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+}
+
+.form-error {
+  color: #dc2626;
+  font-size: 0.9rem;
+  margin-top: 0.6rem;
+}
+
+.form-actions {
+  margin-top: 1.2rem;
+}
+
+.form-tip {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  text-align: center;
+  color: #718096;
+}
+

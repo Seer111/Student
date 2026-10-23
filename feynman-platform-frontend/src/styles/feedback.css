@@ -1,0 +1,24 @@
+/* 状态提示 / 学习阶段提示（跨页面复用）
+   由 src/index.css 拆分而来（批次 24）。
+   注意：本文件内的规则顺序与原 index.css 保持一致，改动时不要打乱——
+   有些选择器在同一个文件里被多次覆盖，顺序即优先级。 */
+
+/* ===== 状态提示文本 ===== */
+.status-text {
+  text-align: center;
+  color: #718096;
+  padding: 2rem 0;
+}
+
+
+/* ===== 学习阶段自动流转提示（复述评分 / 测评阅卷后） ===== */
+.status-notice {
+  color: #276749;
+  background: #f0fff4;
+  border: 1px solid #c6f6d5;
+  border-radius: 8px;
+  padding: 0.45rem 0.7rem;
+  font-size: 0.87rem;
+  margin: 0.7rem 0 0;
+}
+
