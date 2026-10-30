@@ -67,7 +67,7 @@ function AgentPage() {
     ask(question);
   };
 
-  // 只有欢迎语时展示示例问题（对话开始后就不占地方了）
+  // 只有欢迎语时展示空态：一句说明 + 三条可点的示例问题（对话开始后就不占地方了）
   const showExamples = messages.length === 1 && !isLoading;
 
   return (
@@ -77,45 +77,49 @@ function AgentPage() {
         <p className="agent-hint">基于你的私有知识点做检索增强回答（RAG），每条回答都会列出依据</p>
       </header>
 
-      <div className="chat-window">
-        {messages.map((msg, index) => (
-          <div key={index} className={`message ${msg.sender}`}>
-            {msg.sender === 'bot' ? (
-              <div className="message-bubble markdown-content">
-                <MarkdownRenderer content={msg.text} />
-              </div>
-            ) : (
-              <div className="message-bubble">{msg.text}</div>
-            )}
-
-            {/* 引用来源：可点回知识点详情（以前只是一串不可点的灰标签） */}
-            {msg.sources && msg.sources.length > 0 && (
-              <div className="message-sources">
-                <span className="message-sources-label">依据</span>
-                {msg.sources.map((source, i) => (
-                  <Link
-                    key={i}
-                    to={`/feynman/${source.knowledgePointId}`}
-                    className="source-tag"
-                    title={source.excerpt}
-                  >
-                    {source.title}
-                  </Link>
-                ))}
-              </div>
-            )}
+      <div className={`chat-window${showExamples ? ' is-empty' : ''}`}>
+        {/* 空态：不画一个装满空白的气泡框，直接给「说明 + 建议问题」两段 */}
+        {showExamples ? (
+          <div className="agent-empty">
+            <p className="agent-empty-text">{WELCOME_TEXT}</p>
+            <div className="agent-examples is-stacked">
+              <span className="agent-examples-label">可以这样问</span>
+              {EXAMPLE_QUESTIONS.map((question) => (
+                <button key={question} type="button" className="agent-example" onClick={() => handleExample(question)}>
+                  {question}
+                </button>
+              ))}
+            </div>
           </div>
-        ))}
+        ) : (
+          messages.map((msg, index) => (
+            <div key={index} className={`message ${msg.sender}`}>
+              {msg.sender === 'bot' ? (
+                <div className="message-bubble markdown-content">
+                  <MarkdownRenderer content={msg.text} />
+                </div>
+              ) : (
+                <div className="message-bubble">{msg.text}</div>
+              )}
 
-        {showExamples && (
-          <div className="agent-examples">
-            <span className="agent-examples-label">可以这样问</span>
-            {EXAMPLE_QUESTIONS.map((question) => (
-              <button key={question} type="button" className="agent-example" onClick={() => handleExample(question)}>
-                {question}
-              </button>
-            ))}
-          </div>
+              {/* 引用来源：可点回知识点详情（以前只是一串不可点的灰标签） */}
+              {msg.sources && msg.sources.length > 0 && (
+                <div className="message-sources">
+                  <span className="message-sources-label">依据</span>
+                  {msg.sources.map((source, i) => (
+                    <Link
+                      key={i}
+                      to={`/feynman/${source.knowledgePointId}`}
+                      className="source-tag"
+                      title={source.excerpt}
+                    >
+                      {source.title}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))
         )}
 
         {isLoading && (
