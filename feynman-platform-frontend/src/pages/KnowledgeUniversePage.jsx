@@ -158,6 +158,13 @@ function KnowledgeUniversePage() {
   const [autoRotate, setAutoRotate] = useState(true);
   // 左下角「图例与视角」面板是否展开：默认展开（第一次进来需要它解释画面），可以由用户收起
   const [hudOpen, setHudOpen] = useState(true);
+  // 航线筛选：'all' 全部 / 'explicit' 只看引用 / 'auto' 只看提及
+  // 场景里「提及」通常只有一两条，九条亮实线里根本认不出——所以给一个只留一类、其余压暗的开关（批次 33）
+  const [routeFilter, setRouteFilter] = useState('all');
+  // 三层材质要在场景初始化时存下来，筛选 effect 才能在 React 侧改透明度
+  const routeMaterialsRef = useRef({ explicit: null, auto: null });
+  const shipMaterialsRef = useRef({ explicit: null, auto: null });
+  const trailMaterialRef = useRef(null);
   const navigate = useNavigate();
 
   // 1. 获取知识图谱数据
@@ -514,6 +521,12 @@ function KnowledgeUniversePage() {
       ),
     ];
 
+    // 把材质交给上层：航线筛选要靠它改透明度（同时保留原值，切回「全部」时还原）
+    routeMaterialsRef.current = {
+      explicit: { material: linkLayers[0].object.material, base: linkLayers[0].object.material.opacity },
+      auto: { material: linkLayers[1].object.material, base: linkLayers[1].object.material.opacity },
+    };
+
     // ---------- 航线上穿行的小飞船 ----------
     // 参数按 linkPairs 的下标预先算好：船体、尾焰共用同一份相位/速度，尾焰才不会跟丢自己的船。
     const shipSpecs = linkPairs.map((link, index) => {
@@ -560,6 +573,10 @@ function KnowledgeUniversePage() {
     };
 
     const shipGroups = [makeShipGroup('explicit'), makeShipGroup('auto')];
+    shipMaterialsRef.current = {
+      explicit: { material: shipGroups[0].material, base: shipGroups[0].material.opacity },
+      auto: { material: shipGroups[1].material, base: shipGroups[1].material.opacity },
+    };
 
     // ---------- 飞船尾焰（拖在船后的小光点，颜色跟着航线类型）----------
     const trailGeometry = new THREE.BufferGeometry();
@@ -582,6 +599,7 @@ function KnowledgeUniversePage() {
     });
     const trails = new THREE.Points(trailGeometry, trailMaterial);
     scene.add(trails);
+    trailMaterialRef.current = { material: trailMaterial, base: trailMaterial.opacity };
 
     // ---------- 泛光后期（UnrealBloom）----------
     const renderTarget = new THREE.WebGLRenderTarget(width * pixelRatio, height * pixelRatio, {
@@ -828,6 +846,40 @@ function KnowledgeUniversePage() {
     };
   }, [graphData]); // 注意：autoRotate 通过 actionsRef 同步，避免整个场景因开关自转而重建
 
+  // 航线筛选：只改材质透明度，不动几何——所以切来切去不会重建场景、也不会丢相机位置
+  useEffect(() => {
+    const dimmed = 0.06; // 压到几乎看不见，但仍留一点「这里还有别的航线」的线索
+    const boost = { explicit: 0.85, auto: 0.95 }; // 被选中的那类反而提亮一点，一进画面就能看到
+
+    const apply = (entry, kind) => {
+      if (!entry || !entry.material) return;
+      const focused = routeFilter === 'all' || routeFilter === kind;
+      entry.material.opacity = focused ? (routeFilter === 'all' ? entry.base : boost[kind]) : dimmed;
+      entry.material.transparent = true;
+      entry.material.needsUpdate = true; // 透明度变化需要重新编译材质，否则不生效
+    };
+
+    apply(routeMaterialsRef.current.explicit, 'explicit');
+    apply(routeMaterialsRef.current.auto, 'auto');
+
+    // 飞船与尾焰跟着一起压暗，否则「只看提及」时亮蓝飞船还在满天飞，看着像没生效
+    const shipBoost = 1;
+    const applyShip = (entry, kind) => {
+      if (!entry || !entry.material) return;
+      const focused = routeFilter === 'all' || routeFilter === kind;
+      entry.material.opacity = focused ? entry.base * shipBoost : 0.08;
+      entry.material.transparent = true;
+      entry.material.needsUpdate = true;
+    };
+    applyShip(shipMaterialsRef.current.explicit, 'explicit');
+    applyShip(shipMaterialsRef.current.auto, 'auto');
+
+    if (trailMaterialRef.current) {
+      trailMaterialRef.current.material.opacity = routeFilter === 'all' ? trailMaterialRef.current.base : 0.75;
+    }
+    // 尾焰是一整组点，颜色里混着两类航线，筛到单一类型时整体提亮即可
+  }, [routeFilter, graphData]);
+
   return (
     <div>
       <div className="list-header">
@@ -900,6 +952,30 @@ function KnowledgeUniversePage() {
                   </li>
                 )}
               </ul>
+              {/* 航线筛选：九条亮实线里认不出那一条虚线，所以给一个「只看一类、其余压暗」的开关 */}
+              <div className="universe-filter" role="group" aria-label="航线筛选">
+                <span className="universe-filter-label">航线</span>
+                {[
+                  { value: 'all', label: '全部' },
+                  { value: 'explicit', label: '只看引用' },
+                  { value: 'auto', label: '只看提及' },
+                ].map((item) => {
+                  const disabled = item.value === 'auto' && !graphData.links.some((link) => link.kind === 'auto');
+                  return (
+                    <button
+                      key={item.value}
+                      type="button"
+                      className={`universe-filter-btn${routeFilter === item.value ? ' is-active' : ''}`}
+                      aria-pressed={routeFilter === item.value}
+                      disabled={disabled}
+                      title={disabled ? '当前没有「提及」航线' : undefined}
+                      onClick={() => setRouteFilter(item.value)}
+                    >
+                      {item.label}
+                    </button>
+                  );
+                })}
+              </div>
               <div className="universe-actions">
                 <button type="button" className="universe-btn" onClick={() => actionsRef.current.resetView?.()}>
                   回到全景

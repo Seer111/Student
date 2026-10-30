@@ -311,3 +311,54 @@
   -webkit-line-clamp: 5;
 }
 
+
+/* ---- 航线筛选（批次 33）：HUD 是深色半透明面板，chip 走「暗底亮字」，选中反白 ---- */
+.universe-filter {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  background: rgba(8, 14, 28, 0.5);
+}
+
+.universe-filter-label {
+  padding: 0 4px 0 6px;
+  font-size: 0.72rem;
+  color: rgba(226, 236, 255, 0.55);
+  letter-spacing: 0.04em;
+}
+
+.universe-filter-btn {
+  padding: 3px 8px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: rgba(226, 236, 255, 0.75);
+  font-size: 0.74rem;
+  font-family: inherit;
+  line-height: 1.5;
+  cursor: pointer;
+  transition: background 0.14s ease, color 0.14s ease;
+}
+
+.universe-filter-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.universe-filter-btn.is-active {
+  background: rgba(236, 243, 255, 0.92);
+  color: #0f1b2d;
+}
+
+.universe-filter-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.universe-filter-btn:focus-visible {
+  outline: 2px solid #8fb8e8;
+  outline-offset: 2px;
+}

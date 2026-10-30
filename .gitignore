@@ -37,3 +37,7 @@ docs/课程PPT/*/exports/
 
 # agent 运行时留下的临时抓取物
 _dsh*
+
+# 视觉探针产出的临时截图目录（.dsh-vision-router 的中间产物）
+.dsh-vision-router/
+
