@@ -15,7 +15,8 @@ const CATEGORY_STYLE = {
 };
 
 // 拖拽建引用：松手时离目标节点多近算"拖到了它身上"（像素）
-const DRAG_HIT_RADIUS = 26;
+// 拖动建引用时「松手算命中」的容差（像素）：略大于最大节点半径，力导向下节点会漂
+const DRAG_SNAP_RADIUS = 52;
 
 function GraphPage() {
   const chartRef = useRef(null); // 图表容器 DOM
@@ -95,6 +96,11 @@ function GraphPage() {
               };
             }),
             roam: true, // 开启鼠标缩放和平移漫游
+            // 注意：不要给 series 设 zoom —— 缩放后节点坐标与指针坐标不在同一空间，
+            // 拖动建引用的命中判断会整体偏移（批次 30 踩过）。默认视图足够。
+            // 节点可拖动：拖着圆球去另一个圆球上松手 = 建立引用。
+            // 不打开 draggable 时，按下节点拖动的其实是画布本身（整张图平移），根本拖不到别的节点上（批次 30 修的 bug）
+            draggable: true,
             // 标签放节点下方：力导向里左右相邻的节点最容易被「右侧标签」压住
             label: { show: true, position: 'bottom', distance: 9, formatter: '{b}', fontSize: 12 },
             // 标签挤在一起时：先横向错位，再隐藏——避免标签压在别的节点上
@@ -178,27 +184,47 @@ function GraphPage() {
     if (!chart || loading) return undefined;
     const zr = chart.getZr();
 
-    // 按像素坐标找节点（图谱 data 与 nodesRef 同序，位置取图形元素中心）
-    const findNodeAt = (x, y, excludeId) => {
+    // 找「离指针最近的节点」：力导向下节点边拖边漂，用开始拖动那一刻的快照来判命中，
+    // 用户瞄准的就是他按下鼠标时看到的画面，比实时坐标稳得多。
+    const snapshotRef = { current: null };
+    const takeSnapshot = () => {
       const data = chart.getModel()?.getSeriesByIndex(0)?.getData();
-      if (!data) return null;
+      if (!data) return [];
+      const list = [];
       for (let i = 0; i < data.count(); i += 1) {
         const node = nodesRef.current[i];
-        if (!node || node.id === excludeId) continue;
-        const el = data.getItemGraphicEl(i);
+        if (!node) continue;
+        const item = data.getItemGraphicEl(i);
         const layout = data.getItemLayout(i);
-        const px = el?.x ?? layout?.[0];
-        const py = el?.y ?? layout?.[1];
+        const px = item?.x ?? layout?.[0];
+        const py = item?.y ?? layout?.[1];
         if (px === undefined || py === undefined) continue;
-        if ((px - x) ** 2 + (py - y) ** 2 <= DRAG_HIT_RADIUS ** 2) {
-          return { id: node.id, name: node.name };
-        }
+        list.push({ id: node.id, name: node.name, x: px, y: py });
       }
-      return null;
+      return list;
     };
 
+    const findNodeAt = (x, y, excludeId) => {
+      const list = snapshotRef.current || takeSnapshot();
+      let best = null;
+      let bestDist = Infinity;
+      list.forEach((item) => {
+        if (item.id === excludeId) return;
+        const dist = Math.hypot(item.x - x, item.y - y);
+        if (dist < bestDist) {
+          bestDist = dist;
+          best = item;
+        }
+      });
+      return best && bestDist <= DRAG_SNAP_RADIUS ? { id: best.id, name: best.name } : null;
+    };
+
+    // 拖动节点：按下记起点（并拍快照）→ 移动时画辅助线并高亮落点 → 松开命中就建引用。
+    // 注意：ECharts 的 graph 系列不会派发 dragstart/drag/dragend（那是 graphic 组件的事件），
+    // 所以这里只能用 mousedown + zrender 的 mousemove/mouseup；节点本身的位移由 draggable: true 负责。
     const onDown = (params) => {
       if (params.dataType !== 'node') return;
+      snapshotRef.current = takeSnapshot();
       dragRef.current = { id: params.data.id, name: params.data.name };
       const { offsetX, offsetY } = params.event;
       setGhost({ x1: offsetX, y1: offsetY, x2: offsetX, y2: offsetY });
@@ -208,8 +234,9 @@ function GraphPage() {
     const onMove = (event) => {
       if (!dragRef.current) return;
       const { offsetX, offsetY } = event;
+      const hit = findNodeAt(offsetX, offsetY, dragRef.current.id);
       setGhost((prev) => (prev ? { ...prev, x2: offsetX, y2: offsetY } : prev));
-      const target = findNodeAt(offsetX, offsetY, dragRef.current.id);
+      const target = hit;
       if (target?.id !== hoverRef.current?.id) {
         hoverRef.current = target;
         setNotice(
@@ -220,24 +247,41 @@ function GraphPage() {
       }
     };
 
-    const onUp = () => {
-      const from = dragRef.current;
-      const to = hoverRef.current;
+    const finish = (from, to) => {
       dragRef.current = null;
       hoverRef.current = null;
       setGhost(null);
-      if (!from || !to) {
-        setNotice('');
-        return;
+      setNotice('');
+      if (from && to && to.id !== from.id) createReference(from, to);
+    };
+
+    // 松手：优先用 ECharts 自己的序列事件（它按真实渲染做命中，力导向漂移也不怕），
+    // 没触发（比如松在空白处）再由 zrender 的 mouseup 兜底清理辅助线。
+    const onNodeUp = (params) => {
+      if (!dragRef.current) return;
+      const from = dragRef.current;
+      if (params.dataType === 'node' && params.data?.id !== from.id) {
+        finish(from, { id: params.data.id, name: params.data.name });
+      } else {
+        setTimeout(() => finish(from, hoverRef.current), 0);
       }
-      createReference(from, to);
+    };
+
+    const onUp = () => {
+      if (!dragRef.current) return;
+      const from = dragRef.current;
+      setTimeout(() => {
+        if (dragRef.current === from) finish(from, hoverRef.current);
+      }, 0);
     };
 
     chart.on('mousedown', onDown);
+    chart.on('mouseup', onNodeUp);
     zr.on('mousemove', onMove);
     zr.on('mouseup', onUp);
     return () => {
       chart.off('mousedown', onDown);
+      chart.off('mouseup', onNodeUp);
       zr.off('mousemove', onMove);
       zr.off('mouseup', onUp);
     };
