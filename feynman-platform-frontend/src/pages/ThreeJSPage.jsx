@@ -41,7 +41,7 @@ const INITIAL_PARAMS = {
   helpers: false,
 };
 
-const INITIAL_CAMERA = { x: 4.5, y: 3.5, z: 6.5 };
+const INITIAL_CAMERA = { x: 3.2, y: 2.4, z: 4.6 };
 
 function ThreeJSPage() {
   const mountRef = useRef(null);
@@ -334,7 +334,8 @@ function ThreeJSPage() {
             </div>
             <div>
               <dt>帧率</dt>
-              <dd>{readout.fps} FPS</dd>
+              {/* 还没有采样到帧率时只显示一个短横，不要出现「— FPS」这种半截读数 */}
+              <dd>{readout.fps === '—' ? '—' : `${readout.fps} FPS`}</dd>
             </div>
           </dl>
 
