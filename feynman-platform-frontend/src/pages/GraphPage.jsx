@@ -95,8 +95,10 @@ function GraphPage() {
               };
             }),
             roam: true, // 开启鼠标缩放和平移漫游
-            label: { show: true, position: 'right', formatter: '{b}', fontSize: 12 },
-            labelLayout: { hideOverlap: true }, // 挤不下时自动隐藏标签，避免文字糊成一团
+            // 标签放节点下方：力导向里左右相邻的节点最容易被「右侧标签」压住
+            label: { show: true, position: 'bottom', distance: 9, formatter: '{b}', fontSize: 12 },
+            // 标签挤在一起时：先横向错位，再隐藏——避免标签压在别的节点上
+            labelLayout: { hideOverlap: true, moveOverlap: 'shiftY' },
             // 边上不画常驻文字：拖动/缩放时这些文字不跟手，会糊成一片（类型改由 tooltip 说明）
             edgeLabel: { show: false },
             categories: Object.values(CATEGORY_STYLE).map((item) => ({
@@ -105,8 +107,9 @@ function GraphPage() {
               itemStyle: { color: item.color },
             })),
             force: {
-              repulsion: 260, // 节点之间的斥力因子（引用多了以后避免标签重叠）
-              edgeLength: 140,
+              repulsion: 300, // 节点之间的斥力因子：太小标签互相压，太大会把节点推出画布
+              edgeLength: [100, 180], // 边的长度区间
+              gravity: 0.12, // 向心力：把整张图收在画布里，避免边上的节点被裁掉
             },
             emphasis: {
               focus: 'adjacency', // 悬停时高亮邻居节点与边

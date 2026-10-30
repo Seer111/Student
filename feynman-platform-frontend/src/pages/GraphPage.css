@@ -142,7 +142,7 @@
   color: #a0a8b6;
 }
 
-/* 画布：白面 + 1px 边框，高度随视口（最小 460，最大 720） */
+/* 画布：白面 + 1px 边框，高度随视口（最小 420，最大 620）——过高的画布会让节点挤在一小块里，四周全是空的 */
 .graph-canvas-wrap {
   position: relative;
   background: var(--surface);
@@ -153,7 +153,7 @@
 
 .graph-canvas {
   width: 100%;
-  height: clamp(460px, calc(100vh - 300px), 720px);
+  height: clamp(420px, calc(100vh - 380px), 620px);
 }
 
 .graph-notice {
