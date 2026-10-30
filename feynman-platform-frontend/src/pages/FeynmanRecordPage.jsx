@@ -155,15 +155,17 @@ function FeynmanRecordPage() {
       </div>
 
       {/* 录音区 */}
-      <section className="record-card">
-        <h2>第一步：用自己的话复述这个知识点</h2>
+      <section className="record-card record-step">
+        <h2 className="record-step-title">
+          <span className="record-step-no">1</span>用自己的话复述这个知识点
+        </h2>
         <div className="record-controls">
           {status === 'idle' ? (
-            <button className="btn btn-record" onClick={startRecording}>开始录音</button>
+            <button className="btn record-primary" onClick={startRecording}>开始录音</button>
           ) : (
             <>
-              <span className="record-timer">录音中... {formatTime(elapsed)}</span>
-              <button className="btn btn-danger" onClick={handleStopAndTranscribe}>停止并转文字</button>
+              <span className="record-timer">录音中… {formatTime(elapsed)}</span>
+              <button className="btn record-primary" onClick={handleStopAndTranscribe}>停止并转文字</button>
             </>
           )}
         </div>
@@ -179,12 +181,14 @@ function FeynmanRecordPage() {
       </section>
 
       {/* 转录结果区 */}
-      <section className="record-card">
-        <h2>第二步：AI 转录结果</h2>
-        {isUploading && <p className="status-text">正在上传并转录，请稍候...</p>}
+      <section className="record-card record-step">
+        <h2 className="record-step-title">
+          <span className="record-step-no">2</span>AI 转录结果
+        </h2>
+        {isUploading && <p className="status-text">正在上传并转录，请稍候…</p>}
         {transcribeError && <p className="status-text form-error">{transcribeError}</p>}
-        <div className="transcript-box">
-          {transcribedText || (isUploading ? '（转录中...）' : '（停止录音后，转录文字将显示在这里）')}
+        <div className={`transcript-box${transcribedText ? '' : ' is-empty'}`}>
+          {transcribedText || (isUploading ? '（转录中…）' : '录完音会自动转成文字，显示在这里。')}
         </div>
 
         {transcribedText && (
@@ -200,10 +204,15 @@ function FeynmanRecordPage() {
       </section>
 
       {/* AI 反馈区（08课） */}
-      <section className="record-card">
-        <h2>第三步：AI 教练反馈</h2>
-        {isEvaluating && <p className="status-text">AI教练正在批阅您的答卷...</p>}
+      <section className="record-card record-step">
+        <h2 className="record-step-title">
+          <span className="record-step-no">3</span>AI 教练反馈
+        </h2>
+        {isEvaluating && <p className="status-text">AI 教练正在批阅…</p>}
         {evaluateError && <p className="status-text form-error">{evaluateError}</p>}
+        {!isEvaluating && !aiFeedback && (
+          <p className="record-step-hint">转录完成后点上一张卡片的「获取 AI 评价」，这里会出现润色稿、优点与待改进。</p>
+        )}
         {aiFeedback && (
           <div className="ai-feedback">
             <div className="ai-feedback-main">

@@ -24,37 +24,40 @@ function LoginPage() {
   };
 
   return (
-    <div className="form-box card">
-      <h1>登录</h1>
-      <form onSubmit={handleSubmit}>
-        <div className="form-item">
-          <label>邮箱</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="请输入邮箱"
-            required
-          />
-        </div>
-        <div className="form-item">
-          <label>密码</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="请输入密码"
-            required
-          />
-        </div>
-        <div className="form-actions">
-          <button className="btn" type="submit">登录</button>
-        </div>
-        {error && <p className="form-error">{error}</p>}
-      </form>
-      <p className="form-tip">
-        还没有账号？<Link to="/register">去注册</Link>
-      </p>
+    <div className="auth-page">
+      <div className="form-box card auth-card">
+        <h1>登录</h1>
+        <p className="auth-subtitle">用你的账号进来，继续复述与测评。</p>
+        <form onSubmit={handleSubmit}>
+          <div className="form-item">
+            <label>邮箱</label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="请输入邮箱"
+              required
+            />
+          </div>
+          <div className="form-item">
+            <label>密码</label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="请输入密码"
+              required
+            />
+          </div>
+          <div className="form-actions">
+            <button className="btn" type="submit">登录</button>
+          </div>
+          {error && <p className="form-error">{error}</p>}
+        </form>
+        <p className="form-tip auth-footer">
+          还没有账号？<Link to="/register">去注册</Link>
+        </p>
+      </div>
     </div>
   );
 }

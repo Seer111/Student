@@ -53,3 +53,59 @@
   margin: 0.6rem 0 0;
 }
 
+
+/* ---- 复述页：步骤编号 + 主按钮 + 空态（批次 30） ---- */
+.record-step {
+  position: relative;
+}
+
+.record-step-title {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1.05rem;
+}
+
+.record-step-no {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  flex: none;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  font-family: Consolas, monospace;
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+}
+
+/* 录音/停止：整页的主操作，用实心墨色；录音不是「危险动作」，不该是红 */
+.btn.record-primary {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: #fff;
+}
+
+.btn.record-primary:hover {
+  background: var(--ink-hover);
+  border-color: var(--ink-hover);
+  color: #fff;
+}
+
+.btn.record-primary:disabled {
+  opacity: 0.5;
+}
+
+.record-step-hint {
+  margin: 0.4rem 0 0;
+  font-size: 0.88rem;
+  color: #8a94a6;
+  line-height: 1.7;
+}
+
+.transcript-box.is-empty {
+  border-style: dashed;
+  background: #fbfcfe;
+  color: #8a94a6;
+}

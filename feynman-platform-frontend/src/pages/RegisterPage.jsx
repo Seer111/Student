@@ -31,51 +31,54 @@ function RegisterPage() {
   };
 
   return (
-    <div className="form-box card">
-      <h1>注册</h1>
-      <form onSubmit={handleSubmit}>
-        <div className="form-item">
-          <label>用户名</label>
-          <input
-            name="name"
-            type="text"
-            value={formData.name}
-            onChange={handleChange}
-            placeholder="请输入用户名"
-            required
-          />
-        </div>
-        <div className="form-item">
-          <label>邮箱</label>
-          <input
-            name="email"
-            type="email"
-            value={formData.email}
-            onChange={handleChange}
-            placeholder="请输入邮箱"
-            required
-          />
-        </div>
-        <div className="form-item">
-          <label>密码</label>
-          <input
-            name="password"
-            type="password"
-            value={formData.password}
-            onChange={handleChange}
-            placeholder="请输入密码（至少 6 位）"
-            required
-            minLength={6}
-          />
-        </div>
-        <div className="form-actions">
-          <button className="btn" type="submit">注册</button>
-        </div>
-        {error && <p className="form-error">{error}</p>}
-      </form>
-      <p className="form-tip">
-        已有账号？<Link to="/login">去登录</Link>
-      </p>
+    <div className="auth-page">
+      <div className="form-box card auth-card">
+        <h1>注册</h1>
+        <p className="auth-subtitle">建一个账号，知识点、复述与测评都会存到它名下。</p>
+        <form onSubmit={handleSubmit}>
+          <div className="form-item">
+            <label>用户名</label>
+            <input
+              name="name"
+              type="text"
+              value={formData.name}
+              onChange={handleChange}
+              placeholder="请输入用户名"
+              required
+            />
+          </div>
+          <div className="form-item">
+            <label>邮箱</label>
+            <input
+              name="email"
+              type="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="请输入邮箱"
+              required
+            />
+          </div>
+          <div className="form-item">
+            <label>密码</label>
+            <input
+              name="password"
+              type="password"
+              value={formData.password}
+              onChange={handleChange}
+              placeholder="请输入密码（至少 6 位）"
+              required
+              minLength={6}
+            />
+          </div>
+          <div className="form-actions">
+            <button className="btn" type="submit">注册</button>
+          </div>
+          {error && <p className="form-error">{error}</p>}
+        </form>
+        <p className="form-tip auth-footer">
+          已有账号？<Link to="/login">去登录</Link>
+        </p>
+      </div>
     </div>
   );
 }

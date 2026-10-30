@@ -6,3 +6,41 @@
    以后这页出现独有样式时直接写在这里，不要再塞回 styles/components.css。
 
    注：`.form-box` 与 `.form-tip` 是登录、注册两页共用的，仍在 styles/components.css。 */
+
+/* ---- 登录/注册：标题与链接墨色，卡片垂直居中，补一行副标题（批次 30） ---- */
+.auth-page {
+  min-height: calc(100vh - 140px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-card {
+  width: min(420px, 100%);
+}
+
+.auth-card h1,
+.auth-card h2 {
+  color: var(--ink);
+  text-align: center;
+}
+
+.auth-subtitle {
+  margin: 0.35rem 0 1.2rem;
+  text-align: center;
+  font-size: 0.88rem;
+  color: #8a94a6;
+}
+
+.auth-card a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.auth-footer {
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 0.88rem;
+  color: #8a94a6;
+}

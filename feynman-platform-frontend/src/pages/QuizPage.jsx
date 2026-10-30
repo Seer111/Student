@@ -133,39 +133,53 @@ function QuizPage() {
         <h1 className="page-title">知识点测评：{knowledgePoint.title}</h1>
         <Link to="/" className="btn btn-plain">返回主页</Link>
       </div>
+      <p className="quiz-intro">
+        AI 会按你选的难度和题型现场出一道题；交卷立刻判分，答错的知识点会自动进入复习列表。
+      </p>
 
-      {/* 难度与题型选择 */}
-      <section className="record-card">
-        <p>选择难度：</p>
-        <div className="quiz-options">
-          {DIFFICULTIES.map((difficulty) => (
-            <button
-              key={difficulty}
-              className="btn btn-plain"
-              onClick={() => fetchQuestion(difficulty, question?.type || 'single-choice')}
-            >
-              {difficulty}
-            </button>
-          ))}
+      {/* 出题设置：难度与题型各自一排，当前条件高亮 */}
+      <section className="record-card quiz-setup">
+        <div className="quiz-setup-row">
+          <span className="quiz-setup-label">难度</span>
+          <div className="quiz-options">
+            {DIFFICULTIES.map((difficulty) => (
+              <button
+                key={difficulty}
+                type="button"
+                className={`quiz-chip${question?.difficulty === difficulty ? ' is-active' : ''}`}
+                onClick={() => fetchQuestion(difficulty, question?.type || 'single-choice')}
+              >
+                {difficulty}
+              </button>
+            ))}
+          </div>
         </div>
-        <p>选择题型：</p>
-        <div className="quiz-options">
-          {QUESTION_TYPES.map((type) => (
-            <button
-              key={type.value}
-              className="btn btn-plain"
-              onClick={() => fetchQuestion(question?.difficulty || '基础', type.value)}
-            >
-              {type.label}
-            </button>
-          ))}
+        <div className="quiz-setup-row">
+          <span className="quiz-setup-label">题型</span>
+          <div className="quiz-options">
+            {QUESTION_TYPES.map((type) => (
+              <button
+                key={type.value}
+                type="button"
+                className={`quiz-chip${(question?.type || 'single-choice') === type.value ? ' is-active' : ''}`}
+                onClick={() => fetchQuestion(question?.difficulty || '基础', type.value)}
+              >
+                {type.label}
+              </button>
+            ))}
+          </div>
         </div>
       </section>
 
-      <hr />
-
-      {isLoading && <p className="status-text">AI正在出题/阅卷中...</p>}
+      {isLoading && <p className="status-text">AI 正在出题 / 阅卷中…</p>}
       {error && <p className="status-text form-error">{error}</p>}
+
+      {/* 还没出题时的空态：告诉用户点哪一下开始 */}
+      {!question && !result && !isLoading && (
+        <section className="quiz-empty">
+          <p>还没有题目。点上面的「基础 / 中等 / 困难」，AI 立刻给你出一道。</p>
+        </section>
+      )}
 
       {/* 答题区 */}
       {question && !result && (
