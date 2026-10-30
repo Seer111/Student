@@ -10,53 +10,70 @@
   flex-direction: column;
 }
 
+/* 导航条：中性 chrome（白底 + 一条底线），颜色留给数据与状态。
+   为什么不再是深靛蓝通栏：深色横条会把整页的「强调色份额」吃掉一大块，
+   让状态色失去对比；改成浅底后，页面上只剩状态胶囊与主操作带颜色。 */
 .navbar {
   display: flex;
   align-items: center;
-  gap: 1.25rem;
-  background: #1e2958;
-  color: #fff;
-  padding: 0.8rem 1.5rem;
+  gap: 1.35rem;
+  background: var(--surface);
+  color: var(--ink);
+  padding: 0.7rem 1.5rem;
+  border-bottom: 1px solid var(--line);
 }
 
 .navbar .brand {
   font-weight: 700;
-  font-size: 1.05rem;
-  color: #fff;
+  font-size: 1.02rem;
+  letter-spacing: 0.01em;
+  color: var(--ink);
   text-decoration: none;
   margin-right: auto;
 }
 
 .navbar a {
-  color: #cdd6f4;
+  color: var(--ink-soft);
   text-decoration: none;
-  font-size: 0.95rem;
+  font-size: 0.93rem;
 }
 
 .navbar a:hover {
-  color: #fff;
+  color: var(--ink);
+}
+
+/* 当前页：ink 文字 + 2px 下划线（不靠底色块或加粗堆层级） */
+.navbar .nav-item {
+  padding: 0.3rem 0;
+  border-bottom: 2px solid transparent;
+}
+
+.navbar .nav-item.is-active {
+  color: var(--ink);
+  font-weight: 600;
+  border-bottom-color: var(--ink);
 }
 
 .navbar .btn-logout {
   background: transparent;
-  border: 1px solid #cdd6f4;
-  color: #cdd6f4;
-  padding: 0.3rem 0.9rem;
+  border: 1px solid var(--line-strong);
+  color: var(--ink-soft);
+  padding: 0.28rem 0.8rem;
   border-radius: 6px;
   cursor: pointer;
-  font-size: 0.9rem;
+  font-size: 0.86rem;
 }
 
 .navbar .btn-logout:hover {
-  background: #4f46e5;
-  border-color: #4f46e5;
-  color: #fff;
+  background: #f3f5fa;
+  border-color: var(--line-strong);
+  color: var(--ink);
 }
 
 /* 导航栏右侧的当前用户名（来自 GET /api/users/me，AuthContext 负责加载） */
 .navbar .navbar-user {
-  color: #a5b4fc;
-  font-size: 0.9rem;
+  color: var(--ink-soft);
+  font-size: 0.88rem;
   max-width: 10rem;
   overflow: hidden;
   text-overflow: ellipsis;

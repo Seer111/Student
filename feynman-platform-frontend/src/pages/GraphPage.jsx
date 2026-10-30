@@ -66,7 +66,8 @@ function GraphPage() {
           },
         },
         legend: {
-          // 色块颜色要显式给：只给 name 的话 ECharts 会退回默认调色板，图例色块与节点颜色对不上
+          // 页面自己有一套图例（含「引用 / 提及」两种边），ECharts 自带的那套再画一遍就重复了
+          show: false,
           data: Object.values(CATEGORY_STYLE).map((item) => ({
             name: item.name,
             itemStyle: { color: item.color },

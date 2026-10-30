@@ -411,30 +411,45 @@ select.kp-status.kp-status-mastered {
    全部按 .kp-btn-* 命名并写在文件末尾，靠“同优先级后写者胜”覆盖通用 .btn / .btn:hover，
    因此不会影响其它页面里使用 .btn 的按钮。 */
 .kp-btn-primary {
-  background: var(--ink);
+  background: var(--surface);
   border: 1px solid var(--ink);
-  color: #fff;
+  color: var(--ink);
+  font-weight: 600;
   padding: 0.4rem 0.9rem;
   font-size: 0.85rem;
 }
 
 .kp-btn-primary:hover {
-  background: var(--ink-hover);
-  border-color: var(--ink-hover);
+  background: var(--ink);
+  border-color: var(--ink);
+  color: #fff;
 }
 
 .kp-btn-secondary {
-  background: var(--surface);
-  border: 1px solid var(--line-strong);
+  background: transparent;
+  border: 1px solid transparent;
   color: var(--ink-soft);
   padding: 0.4rem 0.9rem;
   font-size: 0.85rem;
 }
 
 .kp-btn-secondary:hover {
-  background: var(--ground);
-  border-color: var(--ink-soft);
+  background: #f3f5fa;
+  border-color: transparent;
   color: var(--ink);
+}
+
+/* 页头/空态的「新建知识点」：整页唯一一个实心主按钮（卡片内的主操作已降为描边） */
+.kp-create-btn {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: #fff;
+}
+
+.kp-create-btn:hover {
+  background: var(--ink-hover);
+  border-color: var(--ink-hover);
+  color: #fff;
 }
 
 .kp-actions .kp-btn-danger {

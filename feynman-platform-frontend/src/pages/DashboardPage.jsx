@@ -132,7 +132,7 @@ function DashboardPage() {
   const header = (
     <div className="list-header">
       <h1 className="page-title">我的知识点</h1>
-      <Link to="/kp/new" className="btn kp-btn-primary">+ 新建知识点</Link>
+      <Link to="/kp/new" className="btn kp-btn-primary kp-create-btn">+ 新建知识点</Link>
     </div>
   );
 
@@ -170,7 +170,7 @@ function DashboardPage() {
         <div className="kp-empty">
           <h2>还没有知识点</h2>
           <p>写下一个你正在学的概念，复述一次，系统会给你打分。</p>
-          <Link to="/kp/new" className="btn kp-btn-primary">+ 新建第一个知识点</Link>
+          <Link to="/kp/new" className="btn kp-btn-primary kp-create-btn">+ 新建第一个知识点</Link>
         </div>
       ) : (
         <>

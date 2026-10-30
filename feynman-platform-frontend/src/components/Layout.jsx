@@ -1,6 +1,6 @@
 // 通用布局：导航栏 + 内容区（Outlet）
 // 作业实现（05课）：根据登录状态显示不同导航项；提供“退出登录”按钮
-import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext.jsx';
 import ErrorBoundary from './ErrorBoundary.jsx';
 
@@ -8,6 +8,9 @@ function Layout() {
   const { token, user, logout } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
+
+  // 导航项统一的 class：当前页加 is-active（CSS 里是 ink 文字 + 2px 下划线）
+  const navClass = ({ isActive }) => `nav-item${isActive ? ' is-active' : ''}`;
 
   const handleLogout = () => {
     logout(); // 清除全局 token（同步清空 localStorage）
@@ -20,11 +23,12 @@ function Layout() {
         <Link to="/" className="brand">费曼学习平台</Link>
         {token ? (
           <>
-            <Link to="/">主页</Link>
-            <Link to="/agent">AI助手</Link>
-            <Link to="/graph">知识图谱</Link>
-            <Link to="/knowledge-universe">3D知识宇宙</Link>
-            <Link to="/3d-world">3D视界</Link>
+            {/* 当前页靠 nav-item + is-active（ink 文字 + 2px 下划线）标记，不用底色块 */}
+            <NavLink to="/" end className={navClass}>主页</NavLink>
+            <NavLink to="/agent" className={navClass}>AI助手</NavLink>
+            <NavLink to="/graph" className={navClass}>知识图谱</NavLink>
+            <NavLink to="/knowledge-universe" className={navClass}>3D知识宇宙</NavLink>
+            <NavLink to="/3d-world" className={navClass}>3D视界</NavLink>
             {/* 昵称来自 GET /api/users/me（AuthContext 加载），悬停可看邮箱 */}
             {user && <span className="navbar-user" title={user.email}>{user.name}</span>}
             <button className="btn-logout" onClick={handleLogout}>退出登录</button>
