@@ -190,7 +190,8 @@ function KnowledgeUniversePage() {
     const scene = new THREE.Scene();
 
     const camera = new THREE.PerspectiveCamera(60, width / height, 0.1, 4000);
-    const HOME_POSITION = new THREE.Vector3(0, 26, 195);
+    // 初始机位：比原来近一点（195→168）、略低一点，让星球群在画面里占得更满，不要缩在中间一小块
+    const HOME_POSITION = new THREE.Vector3(0, 20, 168);
     camera.position.copy(HOME_POSITION);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'high-performance' });
@@ -463,13 +464,16 @@ function KnowledgeUniversePage() {
       const colors = new Float32Array(pairs.length * 2 * 3);
       const startColor = new THREE.Color();
       const endColor = new THREE.Color();
+      // 「提及」统一用一层冷灰蓝，而不是把两端星球的颜色压暗——
+      // 压暗后和「引用」只是亮度差，九条线里根本认不出哪条是虚线（批次 29 的教训）。
+      const AUTO_COLOR = 0x93a4be;
       pairs.forEach((link, i) => {
         const source = sphereById.get(link.source);
         const target = sphereById.get(link.target);
-        startColor.setHex(source ? source.userData.originalColor : 0x8aa5c9);
-        endColor.setHex(target ? target.userData.originalColor : 0x8aa5c9);
-        // 「提及」的亮度也压低，和「引用」区分开
-        const dim = link.kind === 'auto' ? 0.4 : 1;
+        const isAuto = link.kind === 'auto';
+        startColor.setHex(isAuto ? AUTO_COLOR : source ? source.userData.originalColor : 0x8aa5c9);
+        endColor.setHex(isAuto ? AUTO_COLOR : target ? target.userData.originalColor : 0x8aa5c9);
+        const dim = 1;
         const offset = i * 6;
         colors[offset] = startColor.r * dim;
         colors[offset + 1] = startColor.g * dim;
@@ -500,10 +504,10 @@ function KnowledgeUniversePage() {
         linkPairs.filter((link) => link.kind === 'auto'),
         new THREE.LineDashedMaterial({
           vertexColors: true,
-          dashSize: 10, // 世界单位：一段虚线 10、间隔 7（航线长度约 70~160）
-          gapSize: 7,
+          dashSize: 13, // 世界单位：一段虚线 13、间隔 8（航线长度约 70~160），比原来更「断」才看得出是虚线
+          gapSize: 8,
           transparent: true,
-          opacity: 0.4,
+          opacity: 0.6,
           depthWrite: false,
           blending: THREE.AdditiveBlending,
         }),
