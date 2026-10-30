@@ -102,7 +102,7 @@ function GraphPage() {
             // 不打开 draggable 时，按下节点拖动的其实是画布本身（整张图平移），根本拖不到别的节点上（批次 30 修的 bug）
             draggable: true,
             // 标签放节点下方：力导向里左右相邻的节点最容易被「右侧标签」压住
-            label: { show: true, position: 'bottom', distance: 9, formatter: '{b}', fontSize: 12 },
+            label: { show: true, position: 'bottom', distance: 14, formatter: '{b}', fontSize: 12 },
             // 标签挤在一起时：先横向错位，再隐藏——避免标签压在别的节点上
             labelLayout: { hideOverlap: true, moveOverlap: 'shiftY' },
             // 边上不画常驻文字：拖动/缩放时这些文字不跟手，会糊成一片（类型改由 tooltip 说明）
@@ -113,7 +113,7 @@ function GraphPage() {
               itemStyle: { color: item.color },
             })),
             force: {
-              repulsion: 300, // 节点之间的斥力因子：太小标签互相压，太大会把节点推出画布
+              repulsion: 360, // 节点之间的斥力因子：太小标签互相压，太大会把节点推出画布（360 × 标签距 14px 是扫出来的零碰撞组合）
               edgeLength: [100, 180], // 边的长度区间
               gravity: 0.12, // 向心力：把整张图收在画布里，避免边上的节点被裁掉
             },
