@@ -30,4 +30,40 @@ export function stripLeadingTitle(content, title) {
   return content;
 }
 
-export default { stripLeadingTitle };
+/**
+ * 生成列表卡片里的「纯文本摘要」。
+ *
+ * 为什么不再直接把 Markdown 渲染进折叠容器：折叠容器只能按像素裁高度，
+ * 裁切点落在行中间时文字会被切掉半行、落在代码块中间时代码块看起来像被截断（批次 27 修的正是这个）。
+ * 摘要是纯文本：先去掉代码块、标题符号、强调符号，再压成一行，由 CSS 做整行裁切（line-clamp），
+ * 无论窗口多宽都不会切在半个字上。
+ *
+ * @param {string} content - 原始 Markdown 正文
+ * @param {string} title - 卡片标题（摘要里不必重复出现）
+ * @param {number} maxLength - 摘要最多保留多少字
+ * @returns {{ text: string, truncated: boolean }}
+ */
+export function buildPreview(content, title, maxLength = 96) {
+  const body = stripLeadingTitle(content, title);
+  if (!body) return { text: '', truncated: false };
+
+  const cleaned = body
+    .replace(/```[\s\S]*?```/g, ' ') // 整块代码（摘要里不出现代码块，避免折叠时被截断）
+    .replace(/\$\$[\s\S]*?\$\$/g, ' ') // 块级公式：摘要里显示 LaTeX 源码比不显示更糟
+    .replace(/\$[^$\n]*\$/g, ' ') // 行内公式
+    .replace(/!\[[^\]]*\]\([^)]*\)/g, ' ') // 图片
+    .replace(/\[([^\]]+)\]\([^)]*\)/g, '$1') // 链接只留文字（必须早于行内代码，否则 [`var`](url) 会先被拆散）
+    .replace(/`([^`]*)`/g, '$1') // 行内代码只去反引号，保留标识符本身
+    .replace(/^\s{0,3}#{1,6}\s+/gm, '') // 标题标记
+    .replace(/^\s{0,3}>\s?/gm, '') // 引用标记
+    .replace(/^\s{0,3}([-*+]|\d+\.)\s+/gm, '') // 列表标记
+    .replace(/[*_~]{1,3}/g, '') // 强调符号
+    .replace(/\s+/g, ' ') // 压成一行
+    .trim();
+
+  const characters = Array.from(cleaned);
+  if (characters.length <= maxLength) return { text: cleaned, truncated: false };
+  return { text: `${characters.slice(0, maxLength).join('')}…`, truncated: true };
+}
+
+export default { stripLeadingTitle, buildPreview };

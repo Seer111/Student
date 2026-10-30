@@ -380,6 +380,9 @@ select.kp-status.kp-status-mastered {
 }
 
 .kp-review-badge {
+  flex: none;
+  align-self: center;
+  margin-right: 0.15rem;
   background: #fff7ed;
   color: #ea580c;
   border: 1px solid #fdba74;
@@ -594,13 +597,21 @@ select.kp-status:focus-visible {
   font-weight: 600;
 }
 
-/* 正文折叠：max-height + 渐隐遮罩（不用 -webkit-line-clamp——
-   正文是多元素的 Markdown，line-clamp 对列表/代码块并不可靠） */
-.markdown-content.is-clamped {
-  max-height: 260px;
+/* 折叠态正文：一行纯文本摘要（批次 27）。
+   不再用「max-height + 渐隐遮罩」去裁 Markdown——那样只会按像素裁，
+   裁在行中间会切掉半个字、裁在代码块里像被截断。这里用 -webkit-line-clamp 做整行裁切：
+   以「行」为最小单位，最后一行一定会完整显示（多余的用省略号收尾）。 */
+.markdown-preview {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.75;
+  color: #4a5568;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  display: box; /* 标准属性兜底 */
+  line-clamp: 3;
   overflow: hidden;
-  -webkit-mask-image: linear-gradient(180deg, #000 68%, transparent 100%);
-  mask-image: linear-gradient(180deg, #000 68%, transparent 100%);
 }
 
 .kp-expand {

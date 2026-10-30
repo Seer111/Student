@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 import apiClient from '../api/axios.js';
 import MarkdownRenderer from '../components/MarkdownRenderer.jsx';
 // 正文去重（剔除开头与标题重复的 h1/h2）是纯函数，放在 utils 里，方便单测
-import { stripLeadingTitle } from '../utils/markdownText.js';
+import { stripLeadingTitle, buildPreview } from '../utils/markdownText.js';
 
 // 后端 status 枚举 → 中文展示文案
 const STATUS_TEXT = {
@@ -188,7 +188,11 @@ function DashboardPage() {
               // 正文只在渲染前处理一次：剔除与卡头同名的首行标题；超长则折叠
               const body = stripLeadingTitle(kp.content, kp.title);
               const expanded = expandedIds.has(kp._id);
-              const clampable = body.length > CLAMP_THRESHOLD;
+              // 折叠态渲染纯文本摘要而不是整段 Markdown：
+              // 折叠容器只能按像素裁，裁在行中间会切掉半个字、裁在代码块里像被截断（批次 27 修）
+              const preview = buildPreview(kp.content, kp.title);
+              const clampable = preview.truncated || body.length > CLAMP_THRESHOLD;
+              const showPreview = clampable && !expanded;
 
               return (
                 <li
@@ -200,7 +204,6 @@ function DashboardPage() {
                   <div className="kp-item-header">
                     <h2>{kp.title}</h2>
                     <div className="kp-badges">
-                      {kp.reviewList && <span className="kp-review-badge">待复习</span>}
                       {/* 状态胶囊：状态点（形状通道）+ 自定义下拉（可改状态）。
                           点仍是 ○ 空心 / ◐ 半实心 / ● 实心，灰度下也能分辨；
                           菜单是自己画的，圆角/字号/底色与卡片同一套，不会被系统弹层压住边框 */}
@@ -244,9 +247,15 @@ function DashboardPage() {
                     </div>
                   </div>
 
-                  <div className={`markdown-content${clampable && !expanded ? ' is-clamped' : ''}`}>
-                    <MarkdownRenderer content={body} />
-                  </div>
+                  {/* 折叠态 = 一行纯文本摘要（整行裁切、不切字、不含代码块）；
+                      展开态 = 完整 Markdown（代码块、列表、表格都在） */}
+                  {showPreview ? (
+                    <p className="markdown-preview">{preview.text}</p>
+                  ) : (
+                    <div className="markdown-content">
+                      <MarkdownRenderer content={body} />
+                    </div>
+                  )}
 
                   {clampable && (
                     <button
@@ -260,6 +269,9 @@ function DashboardPage() {
                   )}
 
                   <div className="kp-actions">
+                    {/* 「待复习」是复习通道的标记，和「学习阶段」不是一回事：
+                        放进操作行左侧，让卡头只留一个状态（批次 27 的状态语义分层） */}
+                    {kp.reviewList && <span className="kp-review-badge">待复习</span>}
                     <Link to={`/feynman/${kp._id}`} className="btn kp-btn-primary">开始复述</Link>
                     <Link to={`/quiz/${kp._id}`} className="btn kp-btn-secondary">开始测评</Link>
                     <Link to={`/kp/edit/${kp._id}`} className="btn kp-btn-secondary">编辑</Link>
