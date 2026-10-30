@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <rect x="0" y="0" width="1280" height="720" fill="#F5F7FA"/>
+  <line x1="80" y1="64" x2="80" y2="664" stroke="#16233A" stroke-width="4"/>
+  <text x="1168" y="96" text-anchor="end" font-family="Consolas, monospace" font-size="15" fill="#6B7A90">12 / 12</text>
+  <text x="112" y="96" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" fill="#6B7A90">PART 3 · 验证与收尾</text>
+  <text x="112" y="150" font-family="Microsoft YaHei, Arial, sans-serif" font-size="36" font-weight="700" fill="#16233A">图书馆建好了，只等管理员</text>
+  <line x1="112" y1="176" x2="1168" y2="176" stroke="#D9E1EC" stroke-width="1"/>
+  <text x="112" y="216" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#1F2933">三句总结，两项作业，一个预告。</text>
+
+  <text x="112" y="280" font-family="Consolas, monospace" font-size="16" fill="#2F80ED">01</text>
+  <text x="152" y="280" font-family="Microsoft YaHei, Arial, sans-serif" font-size="19" font-weight="700" fill="#16233A">RAG = 先检索、再生成</text>
+  <text x="152" y="306" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" fill="#4A5568">不是把资料塞进 Prompt，而是先找最相关的几页。</text>
+
+  <text x="112" y="352" font-family="Consolas, monospace" font-size="16" fill="#2F80ED">02</text>
+  <text x="152" y="352" font-family="Microsoft YaHei, Arial, sans-serif" font-size="19" font-weight="700" fill="#16233A">索引四步，分割最先决</text>
+  <text x="152" y="378" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" fill="#4A5568">切块太粗检索不准，太碎语义断裂；元数据要带知识点 id。</text>
+
+  <text x="112" y="424" font-family="Consolas, monospace" font-size="16" fill="#2F80ED">03</text>
+  <text x="152" y="424" font-family="Microsoft YaHei, Arial, sans-serif" font-size="19" font-weight="700" fill="#16233A">服务化 + 异步，接口不被拖慢</text>
+  <text x="152" y="450" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" fill="#4A5568">慢操作放后台，失败只记日志——所以验证要看日志。</text>
+
+  <line x1="112" y1="496" x2="1168" y2="496" stroke="#D9E1EC" stroke-width="1"/>
+  <text x="112" y="532" font-family="Microsoft YaHei, Arial, sans-serif" font-size="17" font-weight="700" fill="#16233A">作业</text>
+  <text x="112" y="562" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" fill="#4A5568">必做：创建与更新都能正确进库，多建几个不同主题的知识点，观察 vector_store 的变化。</text>
+  <text x="112" y="590" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" fill="#4A5568">选做：支持上传 TXT 并入库（研究 TextLoader / DirectoryLoader，加一个上传接口）。</text>
+
+  <rect x="752" y="512" width="416" height="112" rx="10" fill="#0F1B2D"/>
+  <text x="776" y="544" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" fill="#7FA7D9">下次课 · Part 2</text>
+  <text x="776" y="578" font-family="Microsoft YaHei, Arial, sans-serif" font-size="18" fill="#D8E2F0">检索器 + 问答 Agent</text>
+  <text x="776" y="606" font-family="Consolas, monospace" font-size="13" fill="#8FB8E8">让 AI 基于你的知识库回答</text>
+</svg>

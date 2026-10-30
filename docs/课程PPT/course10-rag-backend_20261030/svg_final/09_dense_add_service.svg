@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <rect x="0" y="0" width="1280" height="720" fill="#F5F7FA"/>
+  <line x1="80" y1="64" x2="80" y2="664" stroke="#16233A" stroke-width="4"/>
+  <text x="1168" y="96" text-anchor="end" font-family="Consolas, monospace" font-size="15" fill="#6B7A90">09 / 12</text>
+  <text x="112" y="96" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" fill="#6B7A90">PART 2 · 后端基础设施</text>
+  <text x="112" y="150" font-family="Microsoft YaHei, Arial, sans-serif" font-size="36" font-weight="700" fill="#16233A">三段：切块 → 加载或新建 → 保存</text>
+  <line x1="112" y1="176" x2="1168" y2="176" stroke="#D9E1EC" stroke-width="1"/>
+  <text x="112" y="216" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#1F2933">库在就追加，不在就新建，最后一定要 save。</text>
+
+  <text x="112" y="272" font-family="Consolas, monospace" font-size="16" fill="#2F80ED">01</text>
+  <text x="112" y="304" font-family="Microsoft YaHei, Arial, sans-serif" font-size="18" font-weight="700" fill="#16233A">分割并带元数据</text>
+  <text x="112" y="332" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" fill="#4A5568">每块都记住它属于哪个知识点：</text>
+  <text x="112" y="358" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" fill="#4A5568">检索回来才知道出处。</text>
+
+  <text x="112" y="422" font-family="Consolas, monospace" font-size="16" fill="#2F80ED">02</text>
+  <text x="112" y="454" font-family="Microsoft YaHei, Arial, sans-serif" font-size="18" font-weight="700" fill="#16233A">加载或新建</text>
+  <text x="112" y="482" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" fill="#4A5568">先 load，抛异常说明库还不存在，</text>
+  <text x="112" y="508" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" fill="#4A5568">再用 fromDocuments 从零建一个。</text>
+
+  <text x="112" y="572" font-family="Consolas, monospace" font-size="16" fill="#2F80ED">03</text>
+  <text x="112" y="604" font-family="Microsoft YaHei, Arial, sans-serif" font-size="18" font-weight="700" fill="#16233A">保存</text>
+  <text x="112" y="632" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" fill="#4A5568">不 save 等于白干：内存里的库重启就没了。</text>
+
+  <rect x="600" y="248" width="568" height="392" rx="10" fill="#0F1B2D"/>
+  <text x="624" y="282" font-family="Consolas, monospace" font-size="13" fill="#7FA7D9">services/vectorStoreService.js</text>
+  <text x="624" y="314" font-family="Consolas, monospace" font-size="14" fill="#8FB8E8">const docs = await textSplitter.createDocuments(</text>
+  <text x="648" y="338" font-family="Consolas, monospace" font-size="14" fill="#D8E2F0">[kp.content],</text>
+  <text x="648" y="362" font-family="Consolas, monospace" font-size="14" fill="#D8E2F0">[{ knowledgePointId: kp._id.toString() }]</text>
+  <text x="624" y="386" font-family="Consolas, monospace" font-size="14" fill="#8FB8E8">);</text>
+  <text x="624" y="418" font-family="Consolas, monospace" font-size="14" fill="#8FB8E8">let store;</text>
+  <text x="624" y="442" font-family="Consolas, monospace" font-size="14" fill="#8FB8E8">try {</text>
+  <text x="648" y="466" font-family="Consolas, monospace" font-size="14" fill="#D8E2F0">store = await HNSWLib.load(PATH, embeddings);</text>
+  <text x="648" y="490" font-family="Consolas, monospace" font-size="14" fill="#D8E2F0">await store.addDocuments(docs);</text>
+  <text x="624" y="514" font-family="Consolas, monospace" font-size="14" fill="#8FB8E8">} catch {</text>
+  <text x="648" y="538" font-family="Consolas, monospace" font-size="14" fill="#D8E2F0">store = await HNSWLib.fromDocuments(docs, embeddings);</text>
+  <text x="624" y="562" font-family="Consolas, monospace" font-size="14" fill="#8FB8E8">}</text>
+  <text x="624" y="594" font-family="Consolas, monospace" font-size="14" fill="#8FB8E8">await store.save(PATH);</text>
+  <text x="624" y="620" font-family="Consolas, monospace" font-size="13" fill="#7FA7D9">// 整段包 try/catch：向量化失败不能拖垮接口</text>
+</svg>

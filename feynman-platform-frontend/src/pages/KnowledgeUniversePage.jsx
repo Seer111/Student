@@ -882,16 +882,19 @@ function KnowledgeUniversePage() {
                   </li>
                 ))}
               </ul>
-              {/* 航线上的飞船图例：和航线本身的实线/虚线口径一一对应 */}
+              {/* 航线上的飞船图例：和航线本身的实线/虚线口径一一对应；
+                  「提及」只在真的有提及航线时列——否则图例说有两类、天上只跑一类 */}
               <ul className="universe-legend universe-ship-legend">
                 <li>
                   <i className="ship-mark" />
                   引用航线 · 亮蓝大飞船
                 </li>
-                <li>
-                  <i className="ship-mark ship-mark-auto" />
-                  提及航线 · 暗灰小飞船
-                </li>
+                {graphData.links.some((link) => link.kind === 'auto') && (
+                  <li>
+                    <i className="ship-mark ship-mark-auto" />
+                    提及航线 · 暗灰小飞船
+                  </li>
+                )}
               </ul>
               <div className="universe-actions">
                 <button type="button" className="universe-btn" onClick={() => actionsRef.current.resetView?.()}>

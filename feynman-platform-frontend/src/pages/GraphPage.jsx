@@ -260,7 +260,11 @@ function GraphPage() {
       <div className="list-header">
         <h1 className="page-title">知识图谱</h1>
       </div>
-      <p className="graph-subtitle">点越大关联越多，颜色是学习状态；实线箭头是你建立的引用，虚线是正文里提到的知识点</p>
+      {/* 副标题里「虚线」这半句只在真的存在提及边时才说——图例不承诺没画出来的东西 */}
+      <p className="graph-subtitle">
+        点越大关联越多，颜色是学习状态；实线箭头是你建立的引用
+        {stats.autoCount > 0 ? '，虚线是正文里提到的知识点' : ''}
+      </p>
 
       {/* 工具栏：图注（状态色 + 两种边）与统计放在同一行，右侧只留一个「重置视图」 */}
       <div className="graph-toolbar">
@@ -275,10 +279,13 @@ function GraphPage() {
             <i className="legend-edge legend-edge-explicit" aria-hidden="true" />
             引用
           </li>
-          <li>
-            <i className="legend-edge legend-edge-auto" aria-hidden="true" />
-            提及
-          </li>
+          {/* 提及边是「正文里写到了对方标题」才会自动出现的，没数据时就不列，免得图例说有两类却只画出一类 */}
+          {stats.autoCount > 0 && (
+            <li>
+              <i className="legend-edge legend-edge-auto" aria-hidden="true" />
+              提及
+            </li>
+          )}
         </ul>
         <div className="graph-toolbar-right">
           <span className="graph-stats">

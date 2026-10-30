@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <rect x="0" y="0" width="1280" height="720" fill="#F5F7FA"/>
+  <line x1="80" y1="64" x2="80" y2="664" stroke="#16233A" stroke-width="4"/>
+  <text x="1168" y="96" text-anchor="end" font-family="Consolas, monospace" font-size="15" fill="#6B7A90">04 / 12</text>
+  <text x="112" y="96" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" fill="#6B7A90">PART 1 · 理论突破</text>
+  <text x="112" y="150" font-family="Microsoft YaHei, Arial, sans-serif" font-size="36" font-weight="700" fill="#16233A">索引、检索、生成</text>
+  <line x1="112" y1="176" x2="1168" y2="176" stroke="#D9E1EC" stroke-width="1"/>
+  <text x="112" y="216" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#1F2933">今天只做第一步，但它是后两步的地基。</text>
+
+  <rect x="112" y="262" width="328" height="286" rx="10" fill="#FFFFFF" stroke="#16233A" stroke-width="2"/>
+  <text x="136" y="302" font-family="Consolas, monospace" font-size="15" fill="#2F80ED">STEP 1</text>
+  <text x="136" y="342" font-family="Microsoft YaHei, Arial, sans-serif" font-size="26" font-weight="700" fill="#16233A">索引</text>
+  <text x="136" y="378" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" fill="#4A5568">把知识切成块、变成向量、</text>
+  <text x="136" y="404" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" fill="#4A5568">存进本地向量库。</text>
+  <text x="136" y="452" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" fill="#2F80ED">← 本次课全部内容</text>
+  <text x="136" y="496" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" fill="#6B7A90">建库</text>
+
+  <text x="456" y="412" font-family="Microsoft YaHei, Arial, sans-serif" font-size="28" fill="#2F80ED">→</text>
+
+  <rect x="492" y="262" width="328" height="286" rx="10" fill="#FFFFFF" stroke="#D9E1EC"/>
+  <text x="516" y="302" font-family="Consolas, monospace" font-size="15" fill="#6B7A90">STEP 2</text>
+  <text x="516" y="342" font-family="Microsoft YaHei, Arial, sans-serif" font-size="26" font-weight="700" fill="#16233A">检索</text>
+  <text x="516" y="378" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" fill="#4A5568">问题也变成向量，在库里</text>
+  <text x="516" y="404" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" fill="#4A5568">找最近的 K 个块。</text>
+  <text x="516" y="452" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" fill="#6B7A90">下次课</text>
+  <text x="516" y="496" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" fill="#6B7A90">找书</text>
+
+  <text x="836" y="412" font-family="Microsoft YaHei, Arial, sans-serif" font-size="28" fill="#2F80ED">→</text>
+
+  <rect x="872" y="262" width="296" height="286" rx="10" fill="#FFFFFF" stroke="#D9E1EC"/>
+  <text x="896" y="302" font-family="Consolas, monospace" font-size="15" fill="#6B7A90">STEP 3</text>
+  <text x="896" y="342" font-family="Microsoft YaHei, Arial, sans-serif" font-size="26" font-weight="700" fill="#16233A">生成</text>
+  <text x="896" y="378" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" fill="#4A5568">块 + 问题拼成增强</text>
+  <text x="896" y="404" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" fill="#4A5568">Prompt，让模型回答。</text>
+  <text x="896" y="452" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" fill="#6B7A90">下次课</text>
+  <text x="896" y="496" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" fill="#6B7A90">答题</text>
+
+  <text x="112" y="608" font-family="Microsoft YaHei, Arial, sans-serif" font-size="17" fill="#6B7A90">记忆方法：建库 → 找书 → 答题。三步里只有第一步是「离线」的，可以慢慢做。</text>
+</svg>

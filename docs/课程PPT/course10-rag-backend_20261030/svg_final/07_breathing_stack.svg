@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <rect x="0" y="0" width="1280" height="720" fill="#F5F7FA"/>
+  <line x1="80" y1="64" x2="80" y2="664" stroke="#16233A" stroke-width="4"/>
+  <text x="1168" y="96" text-anchor="end" font-family="Consolas, monospace" font-size="15" fill="#6B7A90">07 / 12</text>
+  <text x="112" y="96" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" fill="#6B7A90">PART 1 · 理论突破</text>
+  <text x="112" y="150" font-family="Microsoft YaHei, Arial, sans-serif" font-size="36" font-weight="700" fill="#16233A">LangChain 管流程，千帆管向量，HNSWLib 管存放</text>
+  <line x1="112" y1="176" x2="1168" y2="176" stroke="#D9E1EC" stroke-width="1"/>
+  <text x="112" y="216" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#1F2933">三个组件各管一段，换掉其中一个不影响另外两个。</text>
+
+  <rect x="112" y="264" width="328" height="250" rx="10" fill="#FFFFFF" stroke="#D9E1EC"/>
+  <text x="136" y="302" font-family="Consolas, monospace" font-size="15" fill="#2F80ED">FRAMEWORK</text>
+  <text x="136" y="340" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="700" fill="#16233A">LangChain.js</text>
+  <text x="136" y="374" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" fill="#4A5568">加载器、文本分割器、</text>
+  <text x="136" y="400" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" fill="#4A5568">流程编排，像积木一样拼。</text>
+  <text x="136" y="446" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" fill="#6B7A90">langchain + @langchain/community</text>
+
+  <rect x="476" y="264" width="328" height="250" rx="10" fill="#FFFFFF" stroke="#D9E1EC"/>
+  <text x="500" y="302" font-family="Consolas, monospace" font-size="15" fill="#2F80ED">EMBEDDING</text>
+  <text x="500" y="340" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="700" fill="#16233A">百度千帆</text>
+  <text x="500" y="374" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" fill="#4A5568">把文本块变成向量，</text>
+  <text x="500" y="400" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" fill="#4A5568">默认 Embedding-V1 模型。</text>
+  <text x="500" y="446" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" fill="#6B7A90">@langchain/baidu-qianfan</text>
+
+  <rect x="840" y="264" width="328" height="250" rx="10" fill="#FFFFFF" stroke="#D9E1EC"/>
+  <text x="864" y="302" font-family="Consolas, monospace" font-size="15" fill="#2F80ED">VECTOR STORE</text>
+  <text x="864" y="340" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="700" fill="#16233A">HNSWLib</text>
+  <text x="864" y="374" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" fill="#4A5568">本地文件型向量库，</text>
+  <text x="864" y="400" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" fill="#4A5568">不用装独立数据库服务。</text>
+  <text x="864" y="446" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" fill="#6B7A90">hnswlib-node</text>
+
+  <line x1="112" y1="556" x2="1168" y2="556" stroke="#F2994A" stroke-width="1"/>
+  <text x="112" y="590" font-family="Microsoft YaHei, Arial, sans-serif" font-size="17" fill="#B06A1F">取舍：本地库删除效率低，本课先「允许冗余」；生产环境换 Pinecone / Weaviate。</text>
+  <text x="112" y="626" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" fill="#6B7A90">选型不是越新越好——教学场景要的是「能本地跑起来、能看懂文件长什么样」。</text>
+</svg>

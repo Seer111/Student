@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <rect x="0" y="0" width="1280" height="720" fill="#F5F7FA"/>
+  <line x1="80" y1="64" x2="80" y2="664" stroke="#16233A" stroke-width="4"/>
+  <text x="1168" y="96" text-anchor="end" font-family="Consolas, monospace" font-size="15" fill="#6B7A90">02 / 12</text>
+  <text x="112" y="96" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" fill="#6B7A90">PART 1 · 理论突破</text>
+  <text x="112" y="150" font-family="Microsoft YaHei, Arial, sans-serif" font-size="36" font-weight="700" fill="#16233A">今天做四件事，把「图书馆」建起来</text>
+  <line x1="112" y1="176" x2="1168" y2="176" stroke="#D9E1EC" stroke-width="1"/>
+  <text x="112" y="216" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" fill="#1F2933">先懂原理，再写服务，最后用 Postman 验证库真的落盘。</text>
+
+  <circle cx="140" cy="292" r="16" fill="#16233A"/>
+  <text x="140" y="298" text-anchor="middle" font-family="Consolas, monospace" font-size="16" fill="#FFFFFF">1</text>
+  <text x="176" y="286" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="700" fill="#16233A">理论：RAG 三步 + 索引四步 + 技术选型</text>
+  <text x="176" y="316" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" fill="#6B7A90">讲清楚「为什么不能把资料全塞进 Prompt」</text>
+  <text x="1120" y="300" text-anchor="end" font-family="Consolas, monospace" font-size="20" fill="#2F80ED">60 min</text>
+
+  <circle cx="140" cy="396" r="16" fill="#16233A"/>
+  <text x="140" y="402" text-anchor="middle" font-family="Consolas, monospace" font-size="16" fill="#FFFFFF">2</text>
+  <text x="176" y="390" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="700" fill="#16233A">编码：装依赖 → vectorStoreService → 接进接口</text>
+  <text x="176" y="420" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" fill="#6B7A90">跟着敲，三段代码：分割、加载或新建、保存</text>
+  <text x="1120" y="404" text-anchor="end" font-family="Consolas, monospace" font-size="20" fill="#2F80ED">120 min</text>
+
+  <circle cx="140" cy="500" r="16" fill="#16233A"/>
+  <text x="140" y="506" text-anchor="middle" font-family="Consolas, monospace" font-size="16" fill="#FFFFFF">3</text>
+  <text x="176" y="494" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="700" fill="#16233A">验证：建两条、看日志、看 vector_store 目录</text>
+  <text x="176" y="524" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" fill="#6B7A90">第一次建库、第二次追加、更新触发重建</text>
+  <text x="1120" y="508" text-anchor="end" font-family="Consolas, monospace" font-size="20" fill="#2F80ED">30 min</text>
+
+  <line x1="112" y1="560" x2="1168" y2="560" stroke="#F2994A" stroke-width="1"/>
+  <text x="112" y="596" font-family="Microsoft YaHei, Arial, sans-serif" font-size="18" fill="#B06A1F">作业：必做——创建与更新都能正确进库；选做——支持上传 TXT 文件。</text>
+  <text x="112" y="628" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" fill="#6B7A90">今天只做索引；检索与生成留给下一次课，地基必须先稳。</text>
+</svg>

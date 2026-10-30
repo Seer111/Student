@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <rect x="0" y="0" width="1280" height="720" fill="#F5F7FA"/>
+  <line x1="80" y1="64" x2="80" y2="664" stroke="#16233A" stroke-width="4"/>
+  <text x="1160" y="330" text-anchor="end" font-family="Microsoft YaHei, Arial, sans-serif" font-size="230" font-weight="700" fill="#16233A" opacity="0.05">10</text>
+  <text x="112" y="150" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" fill="#6B7A90">《大前端与AI实战》· 第十次课</text>
+  <text x="112" y="268" font-family="Microsoft YaHei, Arial, sans-serif" font-size="84" font-weight="700" fill="#16233A">让 AI 读你的书</text>
+  <text x="112" y="336" font-family="Microsoft YaHei, Arial, sans-serif" font-size="30" fill="#1F2933">RAG 与私有知识库 · Part 1 后端基础</text>
+  <line x1="112" y1="392" x2="612" y2="392" stroke="#D9E1EC" stroke-width="1"/>
+  <text x="112" y="444" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#1F2933">文档处理</text>
+  <text x="240" y="444" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#2F80ED">→</text>
+  <text x="282" y="444" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#1F2933">文本嵌入</text>
+  <text x="420" y="444" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#2F80ED">→</text>
+  <text x="462" y="444" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" fill="#1F2933">本地向量库</text>
+  <text x="112" y="520" font-family="Microsoft YaHei, Arial, sans-serif" font-size="18" fill="#6B7A90">今天不聊生成，只把「图书馆」的地基打好。</text>
+  <line x1="112" y1="612" x2="1168" y2="612" stroke="#D9E1EC" stroke-width="1"/>
+  <text x="112" y="648" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" fill="#6B7A90">费曼学习平台 · 4 学时 · 理论 60 + 编码 120 + 验证 30</text>
+  <text x="1168" y="648" text-anchor="end" font-family="Consolas, monospace" font-size="15" fill="#6B7A90">01 / 12</text>
+</svg>
