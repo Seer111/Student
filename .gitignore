@@ -41,3 +41,6 @@ _dsh*
 # 视觉探针产出的临时截图目录（.dsh-vision-router 的中间产物）
 .dsh-vision-router/
 
+
+# 仓库根下 pip 运行时留下的临时目录（不属于项目）
+pip-*/
