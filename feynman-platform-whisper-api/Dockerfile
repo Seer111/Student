@@ -20,14 +20,23 @@ RUN apt-get update \
 WORKDIR /app
 
 ENV PYTHONUNBUFFERED=1 \
-    PIP_NO_CACHE_DIR=1
+    PIP_NO_CACHE_DIR=1 \
+    PIP_DEFAULT_TIMEOUT=120
 
 COPY requirements.txt .
 
 # 先装 CPU 版 torch（从 PyTorch 官方 CPU 源取，镜像里不必带 CUDA 运行时，体积小很多）
-# 再装其余依赖：此时 torch 已满足 requirements.txt 的 "torch>=2.4"，pip 不会重复下载
-RUN pip install --index-url https://download.pytorch.org/whl/cpu "torch>=2.4" \
-    && pip install -r requirements.txt
+# 再装 whisper：这里故意用 --no-deps 单独装 openai-whisper 本体，
+# 因为它在 Linux x86_64 上会声明 triton>=2（约 200 MB，只服务 torch.compile 的 GPU 优化，
+# CPU 推理完全用不到）；不绕开的话构建会卡在这个大包下载上并 read timeout。
+# 它真正需要的运行时依赖下面显式装齐。
+#
+# 为什么要换国内源：默认走 files.pythonhosted.org，大包经常 read timeout；
+# 想换回官方源：docker build --build-arg PIP_INDEX_URL=https://pypi.org/simple ...
+ARG PIP_INDEX_URL=https://mirrors.aliyun.com/pypi/simple
+RUN pip install --index-url https://download.pytorch.org/whl/cpu --retries 5 "torch>=2.4" \
+    && pip install -i ${PIP_INDEX_URL} --retries 5 --no-deps "openai-whisper>=20231117" \
+    && pip install -i ${PIP_INDEX_URL} --retries 5 numba numpy tiktoken tqdm more-itertools flask
 
 COPY app.py .
 

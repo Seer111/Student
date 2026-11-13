@@ -24,6 +24,16 @@ app = Flask(__name__)
 # 用环境变量 WHISPER_MODEL 覆盖（默认 base）：容器/CI 里不用改代码就能换模型
 MODEL_NAME = os.environ.get("WHISPER_MODEL", "base")
 
+# 识别语言：本平台是中文界面，默认按普通话识别。
+# 不指定时会自动检测，但 base 模型对短音频容易判成粤语/日语，中文识别质量更差。
+# 想转英文（或让模型自己判断）时把 WHISPER_LANGUAGE 设成 en / auto。
+WHISPER_LANGUAGE = os.environ.get("WHISPER_LANGUAGE", "zh")
+
+# 中文提示词：给模型一个「用简体中文、带标点」的锚点。
+# 实测不加时 base 模型会输出繁体 + 同音错字（闭包→B-BOW、函数→寒術、变量→辨諒），
+# 加上之后同一段音频的用词和标点都明显更接近原文。
+INITIAL_PROMPT = "以下是普通话的句子，使用简体中文，并加上标点符号。"
+
 # 加载模型（比较慢，只在启动时执行一次）
 print(f"正在加载 Whisper 模型（{MODEL_NAME}）...")
 model = whisper.load_model(MODEL_NAME)
@@ -44,8 +54,15 @@ def transcribe_audio():
 
     try:
         audio_file.save(temp_path)
-        # 使用 Whisper 进行转录（默认自动检测语言）
-        result = model.transcribe(temp_path)
+        # 使用 Whisper 进行转录
+        # language=zh 固定普通话；auto 则交给模型自动检测
+        transcribe_kwargs = {}
+        if WHISPER_LANGUAGE and WHISPER_LANGUAGE != "auto":
+            transcribe_kwargs["language"] = WHISPER_LANGUAGE
+        # 仅在中文场景给提示词（英文等其它语言给中文提示反而会带偏）
+        if WHISPER_LANGUAGE.startswith("zh"):
+            transcribe_kwargs["initial_prompt"] = INITIAL_PROMPT
+        result = model.transcribe(temp_path, **transcribe_kwargs)
         print("转录结果:", result["text"])
         return jsonify({"result": result["text"]})
     except Exception as e:

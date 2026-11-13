@@ -43,6 +43,16 @@ app.get('/', (req, res) => {
   res.send('Hello, Feynman Learner!');
 });
 
+// 健康检查：给容器编排 / 反向代理 / 运维探活用
+// 只反映「进程活着 + 路由栈可用 + 数据库连接状态」，不查业务数据，避免被 Atlas 抖动拖成假故障
+app.get('/api/health', (req, res) => {
+  res.json({
+    status: 'ok',
+    db: mongoose.connection.readyState === 1 ? 'up' : 'down',
+    uptime: Math.round(process.uptime()),
+  });
+});
+
 // 404 处理：未匹配的路径统一返回 JSON
 app.use((req, res) => {
   res.status(404).json({ msg: 'API not found' });

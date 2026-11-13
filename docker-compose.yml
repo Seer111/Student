@@ -1,28 +1,41 @@
 # Docker Compose 编排（16课：容器化部署）
-# 一键启动前后端：docker compose up -d --build
-# 前端运行在 80 端口，后端运行在 3000 端口，前端 Nginx 将 /api 反向代理到后端
+# 一键启动：docker compose up -d --build
+#
+# 三个服务：
+#   frontend  80 端口，Nginx 托管 dist 并把 /api 反代到 backend
+#   backend   3000 端口（仅在容器网络内被 frontend 使用，默认不对宿主暴露）
+#   whisper   5001 端口，本地语音转写（不接前端，由 backend 通过 WHISPER_API_URL 调用）
+#
+# 准备：把根目录的 .env.example 复制为 .env 并填入真实值（MONGO_URI / JWT_SECRET / 各 API Key）
+#      docker compose 会自动读取**根目录**的 .env 来做 ${VAR} 插值
 services:
   backend:
     build: ./feynman-platform-backend
     container_name: feynman-backend
-    ports:
-      - "3000:3000"
     environment:
       - PORT=3000
       - NODE_ENV=production
-      # 以下敏感配置建议通过 .env 文件注入（docker compose 会自动读取同级 .env）
       - MONGO_URI=${MONGO_URI}
       - JWT_SECRET=${JWT_SECRET}
-      # 说明：百度语音识别（07课）复用 QIANFAN_API_KEY（bce-v3 Bearer 鉴权），
-      # 旧的 BAIDU_API_KEY / BAIDU_SECRET_KEY 与 QIANFAN_SECRET_KEY 代码里并未读取，已移除
       - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY}
       - QIANFAN_API_KEY=${QIANFAN_API_KEY}
+      - QIANFAN_MODEL=${QIANFAN_MODEL:-ernie-4.5-turbo-128k}
       - OPENAI_API_KEY=${OPENAI_API_KEY}
-      # 本地 Whisper 服务（7.5课进阶，可选）：容器要访问宿主机上的 Python 服务
-      - WHISPER_API_URL=${WHISPER_API_URL:-http://host.docker.internal:5001/transcribe}
-    # Linux 上让 host.docker.internal 指向宿主机（Docker Desktop 已内置该名字）
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
+      # 容器内直接用服务名访问 whisper，不再依赖宿主机另起 Python 服务
+      - WHISPER_API_URL=http://whisper:5001/transcribe
+    volumes:
+      # 向量库必须落到卷上：否则容器里新增/重建的索引会随容器销毁一起丢掉，
+      # 每次都退回镜像里那份构建时烤进去的旧索引
+      - feynman-vector-store:/app/vector_store
+    depends_on:
+      whisper:
+        condition: service_started
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+      start_period: 20s
     restart: always
 
   frontend:
@@ -31,5 +44,26 @@ services:
     ports:
       - "80:80"
     depends_on:
-      - backend
+      backend:
+        # 等后端健康再起 Nginx，避免首屏 502
+        condition: service_healthy
     restart: always
+
+  whisper:
+    build:
+      context: ./feynman-platform-whisper-api
+      args:
+        # 镜像里烤进去的模型要和运行时加载的一致，否则容器启动会重新下另一个模型
+        WHISPER_MODEL: ${WHISPER_MODEL:-small}
+    container_name: feynman-whisper
+    environment:
+      - WHISPER_MODEL=${WHISPER_MODEL:-small}
+      # 中文界面默认按普通话识别（base 用 auto 容易判成粤语/日语）
+      - WHISPER_LANGUAGE=${WHISPER_LANGUAGE:-zh}
+      - WHISPER_PORT=5001
+    expose:
+      - "5001"
+    restart: always
+
+volumes:
+  feynman-vector-store:
