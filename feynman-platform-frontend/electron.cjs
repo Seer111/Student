@@ -5,6 +5,7 @@
 //       窗口内运行 React 应用（渲染进程）。
 const { app, BrowserWindow, Menu } = require('electron');
 const path = require('path');
+const { pathToFileURL } = require('url');
 
 function createWindow() {
   // 创建浏览器窗口
@@ -20,7 +21,7 @@ function createWindow() {
   // 开发环境加载 Vite 开发服务器；生产环境加载打包后的 dist/index.html
   const startUrl =
     process.env.ELECTRON_START_URL ||
-    `file://${path.join(__dirname, './dist/index.html')}`;
+    pathToFileURL(path.join(__dirname, 'dist', 'index.html')).href; // 合法 file:// URL（Windows 反斜杠不能直接拼）
   win.loadURL(startUrl);
 
   // 开发环境自动打开开发者工具
