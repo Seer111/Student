@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <rect x="0" y="0" width="1280" height="720" fill="#F5F7FA"/>
+  <rect x="80" y="64" width="4" height="592" fill="#16233A"/>
+  <text x="1168" y="96" font-family="Consolas, monospace" font-size="15" font-weight="400" fill="#6B7A90" text-anchor="end">10 / 17</text>
+  <text x="112" y="250" font-family="Microsoft YaHei, Arial, sans-serif" font-size="88" font-weight="700" fill="#2F80ED" text-anchor="start" opacity="0.18">PART B</text>
+  <text x="112" y="330" font-family="Microsoft YaHei, Arial, sans-serif" font-size="46" font-weight="700" fill="#16233A" text-anchor="start">知识图谱可视化</text>
+  <text x="112" y="382" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="400" fill="#1F2933" text-anchor="start">卡片是一份清单，图谱才是结构：谁在前、谁在后、哪里断了。</text>
+  <line x1="112" y1="432" x2="1168" y2="432" stroke="#D9E1EC" stroke-width="1"/>
+  <text x="112" y="486" font-family="Microsoft YaHei, Arial, sans-serif" font-size="18" font-weight="400" fill="#4A5568" text-anchor="start">这一节做三件事：定义关系数据、写一个聚合接口、用 ECharts 把图力导向地画出来。</text>
+  <text x="112" y="524" font-family="Microsoft YaHei, Arial, sans-serif" font-size="18" font-weight="400" fill="#4A5568" text-anchor="start">最后加上交互：悬停高亮、点击进详情、拖拽建引用。</text>
+</svg>

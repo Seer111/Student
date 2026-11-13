@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <rect x="0" y="0" width="1280" height="720" fill="#F5F7FA"/>
+  <rect x="80" y="64" width="4" height="592" fill="#16233A"/>
+  <text x="1168" y="96" font-family="Consolas, monospace" font-size="15" font-weight="400" fill="#6B7A90" text-anchor="end">15 / 17</text>
+  <text x="112" y="96" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" font-weight="400" fill="#6B7A90" text-anchor="start">PART B · 视觉</text>
+  <text x="112" y="150" font-family="Microsoft YaHei, Arial, sans-serif" font-size="36" font-weight="700" fill="#16233A" text-anchor="start">三条视觉通道，各管一件事</text>
+  <line x1="112" y1="176" x2="1168" y2="176" stroke="#D9E1EC" stroke-width="1"/>
+  <text x="112" y="214" font-family="Microsoft YaHei, Arial, sans-serif" font-size="21" font-weight="400" fill="#16233A" text-anchor="start">颜色管状态、大小管关联度、线型管关系来源——不要混用。</text>
+  <rect x="112" y="250" width="1056" height="52" rx="8" fill="#16233A"/>
+  <text x="140" y="283" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" font-weight="700" fill="#FFFFFF" text-anchor="start">通道</text>
+  <text x="340" y="283" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" font-weight="700" fill="#FFFFFF" text-anchor="start">编码什么</text>
+  <text x="610" y="283" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" font-weight="700" fill="#FFFFFF" text-anchor="start">具体做法</text>
+  <rect x="112" y="302" width="1056" height="58" rx="8" fill="#FFFFFF" stroke="#D9E1EC" stroke-width="1"/>
+  <text x="140" y="338" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" font-weight="700" fill="#16233A" text-anchor="start">颜色</text>
+  <text x="340" y="338" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" font-weight="400" fill="#4A5568" text-anchor="start">学习状态</text>
+  <text x="610" y="338" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" font-weight="400" fill="#4A5568" text-anchor="start">未开始蓝 / 学习中青绿 / 已掌握绿 / 待复习琥珀</text>
+  <rect x="112" y="364" width="1056" height="58" rx="8" fill="#FFFFFF" stroke="#D9E1EC" stroke-width="1"/>
+  <text x="140" y="400" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" font-weight="700" fill="#16233A" text-anchor="start">大小</text>
+  <text x="340" y="400" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" font-weight="400" fill="#4A5568" text-anchor="start">关联数量（度数）</text>
+  <text x="610" y="400" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" font-weight="400" fill="#4A5568" text-anchor="start">symbolSize = 20 + min(degree, 6) × 6</text>
+  <rect x="112" y="426" width="1056" height="58" rx="8" fill="#FFFFFF" stroke="#D9E1EC" stroke-width="1"/>
+  <text x="140" y="462" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" font-weight="700" fill="#16233A" text-anchor="start">线型</text>
+  <text x="340" y="462" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" font-weight="400" fill="#4A5568" text-anchor="start">关系来源</text>
+  <text x="610" y="462" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" font-weight="400" fill="#4A5568" text-anchor="start">引用 = 实线 + 箭头；提及 = 虚线 + 更淡</text>
+  <text x="112" y="520" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" font-weight="400" fill="#6B7A90" text-anchor="start">图例只列屏幕上真实存在的类型：没有提及边，就不要画「提及」那一项。</text>
+  <text x="112" y="556" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" font-weight="400" fill="#F2994A" text-anchor="start">同一个概念在 2D 与 3D 里必须用同一套口径与同一套颜色。</text>
+</svg>

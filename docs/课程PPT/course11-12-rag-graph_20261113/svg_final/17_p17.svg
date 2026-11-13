@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <rect x="0" y="0" width="1280" height="720" fill="#F5F7FA"/>
+  <rect x="80" y="64" width="4" height="592" fill="#16233A"/>
+  <text x="1168" y="96" font-family="Consolas, monospace" font-size="15" font-weight="400" fill="#6B7A90" text-anchor="end">17 / 17</text>
+  <text x="112" y="96" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" font-weight="400" fill="#6B7A90" text-anchor="start">收尾</text>
+  <text x="112" y="150" font-family="Microsoft YaHei, Arial, sans-serif" font-size="36" font-weight="700" fill="#16233A" text-anchor="start">两节课，带走五句话</text>
+  <line x1="112" y1="176" x2="1168" y2="176" stroke="#D9E1EC" stroke-width="1"/>
+  <text x="112" y="214" font-family="Microsoft YaHei, Arial, sans-serif" font-size="21" font-weight="400" fill="#16233A" text-anchor="start">先会查，再看得见。</text>
+  <text x="112" y="280" font-family="Consolas, monospace" font-size="17" font-weight="400" fill="#2F80ED" text-anchor="start">01</text>
+  <text x="156" y="280" font-family="Microsoft YaHei, Arial, sans-serif" font-size="19" font-weight="700" fill="#16233A" text-anchor="start">检索是找最近的几页</text>
+  <text x="366" y="280" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" font-weight="400" fill="#4A5568" text-anchor="start">问题向量化 → 近邻搜索 → 取回 K 条</text>
+  <text x="112" y="326" font-family="Consolas, monospace" font-size="17" font-weight="400" fill="#2F80ED" text-anchor="start">02</text>
+  <text x="156" y="326" font-family="Microsoft YaHei, Arial, sans-serif" font-size="19" font-weight="700" fill="#16233A" text-anchor="start">生成只看这几页</text>
+  <text x="366" y="326" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" font-weight="400" fill="#4A5568" text-anchor="start">标签化的上下文协议，让模型知道哪段是资料</text>
+  <text x="112" y="372" font-family="Consolas, monospace" font-size="17" font-weight="400" fill="#2F80ED" text-anchor="start">03</text>
+  <text x="156" y="372" font-family="Microsoft YaHei, Arial, sans-serif" font-size="19" font-weight="700" fill="#16233A" text-anchor="start">答案要带依据</text>
+  <text x="366" y="372" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" font-weight="400" fill="#4A5568" text-anchor="start">接口返回 sources，前端能点回知识点</text>
+  <text x="112" y="418" font-family="Consolas, monospace" font-size="17" font-weight="400" fill="#2F80ED" text-anchor="start">04</text>
+  <text x="156" y="418" font-family="Microsoft YaHei, Arial, sans-serif" font-size="19" font-weight="700" fill="#16233A" text-anchor="start">关系要画成图</text>
+  <text x="366" y="418" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" font-weight="400" fill="#4A5568" text-anchor="start">nodes / links / categories 三件套</text>
+  <text x="112" y="464" font-family="Consolas, monospace" font-size="17" font-weight="400" fill="#2F80ED" text-anchor="start">05</text>
+  <text x="156" y="464" font-family="Microsoft YaHei, Arial, sans-serif" font-size="19" font-weight="700" fill="#16233A" text-anchor="start">三条通道分工</text>
+  <text x="366" y="464" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" font-weight="400" fill="#4A5568" text-anchor="start">状态看颜色，关联看大小，来源看线型</text>
+  <line x1="112" y1="512" x2="1168" y2="512" stroke="#D9E1EC" stroke-width="1"/>
+  <text x="112" y="552" font-family="Microsoft YaHei, Arial, sans-serif" font-size="17" font-weight="700" fill="#16233A" text-anchor="start">作业</text>
+  <text x="112" y="584" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" font-weight="400" fill="#4A5568" text-anchor="start">必做：把 /ai/rag-qa 接到对话页，问答能返回并展示 sources。</text>
+  <text x="112" y="612" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" font-weight="400" fill="#4A5568" text-anchor="start">挑战：拖拽两个节点建立引用，刷新后关系仍在。</text>
+  <rect x="900" y="540" width="268" height="96" rx="10" fill="#0F1B2D"/>
+  <text x="920" y="574" font-family="Consolas, monospace" font-size="14" font-weight="400" fill="#7FA7D9" text-anchor="start">下次课</text>
+  <text x="920" y="604" font-family="Microsoft YaHei, Arial, sans-serif" font-size="17" font-weight="400" fill="#D8E2F0" text-anchor="start">3D 与 XR 可视化</text>
+</svg>

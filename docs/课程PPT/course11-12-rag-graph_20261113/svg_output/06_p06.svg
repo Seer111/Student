@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <rect x="0" y="0" width="1280" height="720" fill="#F5F7FA"/>
+  <rect x="80" y="64" width="4" height="592" fill="#16233A"/>
+  <text x="1168" y="96" font-family="Consolas, monospace" font-size="15" font-weight="400" fill="#6B7A90" text-anchor="end">06 / 17</text>
+  <text x="112" y="96" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" font-weight="400" fill="#6B7A90" text-anchor="start">PART A · 生成</text>
+  <text x="112" y="150" font-family="Microsoft YaHei, Arial, sans-serif" font-size="36" font-weight="700" fill="#16233A" text-anchor="start">RAG 链：用 .pipe() 把四段接成一条流水线</text>
+  <line x1="112" y1="176" x2="1168" y2="176" stroke="#D9E1EC" stroke-width="1"/>
+  <text x="112" y="214" font-family="Microsoft YaHei, Arial, sans-serif" font-size="21" font-weight="400" fill="#16233A" text-anchor="start">LCEL = 声明式管道，读起来就是「先检索、再填模板、再问模型、再取文本」。</text>
+  <rect x="112" y="262" width="247" height="96" rx="10" fill="#FFFFFF" stroke="#D9E1EC" stroke-width="1"/>
+  <text x="132" y="296" font-family="Consolas, monospace" font-size="15" font-weight="400" fill="#6B7A90" text-anchor="start">RETRIEVE</text>
+  <text x="132" y="328" font-family="Microsoft YaHei, Arial, sans-serif" font-size="17" font-weight="700" fill="#16233A" text-anchor="start">检索片段</text>
+  <line x1="365" y1="310" x2="375" y2="310" stroke="#2F80ED" stroke-width="1.5"/>
+  <text x="370" y="304" font-family="Microsoft YaHei, Arial, sans-serif" font-size="14" font-weight="400" fill="#2F80ED" text-anchor="middle">→</text>
+  <rect x="381" y="262" width="247" height="96" rx="10" fill="#FFFFFF" stroke="#D9E1EC" stroke-width="1"/>
+  <text x="401" y="296" font-family="Consolas, monospace" font-size="15" font-weight="400" fill="#6B7A90" text-anchor="start">FORMAT</text>
+  <text x="401" y="328" font-family="Microsoft YaHei, Arial, sans-serif" font-size="17" font-weight="700" fill="#16233A" text-anchor="start">填进模板</text>
+  <line x1="634" y1="310" x2="644" y2="310" stroke="#2F80ED" stroke-width="1.5"/>
+  <text x="639" y="304" font-family="Microsoft YaHei, Arial, sans-serif" font-size="14" font-weight="400" fill="#2F80ED" text-anchor="middle">→</text>
+  <rect x="650" y="262" width="247" height="96" rx="10" fill="#FFFFFF" stroke="#D9E1EC" stroke-width="1"/>
+  <text x="670" y="296" font-family="Consolas, monospace" font-size="15" font-weight="400" fill="#6B7A90" text-anchor="start">GENERATE</text>
+  <text x="670" y="328" font-family="Microsoft YaHei, Arial, sans-serif" font-size="17" font-weight="700" fill="#16233A" text-anchor="start">调用模型</text>
+  <line x1="903" y1="310" x2="913" y2="310" stroke="#2F80ED" stroke-width="1.5"/>
+  <text x="908" y="304" font-family="Microsoft YaHei, Arial, sans-serif" font-size="14" font-weight="400" fill="#2F80ED" text-anchor="middle">→</text>
+  <rect x="919" y="262" width="247" height="96" rx="10" fill="#FFFFFF" stroke="#D9E1EC" stroke-width="1"/>
+  <text x="939" y="296" font-family="Consolas, monospace" font-size="15" font-weight="400" fill="#6B7A90" text-anchor="start">PARSE</text>
+  <text x="939" y="328" font-family="Microsoft YaHei, Arial, sans-serif" font-size="17" font-weight="700" fill="#16233A" text-anchor="start">取出回答</text>
+  <rect x="112" y="396" width="1056" height="260" rx="10" fill="#0F1B2D"/>
+  <text x="136" y="428" font-family="Consolas, monospace" font-size="12" font-weight="400" fill="#7FA7D9" text-anchor="start">controllers/baiduAiController.js</text>
+  <text x="136" y="452" font-family="Consolas, monospace" font-size="14" font-weight="400" fill="#D8E2F0" text-anchor="start">const chain = RunnableSequence.from([</text>
+  <text x="136" y="476" font-family="Consolas, monospace" font-size="14" font-weight="400" fill="#8FB8E8" text-anchor="start">  retriever,</text>
+  <text x="154" y="500" font-family="Consolas, monospace" font-size="14" font-weight="400" fill="#D8E2F0" text-anchor="start">promptTemplate,</text>
+  <text x="154" y="524" font-family="Consolas, monospace" font-size="14" font-weight="400" fill="#D8E2F0" text-anchor="start">chatModel,</text>
+  <text x="154" y="548" font-family="Consolas, monospace" font-size="14" font-weight="400" fill="#D8E2F0" text-anchor="start">new StringOutputParser(),</text>
+  <text x="136" y="572" font-family="Consolas, monospace" font-size="14" font-weight="400" fill="#D8E2F0" text-anchor="start">]);</text>
+  <text x="136" y="596" font-family="Consolas, monospace" font-size="14" font-weight="400" fill="#7FA7D9" text-anchor="start">// 等价写法：retriever.pipe(prompt).pipe(model).pipe(parser)</text>
+  <text x="136" y="620" font-family="Consolas, monospace" font-size="14" font-weight="400" fill="#D8E2F0" text-anchor="start">const answer = await chain.invoke({ question, context });</text>
+</svg>

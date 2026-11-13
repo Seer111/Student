@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <rect x="0" y="0" width="1280" height="720" fill="#F5F7FA"/>
+  <rect x="80" y="64" width="4" height="592" fill="#16233A"/>
+  <text x="1168" y="96" font-family="Consolas, monospace" font-size="15" font-weight="400" fill="#6B7A90" text-anchor="end">13 / 17</text>
+  <text x="112" y="96" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" font-weight="400" fill="#6B7A90" text-anchor="start">PART B · 后端</text>
+  <text x="112" y="150" font-family="Microsoft YaHei, Arial, sans-serif" font-size="36" font-weight="700" fill="#16233A" text-anchor="start">关系从哪来：显式引用 + 正文提及</text>
+  <line x1="112" y1="176" x2="1168" y2="176" stroke="#D9E1EC" stroke-width="1"/>
+  <text x="112" y="214" font-family="Microsoft YaHei, Arial, sans-serif" font-size="21" font-weight="400" fill="#16233A" text-anchor="start">两条来源合并成一张图，同一条关系只出现一次。</text>
+  <text x="112" y="290" font-family="Consolas, monospace" font-size="17" font-weight="400" fill="#2F80ED" text-anchor="start">01</text>
+  <text x="156" y="290" font-family="Microsoft YaHei, Arial, sans-serif" font-size="19" font-weight="700" fill="#16233A" text-anchor="start">取本用户的全部知识点</text>
+  <text x="366" y="290" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" font-weight="400" fill="#4A5568" text-anchor="start">find({ user }).select(标题/正文/状态/引用)</text>
+  <text x="112" y="346" font-family="Consolas, monospace" font-size="17" font-weight="400" fill="#2F80ED" text-anchor="start">02</text>
+  <text x="156" y="346" font-family="Microsoft YaHei, Arial, sans-serif" font-size="19" font-weight="700" fill="#16233A" text-anchor="start">显式边</text>
+  <text x="366" y="346" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" font-weight="400" fill="#4A5568" text-anchor="start">references 里每个 id 一条边，带箭头</text>
+  <text x="112" y="402" font-family="Consolas, monospace" font-size="17" font-weight="400" fill="#2F80ED" text-anchor="start">03</text>
+  <text x="156" y="402" font-family="Microsoft YaHei, Arial, sans-serif" font-size="19" font-weight="700" fill="#16233A" text-anchor="start">自动边</text>
+  <text x="366" y="402" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" font-weight="400" fill="#4A5568" text-anchor="start">正文里出现别的知识点标题，记一条虚线</text>
+  <text x="112" y="458" font-family="Consolas, monospace" font-size="17" font-weight="400" fill="#2F80ED" text-anchor="start">04</text>
+  <text x="156" y="458" font-family="Microsoft YaHei, Arial, sans-serif" font-size="19" font-weight="700" fill="#16233A" text-anchor="start">去重与度数</text>
+  <text x="366" y="458" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" font-weight="400" fill="#4A5568" text-anchor="start">source→target 只留一条；度数决定节点大小</text>
+  <rect x="112" y="520" width="1056" height="108" rx="10" fill="#FFFFFF" stroke="#D9E1EC" stroke-width="1"/>
+  <text x="136" y="554" font-family="Microsoft YaHei, Arial, sans-serif" font-size="12" font-weight="400" fill="#6B7A90" text-anchor="start" letter-spacing="1">为什么显式优先</text>
+  <text x="136" y="582" font-family="Microsoft YaHei, Arial, sans-serif" font-size="18" font-weight="700" fill="#16233A" text-anchor="start">同一条关系只画一次</text>
+  <text x="136" y="612" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" font-weight="400" fill="#4A5568" text-anchor="start">自动发现只是兜底，手动建立的才是语义</text>
+  <rect x="113" y="534" width="3" height="80" rx="1.5" fill="#F2994A"/>
+</svg>

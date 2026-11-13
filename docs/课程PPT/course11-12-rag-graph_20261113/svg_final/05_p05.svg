@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <rect x="0" y="0" width="1280" height="720" fill="#F5F7FA"/>
+  <rect x="80" y="64" width="4" height="592" fill="#16233A"/>
+  <text x="1168" y="96" font-family="Consolas, monospace" font-size="15" font-weight="400" fill="#6B7A90" text-anchor="end">05 / 17</text>
+  <text x="112" y="96" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" font-weight="400" fill="#6B7A90" text-anchor="start">PART A · 检索</text>
+  <text x="112" y="150" font-family="Microsoft YaHei, Arial, sans-serif" font-size="36" font-weight="700" fill="#16233A" text-anchor="start">检索器只做一件事：给我最相关的几段</text>
+  <line x1="112" y1="176" x2="1168" y2="176" stroke="#D9E1EC" stroke-width="1"/>
+  <text x="112" y="214" font-family="Microsoft YaHei, Arial, sans-serif" font-size="21" font-weight="400" fill="#16233A" text-anchor="start">LangChain 把「加载库 + 建检索器 + 取结果」封成三步。</text>
+  <text x="112" y="284" font-family="Consolas, monospace" font-size="17" font-weight="400" fill="#2F80ED" text-anchor="start">01</text>
+  <text x="156" y="284" font-family="Microsoft YaHei, Arial, sans-serif" font-size="19" font-weight="700" fill="#16233A" text-anchor="start">加载向量库</text>
+  <text x="342" y="284" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" font-weight="400" fill="#4A5568" text-anchor="start">打开磁盘上的索引</text>
+  <text x="112" y="336" font-family="Consolas, monospace" font-size="17" font-weight="400" fill="#2F80ED" text-anchor="start">02</text>
+  <text x="156" y="336" font-family="Microsoft YaHei, Arial, sans-serif" font-size="19" font-weight="700" fill="#16233A" text-anchor="start">建检索器</text>
+  <text x="342" y="336" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" font-weight="400" fill="#4A5568" text-anchor="start">asRetriever(4)</text>
+  <text x="112" y="388" font-family="Consolas, monospace" font-size="17" font-weight="400" fill="#2F80ED" text-anchor="start">03</text>
+  <text x="156" y="388" font-family="Microsoft YaHei, Arial, sans-serif" font-size="19" font-weight="700" fill="#16233A" text-anchor="start">取结果</text>
+  <text x="342" y="388" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" font-weight="400" fill="#4A5568" text-anchor="start">invoke(question)</text>
+  <text x="112" y="448" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" font-weight="400" fill="#6B7A90" text-anchor="start">索引是加载进来的，不是每次重建。</text>
+  <text x="112" y="476" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" font-weight="400" fill="#6B7A90" text-anchor="start">库文件不存在时返回 []，上层走「不知道」。</text>
+  <rect x="600" y="248" width="568" height="308" rx="10" fill="#0F1B2D"/>
+  <text x="624" y="280" font-family="Consolas, monospace" font-size="12" font-weight="400" fill="#7FA7D9" text-anchor="start">查询：问题进，片段出</text>
+  <text x="624" y="304" font-family="Consolas, monospace" font-size="14" font-weight="400" fill="#7FA7D9" text-anchor="start">// services/vectorStoreService.js</text>
+  <text x="624" y="328" font-family="Consolas, monospace" font-size="14" font-weight="400" fill="#D8E2F0" text-anchor="start">exports.queryVectorStore = async (query) =&gt; {</text>
+  <text x="642" y="352" font-family="Consolas, monospace" font-size="14" font-weight="400" fill="#D8E2F0" text-anchor="start">const store = await HNSWLib.load(</text>
+  <text x="642" y="376" font-family="Consolas, monospace" font-size="14" font-weight="400" fill="#D8E2F0" text-anchor="start">  VECTOR_STORE_PATH, embeddings</text>
+  <text x="642" y="400" font-family="Consolas, monospace" font-size="14" font-weight="400" fill="#D8E2F0" text-anchor="start">);</text>
+  <text x="624" y="424" font-family="Consolas, monospace" font-size="14" font-weight="400" fill="#D8E2F0" text-anchor="start">  const retriever = store.asRetriever(4);</text>
+  <text x="624" y="448" font-family="Consolas, monospace" font-size="14" font-weight="400" fill="#8FB8E8" text-anchor="start">  const docs = await retriever.invoke(query);</text>
+  <text x="624" y="472" font-family="Consolas, monospace" font-size="14" font-weight="400" fill="#7FA7D9" text-anchor="start">  // 空库：返回 []，由调用方决定怎么答</text>
+  <text x="624" y="496" font-family="Consolas, monospace" font-size="14" font-weight="400" fill="#D8E2F0" text-anchor="start">  return docs;</text>
+  <text x="624" y="520" font-family="Consolas, monospace" font-size="14" font-weight="400" fill="#D8E2F0" text-anchor="start">};</text>
+</svg>

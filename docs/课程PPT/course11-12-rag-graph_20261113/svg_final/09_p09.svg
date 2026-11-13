@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <rect x="0" y="0" width="1280" height="720" fill="#F5F7FA"/>
+  <rect x="80" y="64" width="4" height="592" fill="#16233A"/>
+  <text x="1168" y="96" font-family="Consolas, monospace" font-size="15" font-weight="400" fill="#6B7A90" text-anchor="end">09 / 17</text>
+  <text x="112" y="96" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" font-weight="400" fill="#6B7A90" text-anchor="start">PART A · 前端</text>
+  <text x="112" y="150" font-family="Microsoft YaHei, Arial, sans-serif" font-size="36" font-weight="700" fill="#16233A" text-anchor="start">对话页：消息流、依据、输入框，三块就够</text>
+  <line x1="112" y1="176" x2="1168" y2="176" stroke="#D9E1EC" stroke-width="1"/>
+  <text x="112" y="214" font-family="Microsoft YaHei, Arial, sans-serif" font-size="21" font-weight="400" fill="#16233A" text-anchor="start">用户只关心两件事：它答了什么，它凭什么这么答。</text>
+  <rect x="112" y="258" width="330" height="250" rx="10" fill="#FFFFFF" stroke="#D9E1EC" stroke-width="1"/>
+  <text x="136" y="292" font-family="Microsoft YaHei, Arial, sans-serif" font-size="12" font-weight="400" fill="#6B7A90" text-anchor="start" letter-spacing="1">① 消息流</text>
+  <text x="136" y="320" font-family="Microsoft YaHei, Arial, sans-serif" font-size="18" font-weight="700" fill="#16233A" text-anchor="start">一问一答</text>
+  <text x="136" y="350" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" font-weight="400" fill="#4A5568" text-anchor="start">用户气泡靠右</text>
+  <text x="136" y="374" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" font-weight="400" fill="#4A5568" text-anchor="start">助手气泡靠左</text>
+  <text x="136" y="398" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" font-weight="400" fill="#4A5568" text-anchor="start">回答里保留换行</text>
+  <rect x="475" y="258" width="330" height="250" rx="10" fill="#FFFFFF" stroke="#D9E1EC" stroke-width="1"/>
+  <text x="499" y="292" font-family="Microsoft YaHei, Arial, sans-serif" font-size="12" font-weight="400" fill="#6B7A90" text-anchor="start" letter-spacing="1">② 依据</text>
+  <text x="499" y="320" font-family="Microsoft YaHei, Arial, sans-serif" font-size="18" font-weight="700" fill="#16233A" text-anchor="start">sources 列表</text>
+  <text x="499" y="350" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" font-weight="400" fill="#4A5568" text-anchor="start">每条是一个知识点</text>
+  <text x="499" y="374" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" font-weight="400" fill="#4A5568" text-anchor="start">点击直达详情页</text>
+  <text x="499" y="398" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" font-weight="400" fill="#4A5568" text-anchor="start">没有依据时显式说明</text>
+  <rect x="838" y="258" width="330" height="250" rx="10" fill="#FFFFFF" stroke="#D9E1EC" stroke-width="1"/>
+  <text x="862" y="292" font-family="Microsoft YaHei, Arial, sans-serif" font-size="12" font-weight="400" fill="#6B7A90" text-anchor="start" letter-spacing="1">③ 输入</text>
+  <text x="862" y="320" font-family="Microsoft YaHei, Arial, sans-serif" font-size="18" font-weight="700" fill="#16233A" text-anchor="start">一行输入 + 发送</text>
+  <text x="862" y="350" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" font-weight="400" fill="#4A5568" text-anchor="start">Enter 发送</text>
+  <text x="862" y="374" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" font-weight="400" fill="#4A5568" text-anchor="start">请求中禁用</text>
+  <text x="862" y="398" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" font-weight="400" fill="#4A5568" text-anchor="start">失败保留草稿</text>
+  <rect x="112" y="540" width="1056" height="96" rx="10" fill="#FFFFFF" stroke="#D9E1EC" stroke-width="1"/>
+  <text x="136" y="574" font-family="Microsoft YaHei, Arial, sans-serif" font-size="12" font-weight="400" fill="#6B7A90" text-anchor="start" letter-spacing="1">三个状态</text>
+  <text x="136" y="602" font-family="Microsoft YaHei, Arial, sans-serif" font-size="18" font-weight="700" fill="#16233A" text-anchor="start">loading / error / empty</text>
+  <text x="136" y="632" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" font-weight="400" fill="#4A5568" text-anchor="start">loading 用骨架而不是转圈；error 给重试；empty 用示例问题引导</text>
+</svg>

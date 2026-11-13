@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <rect x="0" y="0" width="1280" height="720" fill="#F5F7FA"/>
+  <rect x="80" y="64" width="4" height="592" fill="#16233A"/>
+  <text x="1168" y="96" font-family="Consolas, monospace" font-size="15" font-weight="400" fill="#6B7A90" text-anchor="end">16 / 17</text>
+  <text x="112" y="96" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" font-weight="400" fill="#6B7A90" text-anchor="start">PART B · 交互</text>
+  <text x="112" y="150" font-family="Microsoft YaHei, Arial, sans-serif" font-size="36" font-weight="700" fill="#16233A" text-anchor="start">四个交互 + 两个必须踩的坑</text>
+  <line x1="112" y1="176" x2="1168" y2="176" stroke="#D9E1EC" stroke-width="1"/>
+  <text x="112" y="214" font-family="Microsoft YaHei, Arial, sans-serif" font-size="21" font-weight="400" fill="#16233A" text-anchor="start">图能看是第一步，能操作才是功能。</text>
+  <rect x="112" y="258" width="247" height="96" rx="10" fill="#FFFFFF" stroke="#D9E1EC" stroke-width="1"/>
+  <text x="132" y="292" font-family="Consolas, monospace" font-size="15" font-weight="400" fill="#6B7A90" text-anchor="start">HOVER</text>
+  <text x="132" y="324" font-family="Microsoft YaHei, Arial, sans-serif" font-size="17" font-weight="700" fill="#16233A" text-anchor="start">悬停高亮</text>
+  <line x1="365" y1="306" x2="375" y2="306" stroke="#2F80ED" stroke-width="1.5"/>
+  <text x="370" y="300" font-family="Microsoft YaHei, Arial, sans-serif" font-size="14" font-weight="400" fill="#2F80ED" text-anchor="middle">→</text>
+  <rect x="381" y="258" width="247" height="96" rx="10" fill="#FFFFFF" stroke="#D9E1EC" stroke-width="1"/>
+  <text x="401" y="292" font-family="Consolas, monospace" font-size="15" font-weight="400" fill="#6B7A90" text-anchor="start">CLICK</text>
+  <text x="401" y="324" font-family="Microsoft YaHei, Arial, sans-serif" font-size="17" font-weight="700" fill="#16233A" text-anchor="start">点击进详情</text>
+  <line x1="634" y1="306" x2="644" y2="306" stroke="#2F80ED" stroke-width="1.5"/>
+  <text x="639" y="300" font-family="Microsoft YaHei, Arial, sans-serif" font-size="14" font-weight="400" fill="#2F80ED" text-anchor="middle">→</text>
+  <rect x="650" y="258" width="247" height="96" rx="10" fill="#FFFFFF" stroke="#D9E1EC" stroke-width="1"/>
+  <text x="670" y="292" font-family="Consolas, monospace" font-size="15" font-weight="400" fill="#6B7A90" text-anchor="start">DRAG</text>
+  <text x="670" y="324" font-family="Microsoft YaHei, Arial, sans-serif" font-size="17" font-weight="700" fill="#16233A" text-anchor="start">拖拽建引用</text>
+  <line x1="903" y1="306" x2="913" y2="306" stroke="#2F80ED" stroke-width="1.5"/>
+  <text x="908" y="300" font-family="Microsoft YaHei, Arial, sans-serif" font-size="14" font-weight="400" fill="#2F80ED" text-anchor="middle">→</text>
+  <rect x="919" y="258" width="247" height="96" rx="10" fill="#FFFFFF" stroke="#D9E1EC" stroke-width="1"/>
+  <text x="939" y="292" font-family="Consolas, monospace" font-size="15" font-weight="400" fill="#6B7A90" text-anchor="start">RESET</text>
+  <text x="939" y="324" font-family="Microsoft YaHei, Arial, sans-serif" font-size="17" font-weight="700" fill="#16233A" text-anchor="start">还原视角</text>
+  <rect x="112" y="400" width="512" height="168" rx="10" fill="#FFFFFF" stroke="#D9E1EC" stroke-width="1"/>
+  <text x="136" y="434" font-family="Microsoft YaHei, Arial, sans-serif" font-size="12" font-weight="400" fill="#6B7A90" text-anchor="start" letter-spacing="1">坑一</text>
+  <text x="136" y="462" font-family="Microsoft YaHei, Arial, sans-serif" font-size="18" font-weight="700" fill="#16233A" text-anchor="start">标签压节点</text>
+  <text x="136" y="492" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" font-weight="400" fill="#4A5568" text-anchor="start">力导向下标签会盖住别的圆</text>
+  <text x="136" y="516" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" font-weight="400" fill="#4A5568" text-anchor="start">设 labelLayout.hideOverlap + moveOverlap</text>
+  <rect x="113" y="414" width="3" height="140" rx="1.5" fill="#F2994A"/>
+  <rect x="656" y="400" width="512" height="168" rx="10" fill="#FFFFFF" stroke="#D9E1EC" stroke-width="1"/>
+  <text x="680" y="434" font-family="Microsoft YaHei, Arial, sans-serif" font-size="12" font-weight="400" fill="#6B7A90" text-anchor="start" letter-spacing="1">坑二</text>
+  <text x="680" y="462" font-family="Microsoft YaHei, Arial, sans-serif" font-size="18" font-weight="700" fill="#16233A" text-anchor="start">拖拽要先确认</text>
+  <text x="680" y="492" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" font-weight="400" fill="#4A5568" text-anchor="start">松开时用 confirm 二次确认</text>
+  <text x="680" y="516" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" font-weight="400" fill="#4A5568" text-anchor="start">确认框会阻塞浏览器，自动化里要自动接受</text>
+  <rect x="657" y="414" width="3" height="140" rx="1.5" fill="#F2994A"/>
+</svg>

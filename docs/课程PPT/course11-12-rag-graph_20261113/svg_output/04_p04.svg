@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <rect x="0" y="0" width="1280" height="720" fill="#F5F7FA"/>
+  <rect x="80" y="64" width="4" height="592" fill="#16233A"/>
+  <text x="1168" y="96" font-family="Consolas, monospace" font-size="15" font-weight="400" fill="#6B7A90" text-anchor="end">04 / 17</text>
+  <text x="112" y="96" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" font-weight="400" fill="#6B7A90" text-anchor="start">PART A · 检索</text>
+  <text x="112" y="150" font-family="Microsoft YaHei, Arial, sans-serif" font-size="36" font-weight="700" fill="#16233A" text-anchor="start">检索三步：问句向量化 → 近邻搜索 → 取回 K 条</text>
+  <line x1="112" y1="176" x2="1168" y2="176" stroke="#D9E1EC" stroke-width="1"/>
+  <text x="112" y="214" font-family="Microsoft YaHei, Arial, sans-serif" font-size="21" font-weight="400" fill="#16233A" text-anchor="start">相似度搜索就是「在语义空间里找最近的几个点」。</text>
+  <rect x="112" y="262" width="334" height="96" rx="10" fill="#FFFFFF" stroke="#D9E1EC" stroke-width="1"/>
+  <text x="132" y="296" font-family="Consolas, monospace" font-size="15" font-weight="400" fill="#6B7A90" text-anchor="start">01</text>
+  <text x="132" y="328" font-family="Microsoft YaHei, Arial, sans-serif" font-size="17" font-weight="700" fill="#16233A" text-anchor="start">问题向量化</text>
+  <line x1="452" y1="310" x2="466" y2="310" stroke="#2F80ED" stroke-width="1.5"/>
+  <text x="459" y="304" font-family="Microsoft YaHei, Arial, sans-serif" font-size="14" font-weight="400" fill="#2F80ED" text-anchor="middle">→</text>
+  <rect x="472" y="262" width="334" height="96" rx="10" fill="#FFFFFF" stroke="#D9E1EC" stroke-width="1"/>
+  <text x="492" y="296" font-family="Consolas, monospace" font-size="15" font-weight="400" fill="#6B7A90" text-anchor="start">02</text>
+  <text x="492" y="328" font-family="Microsoft YaHei, Arial, sans-serif" font-size="17" font-weight="700" fill="#16233A" text-anchor="start">近邻搜索</text>
+  <line x1="812" y1="310" x2="826" y2="310" stroke="#2F80ED" stroke-width="1.5"/>
+  <text x="819" y="304" font-family="Microsoft YaHei, Arial, sans-serif" font-size="14" font-weight="400" fill="#2F80ED" text-anchor="middle">→</text>
+  <rect x="832" y="262" width="334" height="96" rx="10" fill="#FFFFFF" stroke="#D9E1EC" stroke-width="1"/>
+  <text x="852" y="296" font-family="Consolas, monospace" font-size="15" font-weight="400" fill="#6B7A90" text-anchor="start">03</text>
+  <text x="852" y="328" font-family="Microsoft YaHei, Arial, sans-serif" font-size="17" font-weight="700" fill="#16233A" text-anchor="start">取回 K 条</text>
+  <rect x="112" y="402" width="512" height="178" rx="10" fill="#FFFFFF" stroke="#D9E1EC" stroke-width="1"/>
+  <text x="136" y="436" font-family="Microsoft YaHei, Arial, sans-serif" font-size="12" font-weight="400" fill="#6B7A90" text-anchor="start" letter-spacing="1">K 怎么定</text>
+  <text x="136" y="464" font-family="Microsoft YaHei, Arial, sans-serif" font-size="18" font-weight="700" fill="#16233A" text-anchor="start">k = 4 是起点</text>
+  <text x="136" y="494" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" font-weight="400" fill="#4A5568" text-anchor="start">太少：答不全，模型只能编</text>
+  <text x="136" y="518" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" font-weight="400" fill="#4A5568" text-anchor="start">太多：噪声进上下文，答案变糊</text>
+  <rect x="656" y="402" width="512" height="178" rx="10" fill="#FFFFFF" stroke="#D9E1EC" stroke-width="1"/>
+  <text x="680" y="436" font-family="Microsoft YaHei, Arial, sans-serif" font-size="12" font-weight="400" fill="#6B7A90" text-anchor="start" letter-spacing="1">库是空的</text>
+  <text x="680" y="464" font-family="Microsoft YaHei, Arial, sans-serif" font-size="18" font-weight="700" fill="#16233A" text-anchor="start">返回空数组，不抛错</text>
+  <text x="680" y="494" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" font-weight="400" fill="#4A5568" text-anchor="start">没检索到不等于出错</text>
+  <text x="680" y="518" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" font-weight="400" fill="#4A5568" text-anchor="start">上层据此回答「知识库里没有」</text>
+  <rect x="657" y="416" width="3" height="150" rx="1.5" fill="#F2994A"/>
+</svg>

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <rect x="0" y="0" width="1280" height="720" fill="#F5F7FA"/>
+  <rect x="80" y="64" width="4" height="592" fill="#16233A"/>
+  <text x="1168" y="96" font-family="Consolas, monospace" font-size="15" font-weight="400" fill="#6B7A90" text-anchor="end">12 / 17</text>
+  <text x="112" y="96" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" font-weight="400" fill="#6B7A90" text-anchor="start">PART B · 数据</text>
+  <text x="112" y="150" font-family="Microsoft YaHei, Arial, sans-serif" font-size="36" font-weight="700" fill="#16233A" text-anchor="start">先定数据形状：nodes / links / categories</text>
+  <line x1="112" y1="176" x2="1168" y2="176" stroke="#D9E1EC" stroke-width="1"/>
+  <text x="112" y="214" font-family="Microsoft YaHei, Arial, sans-serif" font-size="21" font-weight="400" fill="#16233A" text-anchor="start">前端只认这三个数组；后端怎么算出来是后端的事。</text>
+  <rect x="112" y="252" width="640" height="236" rx="10" fill="#0F1B2D"/>
+  <text x="136" y="284" font-family="Consolas, monospace" font-size="12" font-weight="400" fill="#7FA7D9" text-anchor="start">GET /api/graph/knowledge-map</text>
+  <text x="136" y="308" font-family="Consolas, monospace" font-size="14" font-weight="400" fill="#D8E2F0" text-anchor="start">{</text>
+  <text x="136" y="332" font-family="Consolas, monospace" font-size="14" font-weight="400" fill="#8FB8E8" text-anchor="start">  &quot;nodes&quot;: [{ &quot;id&quot;: &quot;…&quot;, &quot;name&quot;: &quot;闭包与作用域链&quot;,</text>
+  <text x="154" y="356" font-family="Consolas, monospace" font-size="14" font-weight="400" fill="#D8E2F0" text-anchor="start">&quot;category&quot;: 1, &quot;symbolSize&quot;: 32 }],</text>
+  <text x="136" y="380" font-family="Consolas, monospace" font-size="14" font-weight="400" fill="#8FB8E8" text-anchor="start">  &quot;links&quot;: [{ &quot;source&quot;: &quot;…&quot;, &quot;target&quot;: &quot;…&quot;,</text>
+  <text x="154" y="404" font-family="Consolas, monospace" font-size="14" font-weight="400" fill="#D8E2F0" text-anchor="start">&quot;kind&quot;: &quot;explicit&quot; }],</text>
+  <text x="136" y="428" font-family="Consolas, monospace" font-size="14" font-weight="400" fill="#D8E2F0" text-anchor="start">  &quot;categories&quot;: [{ &quot;name&quot;: &quot;未开始&quot; }, { &quot;name&quot;: &quot;学习中&quot; }]</text>
+  <text x="136" y="452" font-family="Consolas, monospace" font-size="14" font-weight="400" fill="#D8E2F0" text-anchor="start">}</text>
+  <rect x="792" y="252" width="376" height="168" rx="10" fill="#FFFFFF" stroke="#D9E1EC" stroke-width="1"/>
+  <text x="816" y="286" font-family="Microsoft YaHei, Arial, sans-serif" font-size="12" font-weight="400" fill="#6B7A90" text-anchor="start" letter-spacing="1">categories</text>
+  <text x="816" y="314" font-family="Microsoft YaHei, Arial, sans-serif" font-size="18" font-weight="700" fill="#16233A" text-anchor="start">颜色由它决定</text>
+  <text x="816" y="344" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" font-weight="400" fill="#4A5568" text-anchor="start">下标即 category</text>
+  <text x="816" y="368" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" font-weight="400" fill="#4A5568" text-anchor="start">顺序要稳定</text>
+  <rect x="792" y="440" width="376" height="168" rx="10" fill="#FFFFFF" stroke="#D9E1EC" stroke-width="1"/>
+  <text x="816" y="474" font-family="Microsoft YaHei, Arial, sans-serif" font-size="12" font-weight="400" fill="#6B7A90" text-anchor="start" letter-spacing="1">kind</text>
+  <text x="816" y="502" font-family="Microsoft YaHei, Arial, sans-serif" font-size="18" font-weight="700" fill="#16233A" text-anchor="start">关系的来源</text>
+  <text x="816" y="532" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" font-weight="400" fill="#4A5568" text-anchor="start">explicit：手动引用</text>
+  <text x="816" y="556" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" font-weight="400" fill="#4A5568" text-anchor="start">auto：正文提到</text>
+  <rect x="793" y="454" width="3" height="140" rx="1.5" fill="#F2994A"/>
+</svg>

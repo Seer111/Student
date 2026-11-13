@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <rect x="0" y="0" width="1280" height="720" fill="#F5F7FA"/>
+  <rect x="80" y="64" width="4" height="592" fill="#16233A"/>
+  <text x="1000" y="330" font-family="Microsoft YaHei, Arial, sans-serif" font-size="250" font-weight="700" fill="#16233A" text-anchor="end" opacity="0.05">11·12</text>
+  <text x="112" y="150" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" font-weight="400" fill="#6B7A90" text-anchor="start">《大前端与AI实战》· 第十一、十二次课</text>
+  <text x="112" y="268" font-family="Microsoft YaHei, Arial, sans-serif" font-size="64" font-weight="700" fill="#16233A" text-anchor="start">从「查得到」到「看得见」</text>
+  <text x="112" y="330" font-family="Microsoft YaHei, Arial, sans-serif" font-size="28" font-weight="400" fill="#1F2933" text-anchor="start">RAG 检索与生成  ·  知识图谱可视化</text>
+  <line x1="112" y1="386" x2="648" y2="386" stroke="#D9E1EC" stroke-width="1"/>
+  <text x="112" y="434" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="400" fill="#1F2933" text-anchor="start">Part A  把图书馆变成会回答的人</text>
+  <text x="112" y="470" font-family="Microsoft YaHei, Arial, sans-serif" font-size="20" font-weight="400" fill="#1F2933" text-anchor="start">Part B  把知识点连成一张网</text>
+  <text x="112" y="528" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" font-weight="400" fill="#6B7A90" text-anchor="start">两节连上：先让 AI 会查，再让关系看得见。</text>
+  <line x1="112" y1="612" x2="1168" y2="612" stroke="#D9E1EC" stroke-width="1"/>
+  <text x="112" y="648" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" font-weight="400" fill="#6B7A90" text-anchor="start">费曼学习平台 · 8 学时实验课</text>
+  <text x="1168" y="648" font-family="Consolas, monospace" font-size="15" font-weight="400" fill="#6B7A90" text-anchor="end">01 / 17</text>
+</svg>

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <rect x="0" y="0" width="1280" height="720" fill="#F5F7FA"/>
+  <rect x="80" y="64" width="4" height="592" fill="#16233A"/>
+  <text x="1168" y="96" font-family="Consolas, monospace" font-size="15" font-weight="400" fill="#6B7A90" text-anchor="end">07 / 17</text>
+  <text x="112" y="96" font-family="Microsoft YaHei, Arial, sans-serif" font-size="16" font-weight="400" fill="#6B7A90" text-anchor="start">PART A · 生成</text>
+  <text x="112" y="150" font-family="Microsoft YaHei, Arial, sans-serif" font-size="36" font-weight="700" fill="#16233A" text-anchor="start">把上下文写成带标签的段落，模型才知道哪段是什么</text>
+  <line x1="112" y1="176" x2="1168" y2="176" stroke="#D9E1EC" stroke-width="1"/>
+  <text x="112" y="214" font-family="Microsoft YaHei, Arial, sans-serif" font-size="21" font-weight="400" fill="#16233A" text-anchor="start">MCP 风格的标签化提示：角色、指令、资料、问题各就各位。</text>
+  <rect x="112" y="250" width="640" height="236" rx="10" fill="#0F1B2D"/>
+  <text x="136" y="282" font-family="Consolas, monospace" font-size="12" font-weight="400" fill="#7FA7D9" text-anchor="start">提示词骨架</text>
+  <text x="136" y="306" font-family="Consolas, monospace" font-size="14" font-weight="400" fill="#7FA7D9" text-anchor="start">PromptTemplate.fromTemplate(`</text>
+  <text x="136" y="330" font-family="Consolas, monospace" font-size="14" font-weight="400" fill="#8FB8E8" text-anchor="start">&lt;role&gt;你是一个知识库问答机器人。&lt;/role&gt;</text>
+  <text x="136" y="354" font-family="Consolas, monospace" font-size="14" font-weight="400" fill="#8FB8E8" text-anchor="start">&lt;instruction&gt;只根据 &lt;context&gt; 回答；</text>
+  <text x="136" y="378" font-family="Consolas, monospace" font-size="14" font-weight="400" fill="#8FB8E8" text-anchor="start">  没有相关信息就说不知道。&lt;/instruction&gt;</text>
+  <text x="136" y="402" font-family="Consolas, monospace" font-size="14" font-weight="400" fill="#8FB8E8" text-anchor="start">&lt;context&gt;\n{context}\n&lt;/context&gt;</text>
+  <text x="136" y="426" font-family="Consolas, monospace" font-size="14" font-weight="400" fill="#8FB8E8" text-anchor="start">&lt;question&gt;\n{question}\n&lt;/question&gt;</text>
+  <text x="136" y="450" font-family="Consolas, monospace" font-size="14" font-weight="400" fill="#7FA7D9" text-anchor="start">`)</text>
+  <rect x="792" y="250" width="376" height="168" rx="10" fill="#FFFFFF" stroke="#D9E1EC" stroke-width="1"/>
+  <text x="816" y="284" font-family="Microsoft YaHei, Arial, sans-serif" font-size="12" font-weight="400" fill="#6B7A90" text-anchor="start" letter-spacing="1">为什么</text>
+  <text x="816" y="312" font-family="Microsoft YaHei, Arial, sans-serif" font-size="18" font-weight="700" fill="#16233A" text-anchor="start">标签降低歧义</text>
+  <text x="816" y="342" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" font-weight="400" fill="#4A5568" text-anchor="start">模型能分清「资料」与「要求」</text>
+  <text x="816" y="366" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" font-weight="400" fill="#4A5568" text-anchor="start">拒答条件写在 instruction 里</text>
+  <rect x="792" y="438" width="376" height="168" rx="10" fill="#FFFFFF" stroke="#D9E1EC" stroke-width="1"/>
+  <text x="816" y="472" font-family="Microsoft YaHei, Arial, sans-serif" font-size="12" font-weight="400" fill="#6B7A90" text-anchor="start" letter-spacing="1">代价</text>
+  <text x="816" y="500" font-family="Microsoft YaHei, Arial, sans-serif" font-size="18" font-weight="700" fill="#16233A" text-anchor="start">提示词变长</text>
+  <text x="816" y="530" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" font-weight="400" fill="#4A5568" text-anchor="start">但换来可控的「不知道」</text>
+  <text x="816" y="554" font-family="Microsoft YaHei, Arial, sans-serif" font-size="15" font-weight="400" fill="#4A5568" text-anchor="start">比编造答案便宜</text>
+  <rect x="793" y="452" width="3" height="140" rx="1.5" fill="#F2994A"/>
+</svg>

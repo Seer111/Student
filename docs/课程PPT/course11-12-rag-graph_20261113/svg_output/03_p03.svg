@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+  <rect x="0" y="0" width="1280" height="720" fill="#F5F7FA"/>
+  <rect x="80" y="64" width="4" height="592" fill="#16233A"/>
+  <text x="1168" y="96" font-family="Consolas, monospace" font-size="15" font-weight="400" fill="#6B7A90" text-anchor="end">03 / 17</text>
+  <text x="112" y="250" font-family="Microsoft YaHei, Arial, sans-serif" font-size="88" font-weight="700" fill="#2F80ED" text-anchor="start" opacity="0.18">PART A</text>
+  <text x="112" y="330" font-family="Microsoft YaHei, Arial, sans-serif" font-size="46" font-weight="700" fill="#16233A" text-anchor="start">检索与生成</text>
+  <text x="112" y="382" font-family="Microsoft YaHei, Arial, sans-serif" font-size="22" font-weight="400" fill="#1F2933" text-anchor="start">上节课建好了「语义图书馆」；今天请一位图书管理员，再请一位教授。</text>
+  <line x1="112" y1="432" x2="1168" y2="432" stroke="#D9E1EC" stroke-width="1"/>
+  <text x="112" y="486" font-family="Microsoft YaHei, Arial, sans-serif" font-size="18" font-weight="400" fill="#4A5568" text-anchor="start">检索器 Retriever 负责「找对那几页」，RAG 链负责「让模型只看这几页再回答」。</text>
+  <text x="112" y="524" font-family="Microsoft YaHei, Arial, sans-serif" font-size="18" font-weight="400" fill="#4A5568" text-anchor="start">最后接到前端：一个能列出依据的问答界面。</text>
+</svg>
