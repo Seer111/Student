@@ -47,9 +47,9 @@
 ├── feynman-platform-backend/      # 后端服务（Express + MongoDB）
 │   ├── index.js                   # 服务入口
 │   ├── models/ routes/ controllers/ services/ utils/ middleware/
-│   ├── scripts/                   # 运维脚本（向量库补索引/审计）
+│   ├── scripts/                   # 运维脚本（向量库补索引 / 审计）
+│   ├── tests/http/                # REST Client 接口测试脚本
 │   ├── vector_store/              # 向量索引运行时数据（不入库）
-│   ├── api-tests.http             # REST Client 接口测试脚本
 │   └── .env.example               # 环境变量模板（.env 不入库）
 ├── feynman-platform-frontend/     # 前端应用（React + Vite）
 │   ├── src/pages|components|utils|api|context/
@@ -62,9 +62,13 @@
 ├── docs/
 │   ├── 课程文档/                  # 16 次课讲义（.md）
 │   ├── 课程PPT/                   # 课件（.pptx）+ ppt-master 可再生成工程
+│   ├── 课程作业/                  # 选题报告与设计（.md/.docx）+ 6 张设计图（drawio 可编辑）
+│   ├── 项目报告/                  # 实验报告（学院模板十节结构）+ mermaid 图源
+│   ├── 项目管理/                  # WBS 与甘特图（32 工作包 / 270 人日 / 14 周）
+│   ├── 答辩自测/                  # 答辩题库（t1.md）
 │   ├── 设计/界面美化提示词.md      # 界面设计提示词（按截图逐屏）
 │   └── 截图/                      # 各页面截图与用户提供的原始截图
-├── scripts/generate-pwa-icons.js  # 生成 PWA 图标（零依赖，node 直接跑）
+├── scripts/                       # generate-pwa-icons.js（图标）、seed-mention-edge.cjs（造提及边示例）
 ├── docker-compose.yml             # 容器编排（前端 Nginx + 后端；数据库为外部 Atlas）
 ├── package.json                   # 仓库根脚本（代理到各子工程，不含依赖）
 ├── AGENTS.md                      # 给 AI agent 的仓库约定
